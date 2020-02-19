@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF01000F7FA97885C4994F8C /* libPods-NotesList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */; };
+		F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */; };
+		F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */; };
 		F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70723FD893C00514A2F /* AppDelegate.swift */; };
 		F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70923FD893C00514A2F /* SceneDelegate.swift */; };
 		F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70B23FD893C00514A2F /* ViewController.swift */; };
@@ -25,6 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5499C992A0963DD41B68BC44 /* Pods-NotesList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.debug.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.debug.xcconfig"; sourceTree = "<group>"; };
+		65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotesList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EBC65149ED2C9592FDFAA67 /* Pods-NotesList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.release.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.release.xcconfig"; sourceTree = "<group>"; };
+		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteTableViewCell.swift; path = Model/NoteTableViewCell.swift; sourceTree = "<group>"; };
+		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NoteTableViewCell.xib; path = Model/NoteTableViewCell.xib; sourceTree = "<group>"; };
 		F5FAA70423FD893C00514A2F /* NotesList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FAA70723FD893C00514A2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5FAA70923FD893C00514A2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,12 +57,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF01000F7FA97885C4994F8C /* libPods-NotesList.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		326CCDF5FA4567CECC6454D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1E087407FFFF4BB48C068F3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5499C992A0963DD41B68BC44 /* Pods-NotesList.debug.xcconfig */,
+				9EBC65149ED2C9592FDFAA67 /* Pods-NotesList.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F54F75B823FDC37600AEE7BD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +96,8 @@
 			children = (
 				F5FAA70623FD893C00514A2F /* NotesList */,
 				F5FAA70523FD893C00514A2F /* Products */,
+				F1E087407FFFF4BB48C068F3 /* Pods */,
+				326CCDF5FA4567CECC6454D4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +122,8 @@
 				F5FAA71023FD893D00514A2F /* Assets.xcassets */,
 				F5FAA71223FD893D00514A2F /* LaunchScreen.storyboard */,
 				F5FAA71523FD893D00514A2F /* Info.plist */,
+				F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */,
+				F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */,
 			);
 			path = NotesList;
 			sourceTree = "<group>";
@@ -117,6 +147,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5FAA71823FD893D00514A2F /* Build configuration list for PBXNativeTarget "NotesList" */;
 			buildPhases = (
+				EDFE56B6D368793F57C61B20 /* [CP] Check Pods Manifest.lock */,
 				F5FAA70023FD893C00514A2F /* Sources */,
 				F5FAA70123FD893C00514A2F /* Frameworks */,
 				F5FAA70223FD893C00514A2F /* Resources */,
@@ -171,11 +202,37 @@
 				F5FAA72A23FDB3BC00514A2F /* SecondViewController.xib in Resources */,
 				F5FAA71423FD893D00514A2F /* LaunchScreen.storyboard in Resources */,
 				F5FAA71123FD893D00514A2F /* Assets.xcassets in Resources */,
+				F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */,
 				F5FAA70F23FD893C00514A2F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EDFE56B6D368793F57C61B20 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotesList-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F5FAA70023FD893C00514A2F /* Sources */ = {
@@ -193,6 +250,7 @@
 				F5FAA72C23FDB3BC00514A2F /* NoteExtension.swift in Sources */,
 				F5FAA71C23FDB2A900514A2F /* TableViewController.swift in Sources */,
 				F5FAA72E23FDB3BC00514A2F /* FileNotebook.swift in Sources */,
+				F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +392,7 @@
 		};
 		F5FAA71923FD893D00514A2F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5499C992A0963DD41B68BC44 /* Pods-NotesList.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -351,6 +410,7 @@
 		};
 		F5FAA71A23FD893D00514A2F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EBC65149ED2C9592FDFAA67 /* Pods-NotesList.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

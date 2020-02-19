@@ -1,28 +1,24 @@
 import Foundation
 import UIKit
-//import CocoaLumberjack
+import CocoaLumberjack
 //import CocoaLumberjack.swift
 class FileNotebook {
     
     private(set) var dict: [String: Note] = [String: Note]()
     private lazy var dirPath: URL  = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("caches")
     
-//    public func getDict() -> [String: Note] {
-//        return dict
-//    }
-    
     public func add(_ note: Note) throws {
         if dict[note.uid] != nil {
-    //        DDLogInfo("Note with id \(note.uid) is overwritten")
+            DDLogInfo("Note with id \(note.uid) is overwritten")
         } else {
             dict[note.uid] = note
-  //          DDLogInfo("Note with id \(note.uid) is added")
+            DDLogInfo("Note with id \(note.uid) is added")
         }
     }
     
     public func remove(with uid: String) {
         dict.removeValue(forKey: uid)
-      //  DDLogInfo("Note with id \(uid) is removed")
+        DDLogInfo("Note with id \(uid) is removed")
     }
     
     public func saveToFile() throws {
@@ -32,7 +28,7 @@ class FileNotebook {
         }
         let jsdata = try JSONSerialization.data(withJSONObject: dictJson, options: [])
         FileManager.default.createFile(atPath: dirPath.path, contents: jsdata, attributes: nil)
-       // DDLogInfo("Notes are saved to file")
+        DDLogInfo("Notes are saved to file")
     }
     
     public func loadFromFile() throws {
@@ -44,7 +40,7 @@ class FileNotebook {
                 dictInput[key] = Note.parse(json: value)
             }
             self.dict = dictInput
-         //   DDLogInfo("Notes are loaded from file")
+            DDLogInfo("Notes are loaded from file")
         }
     }
     
