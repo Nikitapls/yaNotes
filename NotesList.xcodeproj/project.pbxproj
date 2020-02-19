@@ -55,6 +55,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F54F75B823FDC37600AEE7BD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F5FAA72423FDB3BC00514A2F /* NoteExtension.swift */,
+				F5FAA72523FDB3BC00514A2F /* Note.swift */,
+				F5FAA72623FDB3BC00514A2F /* FileNotebook.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F5FAA6FB23FD893C00514A2F = {
 			isa = PBXGroup;
 			children = (
@@ -74,8 +84,8 @@
 		F5FAA70623FD893C00514A2F /* NotesList */ = {
 			isa = PBXGroup;
 			children = (
+				F54F75B823FDC37600AEE7BD /* Model */,
 				F5FAA71D23FDB3BC00514A2F /* ColorPicker */,
-				F5FAA72323FDB3BC00514A2F /* Model */,
 				F5FAA70723FD893C00514A2F /* AppDelegate.swift */,
 				F5FAA70923FD893C00514A2F /* SceneDelegate.swift */,
 				F5FAA70B23FD893C00514A2F /* ViewController.swift */,
@@ -98,16 +108,6 @@
 				F5FAA72223FDB3BC00514A2F /* SecondViewController.swift */,
 			);
 			path = ColorPicker;
-			sourceTree = "<group>";
-		};
-		F5FAA72323FDB3BC00514A2F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F5FAA72423FDB3BC00514A2F /* NoteExtension.swift */,
-				F5FAA72523FDB3BC00514A2F /* Note.swift */,
-				F5FAA72623FDB3BC00514A2F /* FileNotebook.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

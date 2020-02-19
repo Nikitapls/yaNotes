@@ -4,12 +4,12 @@ import UIKit
 //import CocoaLumberjack.swift
 class FileNotebook {
     
-    private var dict: [String: Note] = [String: Note]()
+    private(set) var dict: [String: Note] = [String: Note]()
     private lazy var dirPath: URL  = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("caches")
     
-    public func getDict() -> [String: Note] {
-        return dict
-    }
+//    public func getDict() -> [String: Note] {
+//        return dict
+//    }
     
     public func add(_ note: Note) throws {
         if dict[note.uid] != nil {
