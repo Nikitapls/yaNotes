@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ColorPickerViewController: UIViewController {
     
     var currColorFromSecView: UIColor = .gray
     var lastColorChoice: DrawView?

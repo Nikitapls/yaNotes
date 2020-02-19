@@ -14,7 +14,7 @@
 		F5FAA71123FD893D00514A2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5FAA71023FD893D00514A2F /* Assets.xcassets */; };
 		F5FAA71423FD893D00514A2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5FAA71223FD893D00514A2F /* LaunchScreen.storyboard */; };
 		F5FAA71C23FDB2A900514A2F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA71B23FDB2A900514A2F /* TableViewController.swift */; };
-		F5FAA72723FDB3BC00514A2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA71E23FDB3BC00514A2F /* ViewController.swift */; };
+		F5FAA72723FDB3BC00514A2F /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA71E23FDB3BC00514A2F /* ColorPickerViewController.swift */; };
 		F5FAA72823FDB3BC00514A2F /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA71F23FDB3BC00514A2F /* DrawView.swift */; };
 		F5FAA72923FDB3BC00514A2F /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA72023FDB3BC00514A2F /* ColorPicker.swift */; };
 		F5FAA72A23FDB3BC00514A2F /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5FAA72123FDB3BC00514A2F /* SecondViewController.xib */; };
@@ -34,7 +34,7 @@
 		F5FAA71323FD893D00514A2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5FAA71523FD893D00514A2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5FAA71B23FDB2A900514A2F /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		F5FAA71E23FDB3BC00514A2F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F5FAA71E23FDB3BC00514A2F /* ColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		F5FAA71F23FDB3BC00514A2F /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		F5FAA72023FDB3BC00514A2F /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		F5FAA72123FDB3BC00514A2F /* SecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 		F5FAA71D23FDB3BC00514A2F /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				F5FAA71E23FDB3BC00514A2F /* ViewController.swift */,
+				F5FAA71E23FDB3BC00514A2F /* ColorPickerViewController.swift */,
 				F5FAA71F23FDB3BC00514A2F /* DrawView.swift */,
 				F5FAA72023FDB3BC00514A2F /* ColorPicker.swift */,
 				F5FAA72123FDB3BC00514A2F /* SecondViewController.xib */,
@@ -183,7 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5FAA72B23FDB3BC00514A2F /* SecondViewController.swift in Sources */,
-				F5FAA72723FDB3BC00514A2F /* ViewController.swift in Sources */,
+				F5FAA72723FDB3BC00514A2F /* ColorPickerViewController.swift in Sources */,
 				F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */,
 				F5FAA72923FDB3BC00514A2F /* ColorPicker.swift in Sources */,
 				F5FAA72823FDB3BC00514A2F /* DrawView.swift in Sources */,
