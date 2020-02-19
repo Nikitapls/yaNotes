@@ -28,11 +28,11 @@
             <objects>
                 <viewController id="QqK-Qa-p1i" customClass="TableViewController" customModule="NotesList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bik-Du-gjI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFk-Eo-Vm2">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="ogj-x6-qfY"/>
                                 </constraints>
@@ -41,7 +41,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oD1-TA-WvO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="764"/>
+                                <rect key="frame" x="0.0" y="132" width="414" height="681"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -71,10 +71,9 @@
         <!--Title-->
         <scene sceneID="CTC-xz-GfW">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xFC-n8-uaW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="JSc-tI-d8d" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zYP-VA-qLH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="NoteEditField" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xm8-HK-U0w">
@@ -85,7 +84,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4y-TA-0bu">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="UPL-3l-KhE"/>
                                 </constraints>
@@ -104,6 +103,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="tEG-7M-8VX"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xFC-n8-uaW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2376.811594202899" y="-996.42857142857133"/>
         </scene>
@@ -117,7 +117,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="QqK-Qa-p1i" kind="show" id="mTK-Nx-doM"/>
+                        <segue destination="QqK-Qa-p1i" kind="relationship" relationship="rootViewController" id="LQ8-6s-xf1"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wen-bP-S3z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -135,7 +135,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="R2x-FR-ODc" kind="relationship" relationship="viewControllers" id="w7t-MM-BP5"/>
-                        <segue destination="xSp-ga-fVk" kind="relationship" relationship="viewControllers" id="vpn-Ek-INA"/>
+                        <segue destination="xSp-ga-fVk" kind="relationship" relationship="viewControllers" id="UYm-aL-0Mc"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8MY-Ug-o48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

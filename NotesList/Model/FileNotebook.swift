@@ -7,7 +7,7 @@ class FileNotebook {
     private(set) var dict: [String: Note] = [String: Note]()
     private lazy var dirPath: URL  = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("caches")
     
-    public func add(_ note: Note) throws {
+    public func add(_ note: Note) {
         if dict[note.uid] != nil {
             DDLogInfo("Note with id \(note.uid) is overwritten")
         } else {
