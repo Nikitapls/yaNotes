@@ -13,6 +13,15 @@
 		F5FAA70F23FD893C00514A2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5FAA70D23FD893C00514A2F /* Main.storyboard */; };
 		F5FAA71123FD893D00514A2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5FAA71023FD893D00514A2F /* Assets.xcassets */; };
 		F5FAA71423FD893D00514A2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5FAA71223FD893D00514A2F /* LaunchScreen.storyboard */; };
+		F5FAA71C23FDB2A900514A2F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA71B23FDB2A900514A2F /* TableViewController.swift */; };
+		F5FAA72723FDB3BC00514A2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA71E23FDB3BC00514A2F /* ViewController.swift */; };
+		F5FAA72823FDB3BC00514A2F /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA71F23FDB3BC00514A2F /* DrawView.swift */; };
+		F5FAA72923FDB3BC00514A2F /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA72023FDB3BC00514A2F /* ColorPicker.swift */; };
+		F5FAA72A23FDB3BC00514A2F /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5FAA72123FDB3BC00514A2F /* SecondViewController.xib */; };
+		F5FAA72B23FDB3BC00514A2F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA72223FDB3BC00514A2F /* SecondViewController.swift */; };
+		F5FAA72C23FDB3BC00514A2F /* NoteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA72423FDB3BC00514A2F /* NoteExtension.swift */; };
+		F5FAA72D23FDB3BC00514A2F /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA72523FDB3BC00514A2F /* Note.swift */; };
+		F5FAA72E23FDB3BC00514A2F /* FileNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA72623FDB3BC00514A2F /* FileNotebook.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +33,15 @@
 		F5FAA71023FD893D00514A2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5FAA71323FD893D00514A2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5FAA71523FD893D00514A2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5FAA71B23FDB2A900514A2F /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		F5FAA71E23FDB3BC00514A2F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F5FAA71F23FDB3BC00514A2F /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		F5FAA72023FDB3BC00514A2F /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		F5FAA72123FDB3BC00514A2F /* SecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
+		F5FAA72223FDB3BC00514A2F /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		F5FAA72423FDB3BC00514A2F /* NoteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteExtension.swift; sourceTree = "<group>"; };
+		F5FAA72523FDB3BC00514A2F /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		F5FAA72623FDB3BC00514A2F /* FileNotebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotebook.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +74,40 @@
 		F5FAA70623FD893C00514A2F /* NotesList */ = {
 			isa = PBXGroup;
 			children = (
+				F5FAA71D23FDB3BC00514A2F /* ColorPicker */,
+				F5FAA72323FDB3BC00514A2F /* Model */,
 				F5FAA70723FD893C00514A2F /* AppDelegate.swift */,
 				F5FAA70923FD893C00514A2F /* SceneDelegate.swift */,
 				F5FAA70B23FD893C00514A2F /* ViewController.swift */,
+				F5FAA71B23FDB2A900514A2F /* TableViewController.swift */,
 				F5FAA70D23FD893C00514A2F /* Main.storyboard */,
 				F5FAA71023FD893D00514A2F /* Assets.xcassets */,
 				F5FAA71223FD893D00514A2F /* LaunchScreen.storyboard */,
 				F5FAA71523FD893D00514A2F /* Info.plist */,
 			);
 			path = NotesList;
+			sourceTree = "<group>";
+		};
+		F5FAA71D23FDB3BC00514A2F /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				F5FAA71E23FDB3BC00514A2F /* ViewController.swift */,
+				F5FAA71F23FDB3BC00514A2F /* DrawView.swift */,
+				F5FAA72023FDB3BC00514A2F /* ColorPicker.swift */,
+				F5FAA72123FDB3BC00514A2F /* SecondViewController.xib */,
+				F5FAA72223FDB3BC00514A2F /* SecondViewController.swift */,
+			);
+			path = ColorPicker;
+			sourceTree = "<group>";
+		};
+		F5FAA72323FDB3BC00514A2F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F5FAA72423FDB3BC00514A2F /* NoteExtension.swift */,
+				F5FAA72523FDB3BC00514A2F /* Note.swift */,
+				F5FAA72623FDB3BC00514A2F /* FileNotebook.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5FAA72A23FDB3BC00514A2F /* SecondViewController.xib in Resources */,
 				F5FAA71423FD893D00514A2F /* LaunchScreen.storyboard in Resources */,
 				F5FAA71123FD893D00514A2F /* Assets.xcassets in Resources */,
 				F5FAA70F23FD893C00514A2F /* Main.storyboard in Resources */,
@@ -138,9 +182,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5FAA72B23FDB3BC00514A2F /* SecondViewController.swift in Sources */,
+				F5FAA72723FDB3BC00514A2F /* ViewController.swift in Sources */,
 				F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */,
+				F5FAA72923FDB3BC00514A2F /* ColorPicker.swift in Sources */,
+				F5FAA72823FDB3BC00514A2F /* DrawView.swift in Sources */,
+				F5FAA72D23FDB3BC00514A2F /* Note.swift in Sources */,
 				F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */,
 				F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */,
+				F5FAA72C23FDB3BC00514A2F /* NoteExtension.swift in Sources */,
+				F5FAA71C23FDB2A900514A2F /* TableViewController.swift in Sources */,
+				F5FAA72E23FDB3BC00514A2F /* FileNotebook.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
