@@ -10,7 +10,7 @@ class TableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil),
+        tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "recipe")
     }
     
@@ -25,9 +25,13 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipe", for: indexPath) as! NoteTableViewCell
         let note = Array(fileNotebook.dict.values)[indexPath.row]
-        cell.color = note.color
-        cell.
+        cell.colorField?.backgroundColor = note.color
+        cell.titleLabel?.text = note.title
+        cell.contentLabel?.text = note.content
         
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+        return cell
     }
     
 //    func numberOfSections(in tableView: UITableView) -> Int {
