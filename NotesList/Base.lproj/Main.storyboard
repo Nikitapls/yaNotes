@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 1-->
+        <!--Галерея-->
         <scene sceneID="Sba-VB-9qo">
             <objects>
-                <viewController id="R2x-FR-ODc" sceneMemberID="viewController">
+                <viewController title="Галерея" id="R2x-FR-ODc" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AGP-ML-OTh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,10 +71,10 @@
             </objects>
             <point key="canvasLocation" x="1565.217391304348" y="-1005.1339285714286"/>
         </scene>
-        <!--Item-->
+        <!--Заметки-->
         <scene sceneID="3iX-nk-QNy">
             <objects>
-                <navigationController id="xSp-ga-fVk" sceneMemberID="viewController">
+                <navigationController title="Заметки" id="xSp-ga-fVk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="hKJ-uA-8zc"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dQV-8V-D98">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
