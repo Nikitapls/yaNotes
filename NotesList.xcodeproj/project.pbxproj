@@ -86,7 +86,6 @@
 		F500170B23FEDF3C008174F2 /* TableViewPage */ = {
 			isa = PBXGroup;
 			children = (
-				F5FAA71B23FDB2A900514A2F /* TableViewController.swift */,
 				F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */,
 				F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */,
 			);
@@ -128,6 +127,7 @@
 				F54F75B823FDC37600AEE7BD /* Model */,
 				F5FAA71D23FDB3BC00514A2F /* ColorPicker */,
 				F5FAA70723FD893C00514A2F /* AppDelegate.swift */,
+				F5FAA71B23FDB2A900514A2F /* TableViewController.swift */,
 				F5FAA70923FD893C00514A2F /* SceneDelegate.swift */,
 				F5FAA70B23FD893C00514A2F /* ViewController.swift */,
 				F5FAA70D23FD893C00514A2F /* Main.storyboard */,

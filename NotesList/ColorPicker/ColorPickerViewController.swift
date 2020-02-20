@@ -59,8 +59,9 @@ class ColorPickerViewController: UIViewController {
         }
         userChoiceColor.setGestureRecognizers(recognizersArr: [tapColorPicker,longPressColorPicker])
         userChoiceColor = .init()
+        lastColorChoice = currentColor
+        currentColor.moveDrawObject()
         
-      //  navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save", style: .plain, target: nil, action: )
     }
     
     override func viewWillAppear(_ animated: Bool) {

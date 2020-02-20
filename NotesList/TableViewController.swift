@@ -13,12 +13,43 @@ class TableViewController: UIViewController {
                            forCellReuseIdentifier: "note")
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.allowsMultipleSelectionDuringEditing = false
     }
     
+    @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    
+    @IBAction func editButtonClicked(_ sender: UIBarButtonItem) {
+       isEditing = !isEditing
+        if(isEditing) {
+            editButton.title = "done"
+            addButton.isEnabled = false
+        } else {
+            editButton.title = "edit"
+            addButton.isEnabled = true
+        }
+    }
+
 }
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return isEditing
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let note = Array(fileNotebook.dict.values)[indexPath.row]
+            fileNotebook.remove(with: note.uid)
+            tableView.reloadData()
+        }
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fileNotebook.dict.count
     }
@@ -46,11 +77,9 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = Array(fileNotebook.dict.values)[indexPath.row]
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.fileNotebook.add(note)
-                print("add note with \(note.title)")
             }
             controller.deleteOldNote = { [weak self] (note: Note) in
                 self?.fileNotebook.remove(with: note.uid)
-                print("remove note with \(note.title)")
             }
         }
     }

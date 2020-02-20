@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="733" y="-315"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Заметки-->
         <scene sceneID="ovg-qk-QR5">
             <objects>
                 <viewController id="QqK-Qa-p1i" customClass="TableViewController" customModule="NotesList" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,35 +31,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFk-Eo-Vm2">
-                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="ogj-x6-qfY"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Заметки" id="hJ4-cS-1t7"/>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oD1-TA-WvO">
-                                <rect key="frame" x="0.0" y="132" width="414" height="681"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="oD1-TA-WvO" firstAttribute="top" secondItem="g7G-0e-SBT" secondAttribute="top" id="8rn-3d-t2f"/>
                             <constraint firstItem="oD1-TA-WvO" firstAttribute="bottom" secondItem="g7G-0e-SBT" secondAttribute="bottom" id="FP9-cS-i2Q"/>
-                            <constraint firstItem="HFk-Eo-Vm2" firstAttribute="leading" secondItem="g7G-0e-SBT" secondAttribute="leading" id="GVI-ac-7Df"/>
-                            <constraint firstItem="oD1-TA-WvO" firstAttribute="top" secondItem="HFk-Eo-Vm2" secondAttribute="bottom" id="I4O-Qf-gC4"/>
-                            <constraint firstItem="oD1-TA-WvO" firstAttribute="top" secondItem="HFk-Eo-Vm2" secondAttribute="bottom" id="d4N-4B-JWc"/>
-                            <constraint firstItem="HFk-Eo-Vm2" firstAttribute="trailing" secondItem="g7G-0e-SBT" secondAttribute="trailing" id="jiA-ez-HOO"/>
+                            <constraint firstItem="oD1-TA-WvO" firstAttribute="leading" secondItem="g7G-0e-SBT" secondAttribute="leading" id="bUV-b8-SoF"/>
                             <constraint firstItem="oD1-TA-WvO" firstAttribute="trailing" secondItem="g7G-0e-SBT" secondAttribute="trailing" id="mw8-fH-Oja"/>
-                            <constraint firstItem="HFk-Eo-Vm2" firstAttribute="top" secondItem="g7G-0e-SBT" secondAttribute="top" id="q8H-GC-Yzl"/>
+                            <constraint firstItem="oD1-TA-WvO" firstAttribute="bottom" secondItem="g7G-0e-SBT" secondAttribute="bottom" id="onq-kk-jSk"/>
+                            <constraint firstItem="oD1-TA-WvO" firstAttribute="trailing" secondItem="g7G-0e-SBT" secondAttribute="trailing" id="pHl-Bf-S89"/>
                             <constraint firstItem="oD1-TA-WvO" firstAttribute="leading" secondItem="g7G-0e-SBT" secondAttribute="leading" id="zYs-2l-hfY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="g7G-0e-SBT"/>
                     </view>
-                    <navigationItem key="navigationItem" id="xPa-7X-z5J"/>
+                    <navigationItem key="navigationItem" title="Заметки" id="xPa-7X-z5J">
+                        <barButtonItem key="leftBarButtonItem" title="edit" id="cOm-Ot-EbO">
+                            <connections>
+                                <action selector="editButtonClicked:" destination="QqK-Qa-p1i" id="Onw-ia-OsG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="mvu-it-VOw">
+                            <connections>
+                                <action selector="addButtonClicked:" destination="QqK-Qa-p1i" id="5qo-qP-gJj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="mvu-it-VOw" id="KEo-Sn-vQK"/>
+                        <outlet property="editButton" destination="cOm-Ot-EbO" id="WAv-Bc-GEm"/>
                         <outlet property="tableView" destination="oD1-TA-WvO" id="eLv-pg-0ST"/>
                         <segue destination="LJ3-My-5dY" kind="show" identifier="ShowNoteEditor" id="bFF-py-5k8"/>
                     </connections>
