@@ -3,24 +3,32 @@
 import UIKit
 
 class TableViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewField: UITableView!
     var fileNotebook = FileNotebook()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fileNotebook.add(Note(uid: "sad", title: "titleNote", content: "noteContent", color: .red, impotance: Impotance.unimpotant, selfDestructionDate: nil))
-        tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
+        tableViewField.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "note")
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.allowsMultipleSelectionDuringEditing = false
+        self.tableViewField.dataSource = self
+        self.tableViewField.delegate = self
+        self.tableViewField.allowsMultipleSelectionDuringEditing = false
     }
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let note = Note(title: "", content: "", impotance: Impotance.usual)
         fileNotebook.add(note)
-        let cell = tableView?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
+        let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
+        cell.colorField?.backgroundColor = note.color
+        cell.titleLabel?.text = note.title
+        cell.contentLabel?.text = note.content
         
+        tableViewField.beginUpdates()
+        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+        tableViewField.endUpdates()
+        
+        tableView(self.tableViewField, didSelectRowAt: IndexPath(row: 0, section: 0))
     }
     
     @IBOutlet weak var addButton: UIBarButtonItem!
@@ -89,6 +97,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        tableViewField.reloadData()
     }
 }

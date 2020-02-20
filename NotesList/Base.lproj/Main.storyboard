@@ -63,7 +63,7 @@
                     <connections>
                         <outlet property="addButton" destination="mvu-it-VOw" id="KEo-Sn-vQK"/>
                         <outlet property="editButton" destination="cOm-Ot-EbO" id="WAv-Bc-GEm"/>
-                        <outlet property="tableView" destination="oD1-TA-WvO" id="eLv-pg-0ST"/>
+                        <outlet property="tableViewField" destination="oD1-TA-WvO" id="eLv-pg-0ST"/>
                         <segue destination="LJ3-My-5dY" kind="show" identifier="ShowNoteEditor" id="bFF-py-5k8"/>
                     </connections>
                 </viewController>
