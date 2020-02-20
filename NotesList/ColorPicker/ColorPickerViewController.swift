@@ -9,14 +9,27 @@
 import UIKit
 
 class ColorPickerViewController: UIViewController {
-    
+    var note: Note
     var currColorFromSecView: UIColor = .gray
     var lastColorChoice: DrawView?
+    
+    
+    @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var contentField: UITextView!
     
     private var isFirstTap = true {
         didSet {
             tapColorPicker.isEnabled = false
         }
+    }
+    
+    init(note: Note) {
+        self.note = note
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -43,6 +56,21 @@ class ColorPickerViewController: UIViewController {
         userChoiceColor = .init()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        titleField.text = note.title
+        contentField.text = note.content
+        if let selfDestructionDate = note.selfDestructionDate {
+            dateField.date = selfDestructionDate
+        } else {
+            dateSwitch.isOn = false
+            dateField.isHidden = true
+        }
+        currentColor.backgroundColor = note.color
+        lastColorChoice = currentColor
+        currentColor.moveDrawObject()
+    }
+    
     private func setBorder(view: UIView) {
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.black.cgColor
@@ -55,6 +83,7 @@ class ColorPickerViewController: UIViewController {
     @IBOutlet weak var dateField: UIDatePicker!
     @IBOutlet var tapColorPicker: UITapGestureRecognizer!
     @IBOutlet weak var longPressColorPicker: UILongPressGestureRecognizer!
+    @IBOutlet weak var dateSwitch: UISwitch!
     
     private func setBorder(field: UIView){
         field.layer.borderWidth = 1

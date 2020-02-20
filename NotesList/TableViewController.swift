@@ -47,11 +47,21 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
 ////        return categories[section].recipes.count
 //    }
 //
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-////        let recipe = categories[indexPath.section].recipes[indexPath.row]
-////        print("Did tap recipe with title: \(recipe.title)")
-//        // showRecipeDetailsViewController(recipe)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let note = Array(fileNotebook.dict.values)[indexPath.row]
+        let noteViewController = ColorPickerViewController(note: note)
+        performSegue(withIdentifier: "ShowNoteEditor", sender: nil)
+        
+    }
+    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) { }
+        
+//        let noteViewController = storyboard?.instantiateViewController(identifier: "noteEditorId") as! ColorPickerViewController
+        //navigationController?.pushViewController(noteViewController, animated: true)
+//        let recipe = categories[indexPath.section].recipes[indexPath.row]
+//        print("Did tap recipe with title: \(recipe.title)")
+        // showRecipeDetailsViewController(recipe)
+    
 //
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 ////        let cell = tableView.dequeueReusableCell(withIdentifier: "recipe", for: indexPath) as! RecipeTableViewCell
