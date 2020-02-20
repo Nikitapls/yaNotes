@@ -17,6 +17,9 @@ class TableViewController: UIViewController {
     }
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
+        let note = Note(title: "", content: "", impotance: Impotance.usual)
+        fileNotebook.add(note)
+        let cell = tableView?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
         
     }
     
