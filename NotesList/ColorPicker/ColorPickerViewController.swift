@@ -14,7 +14,7 @@ class ColorPickerViewController: UIViewController {
     var lastColorChoice: DrawView?
     var addNewNote: ((Note) -> Void)?
     var deleteOldNote: ((Note) -> Void)?
-@IBOutlet weak var userChoiceColor: ColorPickerView!
+    @IBOutlet weak var userChoiceColor: ColorPickerView!
     @IBAction func saveButtonClicked(_ sender: Any) {
         if let title = titleField.text, let content = contentField.text, let importance = note?.impotance {
             let newNote = Note(uid: note?.uid, title: title, content: content, color: lastColorChoice?.backgroundColor, impotance: importance, selfDestructionDate: dateField.date)

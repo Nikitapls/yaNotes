@@ -16,6 +16,9 @@ class NoteTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        colorField.layer.borderWidth = 1
+        colorField.layer.borderColor = UIColor.gray.cgColor
+        colorField.layer.cornerRadius = 5
         // Initialization code
     }
 

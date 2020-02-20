@@ -79,7 +79,9 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !isEditing {
         performSegue(withIdentifier: "ShowNoteEditor", sender: indexPath)
+        }
     }
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
