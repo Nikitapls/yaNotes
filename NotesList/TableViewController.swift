@@ -4,7 +4,7 @@ import UIKit
 
 class TableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
+    var delegate: NoteEditorDelegate?
     var fileNotebook = FileNotebook()
  //   var categories = RecipeCategory.allRecipes
     
@@ -48,25 +48,25 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
 //    }
 //
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let note = Array(fileNotebook.dict.values)[indexPath.row]
-        let noteViewController = ColorPickerViewController()
-        performSegue(withIdentifier: "ShowNoteEditor", sender: nil)
-        
+        //let note =
+      //  let noteViewController = ColorPickerViewController()
+        performSegue(withIdentifier: "ShowNoteEditor", sender: indexPath)
     }
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ColorPickerViewController,
-                 segue.identifier == "ShowNoteEditor" {
-            controller.note = Array(fileNotebook.dict.values)[0]//bug
+                 segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath{
+            controller.note = Array(fileNotebook.dict.values)[indexPath.row]
         }
     }
     
     @IBAction func unwindToTableViewController(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source
-        if let controller = sourceViewController as? ColorPickerViewController {
-            print("yeqp")
+        if let controller = sourceViewController as? ColorPickerViewController, let newNote = controller.newNote, let oldNote = controller.note {
+            fileNotebook.add(newNote)
+            fileNotebook.remove(with: oldNote.uid)
+            tableView.reloadData()
         }
-        print(sourceViewController)
     }
         
 //        let noteViewController = storyboard?.instantiateViewController(identifier: "noteEditorId") as! ColorPickerViewController

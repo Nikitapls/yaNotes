@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EF01000F7FA97885C4994F8C /* libPods-NotesList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */; };
+		F500170A23FEAA5B008174F2 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500170923FEAA5B008174F2 /* Delegates.swift */; };
 		F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */; };
 		F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */; };
 		F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70723FD893C00514A2F /* AppDelegate.swift */; };
@@ -31,6 +32,7 @@
 		5499C992A0963DD41B68BC44 /* Pods-NotesList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.debug.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.debug.xcconfig"; sourceTree = "<group>"; };
 		65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotesList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBC65149ED2C9592FDFAA67 /* Pods-NotesList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.release.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.release.xcconfig"; sourceTree = "<group>"; };
+		F500170923FEAA5B008174F2 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteTableViewCell.swift; path = Model/NoteTableViewCell.swift; sourceTree = "<group>"; };
 		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NoteTableViewCell.xib; path = Model/NoteTableViewCell.xib; sourceTree = "<group>"; };
 		F5FAA70423FD893C00514A2F /* NotesList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				F5FAA71523FD893D00514A2F /* Info.plist */,
 				F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */,
 				F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */,
+				F500170923FEAA5B008174F2 /* Delegates.swift */,
 			);
 			path = NotesList;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */,
 				F5FAA72C23FDB3BC00514A2F /* NoteExtension.swift in Sources */,
 				F5FAA71C23FDB2A900514A2F /* TableViewController.swift in Sources */,
+				F500170A23FEAA5B008174F2 /* Delegates.swift in Sources */,
 				F5FAA72E23FDB3BC00514A2F /* FileNotebook.swift in Sources */,
 				F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */,
 			);

@@ -247,7 +247,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ln0-dr-385"/>
                     </view>
-                    <navigationItem key="navigationItem" id="2Fm-KW-Mwh"/>
+                    <navigationItem key="navigationItem" id="2Fm-KW-Mwh">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="6ZU-zu-9dQ">
+                            <connections>
+                                <action selector="saveButtonClicked:" destination="LJ3-My-5dY" id="WY9-HJ-wPX"/>
+                                <segue destination="UmU-6O-5hy" kind="unwind" unwindAction="unwindToTableViewController:" id="Jev-kh-CEo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contentField" destination="Idn-pO-rX7" id="fxY-5W-pCX"/>
                         <outlet property="currentColor" destination="Obk-dV-Xea" id="QI4-zs-yH9"/>
@@ -262,6 +269,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OwQ-52-V9w" sceneMemberID="firstResponder"/>
+                <exit id="UmU-6O-5hy" userLabel="Exit" sceneMemberID="exit"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="cRB-6u-IGJ">
                     <connections>
                         <action selector="longPressColorPicker:" destination="LJ3-My-5dY" id="7wP-Ee-X6J"/>

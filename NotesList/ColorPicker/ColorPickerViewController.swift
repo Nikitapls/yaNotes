@@ -7,13 +7,24 @@
 //
 
 import UIKit
-
+extension ColorPickerViewController: NoteEditorDelegate {
+    func newNote() -> Note? {
+        return newNoteValue
+    }
+}
 class ColorPickerViewController: UIViewController {
     var note: Note?
     var currColorFromSecView: UIColor = .gray
     var lastColorChoice: DrawView?
+    var newNoteValue: Note?
     
-    
+    @IBAction func saveButtonClicked(_ sender: Any) {
+        if let title = titleField.text, let content = contentField.text, let importance = note?.impotance {
+            let newNote = Note(uid: note?.uid, title: title, content: content, color: note?.color, impotance: importance, selfDestructionDate: dateField.date)
+            self.newNoteValue = newNote
+        }
+        navigationController?.popViewController(animated: true)
+    }
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var contentField: UITextView!
     
@@ -47,6 +58,8 @@ class ColorPickerViewController: UIViewController {
         }
         userChoiceColor.setGestureRecognizers(recognizersArr: [tapColorPicker,longPressColorPicker])
         userChoiceColor = .init()
+        
+      //  navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save", style: .plain, target: nil, action: )
     }
     
     override func viewWillAppear(_ animated: Bool) {
