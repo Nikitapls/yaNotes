@@ -37,7 +37,7 @@
                                     <constraint firstAttribute="height" constant="44" id="ogj-x6-qfY"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Title" id="hJ4-cS-1t7"/>
+                                    <navigationItem title="Заметки" id="hJ4-cS-1t7"/>
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oD1-TA-WvO">

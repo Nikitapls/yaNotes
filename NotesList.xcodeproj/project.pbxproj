@@ -33,8 +33,8 @@
 		65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotesList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBC65149ED2C9592FDFAA67 /* Pods-NotesList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.release.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.release.xcconfig"; sourceTree = "<group>"; };
 		F500170923FEAA5B008174F2 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
-		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteTableViewCell.swift; path = Model/NoteTableViewCell.swift; sourceTree = "<group>"; };
-		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NoteTableViewCell.xib; path = Model/NoteTableViewCell.xib; sourceTree = "<group>"; };
+		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
+		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		F5FAA70423FD893C00514A2F /* NotesList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FAA70723FD893C00514A2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5FAA70923FD893C00514A2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +83,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F500170B23FEDF3C008174F2 /* TableViewPage */ = {
+			isa = PBXGroup;
+			children = (
+				F5FAA71B23FDB2A900514A2F /* TableViewController.swift */,
+				F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */,
+				F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */,
+			);
+			path = TableViewPage;
+			sourceTree = "<group>";
+		};
 		F54F75B823FDC37600AEE7BD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,18 +124,16 @@
 		F5FAA70623FD893C00514A2F /* NotesList */ = {
 			isa = PBXGroup;
 			children = (
+				F500170B23FEDF3C008174F2 /* TableViewPage */,
 				F54F75B823FDC37600AEE7BD /* Model */,
 				F5FAA71D23FDB3BC00514A2F /* ColorPicker */,
 				F5FAA70723FD893C00514A2F /* AppDelegate.swift */,
 				F5FAA70923FD893C00514A2F /* SceneDelegate.swift */,
 				F5FAA70B23FD893C00514A2F /* ViewController.swift */,
-				F5FAA71B23FDB2A900514A2F /* TableViewController.swift */,
 				F5FAA70D23FD893C00514A2F /* Main.storyboard */,
 				F5FAA71023FD893D00514A2F /* Assets.xcassets */,
 				F5FAA71223FD893D00514A2F /* LaunchScreen.storyboard */,
 				F5FAA71523FD893D00514A2F /* Info.plist */,
-				F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */,
-				F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */,
 				F500170923FEAA5B008174F2 /* Delegates.swift */,
 			);
 			path = NotesList;

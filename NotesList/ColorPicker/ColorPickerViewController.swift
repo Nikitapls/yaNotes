@@ -17,7 +17,7 @@ class ColorPickerViewController: UIViewController {
 
     @IBAction func saveButtonClicked(_ sender: Any) {
         if let title = titleField.text, let content = contentField.text, let importance = note?.impotance {
-            let newNote = Note(uid: note?.uid, title: title, content: content, color: note?.color, impotance: importance, selfDestructionDate: dateField.date)
+            let newNote = Note(uid: note?.uid, title: title, content: content, color: lastColorChoice?.backgroundColor, impotance: importance, selfDestructionDate: dateField.date)
             if let note = self.note {
                 deleteOldNote?(note)
             }
