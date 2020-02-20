@@ -9,7 +9,7 @@
 import UIKit
 
 class ColorPickerViewController: UIViewController {
-    var note: Note
+    var note: Note?
     var currColorFromSecView: UIColor = .gray
     var lastColorChoice: DrawView?
     
@@ -23,14 +23,7 @@ class ColorPickerViewController: UIViewController {
         }
     }
     
-    init(note: Note) {
-        self.note = note
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,15 +51,15 @@ class ColorPickerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        titleField.text = note.title
-        contentField.text = note.content
-        if let selfDestructionDate = note.selfDestructionDate {
+        titleField.text = note?.title
+        contentField.text = note?.content
+        if let selfDestructionDate = note?.selfDestructionDate {
             dateField.date = selfDestructionDate
         } else {
             dateSwitch.isOn = false
             dateField.isHidden = true
         }
-        currentColor.backgroundColor = note.color
+        currentColor.backgroundColor = note?.color
         lastColorChoice = currentColor
         currentColor.moveDrawObject()
     }

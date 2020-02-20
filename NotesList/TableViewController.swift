@@ -49,12 +49,25 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
 //
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let note = Array(fileNotebook.dict.values)[indexPath.row]
-        let noteViewController = ColorPickerViewController(note: note)
+        let noteViewController = ColorPickerViewController()
         performSegue(withIdentifier: "ShowNoteEditor", sender: nil)
         
     }
     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) { }
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? ColorPickerViewController,
+                 segue.identifier == "ShowNoteEditor" {
+            controller.note = Array(fileNotebook.dict.values)[0]//bug
+        }
+    }
+    
+    @IBAction func unwindToTableViewController(_ unwindSegue: UIStoryboardSegue) {
+        let sourceViewController = unwindSegue.source
+        if let controller = sourceViewController as? ColorPickerViewController {
+            print("yeqp")
+        }
+        print(sourceViewController)
+    }
         
 //        let noteViewController = storyboard?.instantiateViewController(identifier: "noteEditorId") as! ColorPickerViewController
         //navigationController?.pushViewController(noteViewController, animated: true)
