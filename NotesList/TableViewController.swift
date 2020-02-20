@@ -4,7 +4,6 @@ import UIKit
 
 class TableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var delegate: NoteEditorDelegate?
     var fileNotebook = FileNotebook()
  //   var categories = RecipeCategory.allRecipes
     
@@ -57,14 +56,20 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         if let controller = segue.destination as? ColorPickerViewController,
                  segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath{
             controller.note = Array(fileNotebook.dict.values)[indexPath.row]
+            controller.addNewNote = { [weak self] (note: Note) in
+                self?.fileNotebook.add(note)
+                print("add note with \(note.title)")
+            }
+            controller.deleteOldNote = { [weak self] (note: Note) in
+                self?.fileNotebook.remove(with: note.uid)
+                print("remove note with \(note.title)")
+            }
         }
     }
     
     @IBAction func unwindToTableViewController(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source
-        if let controller = sourceViewController as? ColorPickerViewController, let newNote = controller.newNote, let oldNote = controller.note {
-            fileNotebook.add(newNote)
-            fileNotebook.remove(with: oldNote.uid)
+        if let controller = sourceViewController as? ColorPickerViewController{
             tableView.reloadData()
         }
     }

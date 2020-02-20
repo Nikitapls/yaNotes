@@ -7,7 +7,3 @@
 //
 
 import Foundation
-
-protocol NoteEditorDelegate: NSObjectProtocol {
-    func newNote() -> Note?
-}

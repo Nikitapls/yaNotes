@@ -162,7 +162,7 @@
                                                             <action selector="switchChanged:" destination="LJ3-My-5dY" eventType="valueChanged" id="X4w-Pd-aOX"/>
                                                         </connections>
                                                     </switch>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obk-dV-Xea" customClass="DrawView" customModule="test" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obk-dV-Xea" customClass="DrawView" customModule="NotesList" customModuleProvider="target">
                                                         <rect key="frame" x="16" y="131" width="70" height="70"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <gestureRecognizers/>
@@ -171,7 +171,7 @@
                                                             <constraint firstAttribute="width" constant="70" id="USe-Nq-M9h"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tzy-EX-8hP" customClass="ColorPickerView" customModule="test" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tzy-EX-8hP" customClass="ColorPickerView" customModule="NotesList" customModuleProvider="target">
                                                         <rect key="frame" x="256" y="131" width="70" height="70"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <gestureRecognizers/>
@@ -184,12 +184,12 @@
                                                             <outletCollection property="gestureRecognizers" destination="Uma-IZ-pWT" appends="YES" id="ELr-tx-ExO"/>
                                                         </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6b-5M-7FJ" customClass="DrawView" customModule="test" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6b-5M-7FJ" customClass="DrawView" customModule="NotesList" customModuleProvider="target">
                                                         <rect key="frame" x="96" y="131" width="70" height="70"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <gestureRecognizers/>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXr-Qy-1wR" customClass="DrawView" customModule="test" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXr-Qy-1wR" customClass="DrawView" customModule="NotesList" customModuleProvider="target">
                                                         <rect key="frame" x="176" y="131" width="70" height="70"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <gestureRecognizers/>
@@ -251,7 +251,6 @@
                         <barButtonItem key="rightBarButtonItem" title="Save" id="6ZU-zu-9dQ">
                             <connections>
                                 <action selector="saveButtonClicked:" destination="LJ3-My-5dY" id="WY9-HJ-wPX"/>
-                                <segue destination="UmU-6O-5hy" kind="unwind" unwindAction="unwindToTableViewController:" id="Jev-kh-CEo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -269,7 +268,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OwQ-52-V9w" sceneMemberID="firstResponder"/>
-                <exit id="UmU-6O-5hy" userLabel="Exit" sceneMemberID="exit"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="cRB-6u-IGJ">
                     <connections>
                         <action selector="longPressColorPicker:" destination="LJ3-My-5dY" id="7wP-Ee-X6J"/>

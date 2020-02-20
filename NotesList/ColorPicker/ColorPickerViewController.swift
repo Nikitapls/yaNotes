@@ -7,22 +7,23 @@
 //
 
 import UIKit
-extension ColorPickerViewController: NoteEditorDelegate {
-    func newNote() -> Note? {
-        return newNoteValue
-    }
-}
+
 class ColorPickerViewController: UIViewController {
     var note: Note?
     var currColorFromSecView: UIColor = .gray
     var lastColorChoice: DrawView?
-    var newNoteValue: Note?
-    
+    var addNewNote: ((Note) -> Void)?
+    var deleteOldNote: ((Note) -> Void)?
+
     @IBAction func saveButtonClicked(_ sender: Any) {
         if let title = titleField.text, let content = contentField.text, let importance = note?.impotance {
             let newNote = Note(uid: note?.uid, title: title, content: content, color: note?.color, impotance: importance, selfDestructionDate: dateField.date)
-            self.newNoteValue = newNote
+            if let note = self.note {
+                deleteOldNote?(note)
+            }
+            addNewNote?(newNote)
         }
+        
         navigationController?.popViewController(animated: true)
     }
     @IBOutlet weak var titleField: UITextField!
