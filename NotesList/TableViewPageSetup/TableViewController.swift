@@ -8,6 +8,7 @@ class TableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Заметки"
         fileNotebook.add(Note(uid: "sad", title: "titleNote", content: "noteContent", color: .red, impotance: Impotance.unimpotant, selfDestructionDate: nil))
         tableViewField.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "note")

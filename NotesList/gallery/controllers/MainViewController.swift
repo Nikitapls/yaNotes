@@ -19,7 +19,15 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
+        let customCollectionViewLayout = UICollectionViewFlowLayout()
+        customCollectionViewLayout.sectionInset = UIEdgeInsets(top: 20,
+                                                               left: 20,
+                                                               bottom: 20,
+                                                               right: 20)
+        customCollectionViewLayout.itemSize = CGSize(width: 100, height: 100)
+        collectionView.setCollectionViewLayout(customCollectionViewLayout, animated: false)
         imagPickUp = self.imageAndVideos()
+        title = "Галерея"
     }
     
     @IBAction func nextButtonClicked(_ sender: UIBarButtonItem) {
@@ -28,20 +36,6 @@ class MainViewController: UIViewController {
     
     @objc func buttonClicked() {
         let ActionSheet = UIAlertController(title: nil, message: "Select Photo", preferredStyle: .actionSheet)
-
-        let cameraPhoto = UIAlertAction(title: "Camera", style: .default, handler: {
-            (alert: UIAlertAction) -> Void in
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
-
-                self.imagPickUp.mediaTypes = ["public.image"]
-                self.imagPickUp.sourceType = UIImagePickerController.SourceType.camera;
-                self.present(self.imagPickUp, animated: true, completion: nil)
-            }
-            else{
-                UIAlertController(title: "iOSDevCenter", message: "No Camera available.", preferredStyle: .alert).show(self, sender: nil);
-            }
-
-        })
 
         let PhotoLibrary = UIAlertAction(title: "Photo Library", style: .default, handler: {
             (alert: UIAlertAction) -> Void in
@@ -55,38 +49,24 @@ class MainViewController: UIViewController {
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction) -> Void in
-
         })
 
-        ActionSheet.addAction(cameraPhoto)
         ActionSheet.addAction(PhotoLibrary)
         ActionSheet.addAction(cancelAction)
-
-
-        if UIDevice.current.userInterfaceIdiom == .pad{
-            let presentC : UIPopoverPresentationController  = ActionSheet.popoverPresentationController!
-            presentC.sourceView = self.view
-            presentC.sourceRect = self.view.bounds
-            self.present(ActionSheet, animated: true, completion: nil)
-        }
-        else{
-            self.present(ActionSheet, animated: true, completion: nil)
-        }
+        self.present(ActionSheet, animated: true, completion: nil)
+    
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         photos.append(Photo(image: image))
-        imagPickUp.dismiss(animated: true, completion: { () -> Void in
-            // Dismiss
-        })
+        collectionView.reloadData()
+        imagPickUp.dismiss(animated: true, completion: nil)
 
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        imagPickUp.dismiss(animated: true, completion: { () -> Void in
-            // Dismiss
-        })
+        imagPickUp.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -109,6 +89,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         cell.imageView.image = photos[indexPath.row].image
+        cell.layer.borderWidth = 1
         return cell
     }
     

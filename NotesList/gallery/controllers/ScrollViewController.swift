@@ -13,6 +13,8 @@ class ScrollViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     var photos = [Photo]()
     var imageViews = [UIImageView]()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
@@ -21,6 +23,7 @@ class ScrollViewController: UIViewController {
         pageControl.currentPage = 0
         
         self.scrollView.bringSubviewToFront(pageControl)
+        self.isEditing = false
         // Do any additional setup after loading the view.
     }
     
@@ -41,6 +44,7 @@ class ScrollViewController: UIViewController {
             imageView.frame.size = scrollView.frame.size
             imageView.frame.origin.x = CGFloat(index) * scrollView.frame.width
             imageView.frame.origin.y = 0
+            imageView.contentMode = .scaleAspectFit
         }
         
         let contentWidth = CGFloat(photos.count) * scrollView.frame.width
