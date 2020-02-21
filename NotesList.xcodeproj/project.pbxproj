@@ -13,6 +13,7 @@
 		F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */; };
 		F58B151D23FFDBED007E5497 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */; };
 		F58B151F23FFE93A007E5497 /* PhotoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B151E23FFE93A007E5497 /* PhotoSet.swift */; };
+		F58B152123FFEDB1007E5497 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B152023FFEDB1007E5497 /* ScrollViewController.swift */; };
 		F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70723FD893C00514A2F /* AppDelegate.swift */; };
 		F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70923FD893C00514A2F /* SceneDelegate.swift */; };
 		F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70B23FD893C00514A2F /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		F58B151E23FFE93A007E5497 /* PhotoSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSet.swift; sourceTree = "<group>"; };
+		F58B152023FFEDB1007E5497 /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		F5FAA70423FD893C00514A2F /* NotesList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FAA70723FD893C00514A2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5FAA70923FD893C00514A2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		F500171223FFC044008174F2 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F58B152023FFEDB1007E5497 /* ScrollViewController.swift */,
 				F500171423FFC663008174F2 /* MainViewController.swift */,
 			);
 			path = controllers;
@@ -307,6 +310,7 @@
 				F5FAA72B23FDB3BC00514A2F /* SecondViewController.swift in Sources */,
 				F500171523FFC663008174F2 /* MainViewController.swift in Sources */,
 				F5FAA72723FDB3BC00514A2F /* ColorPickerViewController.swift in Sources */,
+				F58B152123FFEDB1007E5497 /* ScrollViewController.swift in Sources */,
 				F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */,
 				F58B151F23FFE93A007E5497 /* PhotoSet.swift in Sources */,
 				F5FAA72923FDB3BC00514A2F /* ColorPicker.swift in Sources */,

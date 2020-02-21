@@ -9,14 +9,14 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    
     var photos = Photo.allPhotos()
     @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
-        //collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        // Do any additional setup after loading the view.
     }
     
 

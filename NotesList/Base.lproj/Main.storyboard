@@ -339,14 +339,64 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vfG-hc-LcI"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rfZ-f8-WZe"/>
+                    <navigationItem key="navigationItem" id="rfZ-f8-WZe">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="1zb-CS-uJG"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="bvL-cI-uhB" id="0O7-id-kCy"/>
+                        <segue destination="far-PS-BLc" kind="show" identifier="ShowGallery" id="0SF-sg-s3F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJ6-zc-irI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2328.985507246377" y="-320.08928571428572"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="mmM-CQ-UNz">
+            <objects>
+                <viewController id="far-PS-BLc" customClass="ScrollViewController" customModule="NotesList" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K9G-sq-gBW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-rB-DVl">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
+                                <subviews>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="wFw-OQ-wZ9">
+                                        <rect key="frame" x="8" y="601" width="398" height="37"/>
+                                        <connections>
+                                            <action selector="pageControlValueChanged:" destination="far-PS-BLc" eventType="valueChanged" id="cff-Mr-TdB"/>
+                                        </connections>
+                                    </pageControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wFw-OQ-wZ9" firstAttribute="bottom" secondItem="0Tb-xh-gfb" secondAttribute="bottom" constant="1" id="7NT-Gc-YWc"/>
+                                    <constraint firstItem="wFw-OQ-wZ9" firstAttribute="leading" secondItem="0Tb-xh-gfb" secondAttribute="leading" constant="8" id="Dva-8B-fJe"/>
+                                    <constraint firstItem="0Tb-xh-gfb" firstAttribute="trailing" secondItem="wFw-OQ-wZ9" secondAttribute="trailing" constant="8" id="Xnw-52-Eb8"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="f5p-jA-GB2"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="0Tb-xh-gfb"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Rbv-rB-DVl" firstAttribute="trailing" secondItem="wlk-Oh-BIy" secondAttribute="trailing" id="T4Y-6d-Q2f"/>
+                            <constraint firstItem="Rbv-rB-DVl" firstAttribute="leading" secondItem="wlk-Oh-BIy" secondAttribute="leading" id="bUF-2w-0dN"/>
+                            <constraint firstItem="Rbv-rB-DVl" firstAttribute="bottom" secondItem="wlk-Oh-BIy" secondAttribute="bottom" id="mu4-fw-fF2"/>
+                            <constraint firstItem="Rbv-rB-DVl" firstAttribute="top" secondItem="wlk-Oh-BIy" secondAttribute="top" id="vng-zP-sTA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wlk-Oh-BIy"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="DXy-EE-k6G"/>
+                    <navigationItem key="navigationItem" id="Hq7-Zj-aUJ"/>
+                    <connections>
+                        <outlet property="pageControl" destination="wFw-OQ-wZ9" id="8hb-NX-t0f"/>
+                        <outlet property="scrollView" destination="Rbv-rB-DVl" id="Foc-wy-Gj3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wlH-vw-zef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3348" y="-317"/>
         </scene>
     </scenes>
 </document>
