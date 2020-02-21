@@ -48,19 +48,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowGallery", sender: indexPath)
     }
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? ColorPickerViewController,
-                 segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath{
-            controller.note = Array(fileNotebook.dict.values)[indexPath.row]
-            controller.addNewNote = { [weak self] (note: Note) in
-                self?.fileNotebook.add(note)
-            }
-            controller.deleteOldNote = { [weak self] (note: Note) in
-                self?.fileNotebook.remove(with: note.uid)
-            }
-        }
-    }
-    */
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ScrollViewController,
             segue.identifier == "ShowGallery", let indexPath = sender as? IndexPath {
