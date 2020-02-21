@@ -83,7 +83,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         if !isEditing {
         performSegue(withIdentifier: "ShowNoteEditor", sender: indexPath)
         }
-    }
+    }//
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ColorPickerViewController,
