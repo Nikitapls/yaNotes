@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EF01000F7FA97885C4994F8C /* libPods-NotesList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */; };
-		F500170A23FEAA5B008174F2 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500170923FEAA5B008174F2 /* Delegates.swift */; };
+		F500171523FFC663008174F2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500171423FFC663008174F2 /* MainViewController.swift */; };
+		F500171B23FFC6FE008174F2 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500171A23FFC6FE008174F2 /* CollectionViewCell.swift */; };
 		F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */; };
 		F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */; };
 		F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70723FD893C00514A2F /* AppDelegate.swift */; };
@@ -32,7 +33,8 @@
 		5499C992A0963DD41B68BC44 /* Pods-NotesList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.debug.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.debug.xcconfig"; sourceTree = "<group>"; };
 		65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotesList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBC65149ED2C9592FDFAA67 /* Pods-NotesList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.release.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.release.xcconfig"; sourceTree = "<group>"; };
-		F500170923FEAA5B008174F2 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
+		F500171423FFC663008174F2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		F500171A23FFC6FE008174F2 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		F5FAA70423FD893C00514A2F /* NotesList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,58 @@
 			path = TableViewPage;
 			sourceTree = "<group>";
 		};
+		F500170C23FF25C1008174F2 /* TableViewPageSetup */ = {
+			isa = PBXGroup;
+			children = (
+				F5FAA71B23FDB2A900514A2F /* TableViewController.swift */,
+			);
+			path = TableViewPageSetup;
+			sourceTree = "<group>";
+		};
+		F500170D23FF2617008174F2 /* gallery */ = {
+			isa = PBXGroup;
+			children = (
+				F500171223FFC044008174F2 /* controllers */,
+				F500171123FFC037008174F2 /* views */,
+				F500171023FFC02D008174F2 /* model */,
+			);
+			path = gallery;
+			sourceTree = "<group>";
+		};
+		F500171023FFC02D008174F2 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		F500171123FFC037008174F2 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				F500171A23FFC6FE008174F2 /* CollectionViewCell.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		F500171223FFC044008174F2 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F500171423FFC663008174F2 /* MainViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		F500171323FFC060008174F2 /* defaultFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F5FAA71223FD893D00514A2F /* LaunchScreen.storyboard */,
+				F5FAA70B23FD893C00514A2F /* ViewController.swift */,
+				F5FAA70923FD893C00514A2F /* SceneDelegate.swift */,
+				F5FAA70723FD893C00514A2F /* AppDelegate.swift */,
+			);
+			path = defaultFiles;
+			sourceTree = "<group>";
+		};
 		F54F75B823FDC37600AEE7BD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,18 +177,15 @@
 		F5FAA70623FD893C00514A2F /* NotesList */ = {
 			isa = PBXGroup;
 			children = (
+				F500171323FFC060008174F2 /* defaultFiles */,
+				F500170D23FF2617008174F2 /* gallery */,
+				F500170C23FF25C1008174F2 /* TableViewPageSetup */,
 				F500170B23FEDF3C008174F2 /* TableViewPage */,
 				F54F75B823FDC37600AEE7BD /* Model */,
 				F5FAA71D23FDB3BC00514A2F /* ColorPicker */,
-				F5FAA70723FD893C00514A2F /* AppDelegate.swift */,
-				F5FAA71B23FDB2A900514A2F /* TableViewController.swift */,
-				F5FAA70923FD893C00514A2F /* SceneDelegate.swift */,
-				F5FAA70B23FD893C00514A2F /* ViewController.swift */,
 				F5FAA70D23FD893C00514A2F /* Main.storyboard */,
 				F5FAA71023FD893D00514A2F /* Assets.xcassets */,
-				F5FAA71223FD893D00514A2F /* LaunchScreen.storyboard */,
 				F5FAA71523FD893D00514A2F /* Info.plist */,
-				F500170923FEAA5B008174F2 /* Delegates.swift */,
 			);
 			path = NotesList;
 			sourceTree = "<group>";
@@ -251,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5FAA72B23FDB3BC00514A2F /* SecondViewController.swift in Sources */,
+				F500171523FFC663008174F2 /* MainViewController.swift in Sources */,
 				F5FAA72723FDB3BC00514A2F /* ColorPickerViewController.swift in Sources */,
 				F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */,
 				F5FAA72923FDB3BC00514A2F /* ColorPicker.swift in Sources */,
@@ -259,8 +311,8 @@
 				F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */,
 				F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */,
 				F5FAA72C23FDB3BC00514A2F /* NoteExtension.swift in Sources */,
+				F500171B23FFC6FE008174F2 /* CollectionViewCell.swift in Sources */,
 				F5FAA71C23FDB2A900514A2F /* TableViewController.swift in Sources */,
-				F500170A23FEAA5B008174F2 /* Delegates.swift in Sources */,
 				F5FAA72E23FDB3BC00514A2F /* FileNotebook.swift in Sources */,
 				F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */,
 			);
