@@ -340,7 +340,11 @@
                         <viewLayoutGuide key="safeArea" id="vfG-hc-LcI"/>
                     </view>
                     <navigationItem key="navigationItem" id="rfZ-f8-WZe">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="1zb-CS-uJG"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="1zb-CS-uJG">
+                            <connections>
+                                <action selector="nextButtonClicked:" destination="jUn-84-Odc" id="w7P-cG-xfl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="bvL-cI-uhB" id="0O7-id-kCy"/>

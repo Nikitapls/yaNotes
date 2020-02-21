@@ -11,24 +11,30 @@ import UIKit
 class ScrollViewController: UIViewController {
 
     @IBOutlet weak var pageControl: UIPageControl!
-    var imageViews = [UIImageView]()
-    
+    var photos = [Photo]()
+    var imageViews
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        let names = ["screen_1","screen_2","screen_3"]
-        for name in names {
-            let image = UIImage(named: name)
-            let imageView = UIImageView(image: image)
-            scrollView.addSubview(imageView)
-            imageViews.append(imageView)
-        }
+//        let names = ["screen_1","screen_2","screen_3"]
+//        for name in names {
+//            let image = UIImage(named: name)
+//            let imageView = UIImageView(image: image)
+//            scrollView.addSubview(imageView)
+//            photos.append(imageView)
+//        }
         
-        pageControl.numberOfPages = imageViews.count
+        pageControl.numberOfPages = photos.count
         pageControl.currentPage = 0
         
         self.scrollView.bringSubviewToFront(pageControl)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        for photo in photos {
+            scrollView.addSubview(UIImageView(image: photo.image))
+        }
     }
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -36,13 +42,13 @@ class ScrollViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
          
-        for (index, imageView) in imageViews.enumerated() {
+        for (index, imageView) in photos.enumerated() {
             imageView.frame.size = scrollView.frame.size
-            imageView.frame.origin.x = CGFloat(index) * scrollView.frame.width
+            imageView.image.frame.origin.x = CGFloat(index) * scrollView.frame.width
             imageView.frame.origin.y = 0
         }
         
-        let contentWidth = CGFloat(imageViews.count) * scrollView.frame.width
+        let contentWidth = CGFloat(photos.count) * scrollView.frame.width
         scrollView.contentSize = CGSize(width: contentWidth, height: scrollView.frame.height)
     }
 
