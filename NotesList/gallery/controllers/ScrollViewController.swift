@@ -12,18 +12,11 @@ class ScrollViewController: UIViewController {
 
     @IBOutlet weak var pageControl: UIPageControl!
     var photos = [Photo]()
-    var imageViews
+    var imageViews = [UIImageView]()
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-//        let names = ["screen_1","screen_2","screen_3"]
-//        for name in names {
-//            let image = UIImage(named: name)
-//            let imageView = UIImageView(image: image)
-//            scrollView.addSubview(imageView)
-//            photos.append(imageView)
-//        }
-        
+
         pageControl.numberOfPages = photos.count
         pageControl.currentPage = 0
         
@@ -33,7 +26,9 @@ class ScrollViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         for photo in photos {
-            scrollView.addSubview(UIImageView(image: photo.image))
+            let imageView = UIImageView(image: photo.image)
+            scrollView.addSubview(imageView)
+            imageViews.append(imageView)
         }
     }
     
@@ -42,9 +37,9 @@ class ScrollViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
          
-        for (index, imageView) in photos.enumerated() {
+        for (index, imageView) in imageViews.enumerated() {
             imageView.frame.size = scrollView.frame.size
-            imageView.image.frame.origin.x = CGFloat(index) * scrollView.frame.width
+            imageView.frame.origin.x = CGFloat(index) * scrollView.frame.width
             imageView.frame.origin.y = 0
         }
         

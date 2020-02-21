@@ -64,7 +64,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ScrollViewController,
             segue.identifier == "ShowGallery", let indexPath = sender as? IndexPath {
-            
+            controller.photos = self.photos
         }
     }
 }
