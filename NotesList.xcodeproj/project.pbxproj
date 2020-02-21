@@ -12,6 +12,7 @@
 		F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */; };
 		F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */; };
 		F58B151D23FFDBED007E5497 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */; };
+		F58B151F23FFE93A007E5497 /* PhotoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B151E23FFE93A007E5497 /* PhotoSet.swift */; };
 		F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70723FD893C00514A2F /* AppDelegate.swift */; };
 		F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70923FD893C00514A2F /* SceneDelegate.swift */; };
 		F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70B23FD893C00514A2F /* ViewController.swift */; };
@@ -37,6 +38,7 @@
 		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		F58B151E23FFE93A007E5497 /* PhotoSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSet.swift; sourceTree = "<group>"; };
 		F5FAA70423FD893C00514A2F /* NotesList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FAA70723FD893C00514A2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5FAA70923FD893C00514A2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		F500171023FFC02D008174F2 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				F58B151E23FFE93A007E5497 /* PhotoSet.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				F500171523FFC663008174F2 /* MainViewController.swift in Sources */,
 				F5FAA72723FDB3BC00514A2F /* ColorPickerViewController.swift in Sources */,
 				F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */,
+				F58B151F23FFE93A007E5497 /* PhotoSet.swift in Sources */,
 				F5FAA72923FDB3BC00514A2F /* ColorPicker.swift in Sources */,
 				F5FAA72823FDB3BC00514A2F /* DrawView.swift in Sources */,
 				F5FAA72D23FDB3BC00514A2F /* Note.swift in Sources */,

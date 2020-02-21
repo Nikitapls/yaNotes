@@ -9,7 +9,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    var photos = ["first", "sec", "third"]
+    var photos = Photo.allPhotos()
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +39,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        cell.label.text = photos[indexPath.row]
+        cell.imageView.image = photos[indexPath.row].image
         return cell
     }
-    
     
 }

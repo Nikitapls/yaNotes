@@ -311,18 +311,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="164" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00E-t3-QtA">
-                                                    <rect key="frame" x="4" y="15" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mdw-hd-PtN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="164" height="160"/>
+                                                </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Mdw-hd-PtN" secondAttribute="bottom" id="9DB-ER-qgw"/>
+                                                <constraint firstItem="Mdw-hd-PtN" firstAttribute="leading" secondItem="VUN-wf-G9F" secondAttribute="leading" id="o3M-sA-xbK"/>
+                                                <constraint firstAttribute="trailing" secondItem="Mdw-hd-PtN" secondAttribute="trailing" id="pn9-f2-RLe"/>
+                                                <constraint firstItem="Mdw-hd-PtN" firstAttribute="top" secondItem="VUN-wf-G9F" secondAttribute="top" id="xcO-JQ-SPE"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="164" height="160"/>
                                         <connections>
-                                            <outlet property="label" destination="00E-t3-QtA" id="UlZ-RB-icd"/>
+                                            <outlet property="imageView" destination="Mdw-hd-PtN" id="qps-X1-NOV"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
