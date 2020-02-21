@@ -11,8 +11,7 @@
 		F500171523FFC663008174F2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500171423FFC663008174F2 /* MainViewController.swift */; };
 		F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */; };
 		F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */; };
-		F58B151A23FFCD26007E5497 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B151823FFCD26007E5497 /* CollectionViewCell.swift */; };
-		F58B151B23FFCD26007E5497 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58B151923FFCD26007E5497 /* CollectionViewCell.xib */; };
+		F58B151D23FFDBED007E5497 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */; };
 		F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70723FD893C00514A2F /* AppDelegate.swift */; };
 		F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70923FD893C00514A2F /* SceneDelegate.swift */; };
 		F5FAA70C23FD893C00514A2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAA70B23FD893C00514A2F /* ViewController.swift */; };
@@ -37,8 +36,7 @@
 		F500171423FFC663008174F2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
-		F58B151823FFCD26007E5497 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		F58B151923FFCD26007E5497 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		F5FAA70423FD893C00514A2F /* NotesList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FAA70723FD893C00514A2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5FAA70923FD893C00514A2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,8 +122,7 @@
 		F500171123FFC037008174F2 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				F58B151823FFCD26007E5497 /* CollectionViewCell.swift */,
-				F58B151923FFCD26007E5497 /* CollectionViewCell.xib */,
+				F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -266,7 +263,6 @@
 			files = (
 				F5FAA72A23FDB3BC00514A2F /* SecondViewController.xib in Resources */,
 				F5FAA71423FD893D00514A2F /* LaunchScreen.storyboard in Resources */,
-				F58B151B23FFCD26007E5497 /* CollectionViewCell.xib in Resources */,
 				F5FAA71123FD893D00514A2F /* Assets.xcassets in Resources */,
 				F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */,
 				F5FAA70F23FD893C00514A2F /* Main.storyboard in Resources */,
@@ -315,7 +311,7 @@
 				F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */,
 				F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */,
 				F5FAA72C23FDB3BC00514A2F /* NoteExtension.swift in Sources */,
-				F58B151A23FFCD26007E5497 /* CollectionViewCell.swift in Sources */,
+				F58B151D23FFDBED007E5497 /* CollectionViewCell.swift in Sources */,
 				F5FAA71C23FDB2A900514A2F /* TableViewController.swift in Sources */,
 				F5FAA72E23FDB3BC00514A2F /* FileNotebook.swift in Sources */,
 				F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */,
