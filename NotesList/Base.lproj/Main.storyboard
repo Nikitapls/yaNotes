@@ -368,6 +368,8 @@
                                 <subviews>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="wFw-OQ-wZ9">
                                         <rect key="frame" x="8" y="601" width="398" height="37"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="pageControlValueChanged:" destination="far-PS-BLc" eventType="valueChanged" id="cff-Mr-TdB"/>
                                         </connections>

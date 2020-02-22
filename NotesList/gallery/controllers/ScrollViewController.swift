@@ -18,21 +18,20 @@ class ScrollViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-
+        for photo in photos {
+             let imageView = UIImageView(image: photo.image)
+             scrollView.addSubview(imageView)
+             imageViews.append(imageView)
+         }
         pageControl.numberOfPages = photos.count
         pageControl.currentPage = 0
-        
+        pageControl.isEnabled = true
         self.scrollView.bringSubviewToFront(pageControl)
-        self.isEditing = false
         // Do any additional setup after loading the view.
     }
-    
     override func viewWillAppear(_ animated: Bool) {
-        for photo in photos {
-            let imageView = UIImageView(image: photo.image)
-            scrollView.addSubview(imageView)
-            imageViews.append(imageView)
-        }
+        
+        
     }
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -53,7 +52,9 @@ class ScrollViewController: UIViewController {
 
     @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
         let offsetX = scrollView.frame.width * CGFloat(sender.currentPage)
-        scrollView.contentOffset = CGPoint(x: offsetX, y: 0)
+        print(sender.currentPage)
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+        print(scrollView.contentOffset)
     }
 }
 

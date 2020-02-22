@@ -101,6 +101,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         if let controller = segue.destination as? ScrollViewController,
             segue.identifier == "ShowGallery", let indexPath = sender as? IndexPath {
             controller.photos = self.photos //добавить переключение экрана на выбранную картинку
+            controller.hidesBottomBarWhenPushed = true
         }
     }
 }
