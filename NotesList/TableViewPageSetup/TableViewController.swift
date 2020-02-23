@@ -11,12 +11,12 @@ class TableViewController: UIViewController {
         super.viewDidLoad()
         title = "Заметки"
         
-//        do {
-//            try fileNotebook.loadFromFile()
-//
-//        } catch {
-//            print(error.localizedDescription)
-//        }
+        do {
+            try fileNotebook.loadFromFile()
+
+        } catch {
+            print(error.localizedDescription)
+        }
         
         if fileNotebook.dict.count == 0 { //add test value if needed
             fileNotebook.add(Note(uid: "sad", title: "titleNote", content: "noteContent", color: .red, impotance: Impotance.unimpotant, selfDestructionDate: nil)) }
@@ -50,7 +50,6 @@ class TableViewController: UIViewController {
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
         cell.contentLabel?.text = note.content
-
         
         tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         tableViewField.endUpdates()
