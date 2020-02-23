@@ -54,7 +54,6 @@ class MainViewController: UIViewController {
         ActionSheet.addAction(PhotoLibrary)
         ActionSheet.addAction(cancelAction)
         self.present(ActionSheet, animated: true, completion: nil)
-    
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

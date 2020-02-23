@@ -21,6 +21,7 @@ class ScrollViewController: UIViewController {
              scrollView.addSubview(imageView)
              imageViews.append(imageView)
          }
+        scrollView.showsHorizontalScrollIndicator = false
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -43,17 +44,8 @@ class ScrollViewController: UIViewController {
         
         let contentWidth = CGFloat(photos.count) * scrollView.frame.width
         scrollView.contentSize = CGSize(width: contentWidth, height: scrollView.frame.height)
+        let offsetX = scrollView.frame.width * CGFloat(startPageNumber ?? 0)
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
     }
 
-//    @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
-//        let offsetX = scrollView.frame.width * CGFloat(sender.currentPage)
-//        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
-//    }
 }
-
-//extension ScrollViewController: UIScrollViewDelegate {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let currentIndex = Int((scrollView.contentOffset.x / scrollView.frame.width).rounded())
-//        pageControl.currentPage = currentIndex
-//    }
-//}
