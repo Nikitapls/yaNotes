@@ -13,7 +13,7 @@ class ScrollViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     var photos = [Photo]()
     var imageViews = [UIImageView]()
-
+    var startPageNumber: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +30,9 @@ class ScrollViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        
-        
+        let offsetX = scrollView.frame.width * CGFloat(2)
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+        scrollView.setNeedsDisplay()
     }
     
     @IBOutlet weak var scrollView: UIScrollView!

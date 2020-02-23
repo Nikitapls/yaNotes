@@ -102,6 +102,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             segue.identifier == "ShowGallery", let indexPath = sender as? IndexPath {
             controller.photos = self.photos //добавить переключение экрана на выбранную картинку
             controller.hidesBottomBarWhenPushed = true
+            controller.startPageNumber = indexPath.row
         }
     }
 }
