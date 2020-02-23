@@ -37,12 +37,12 @@ class TableViewController: UIViewController {
             print(error.localizedDescription)
         }
         super.viewWillDisappear(animated)
-        
     }
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
+        tableViewField.beginUpdates()
         let note = Note(title: "", content: "", impotance: Impotance.usual)
-        
+               
         fileNotebook.add(note)
         notes?.append(note)
         
@@ -50,12 +50,13 @@ class TableViewController: UIViewController {
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
         cell.contentLabel?.text = note.content
+
         
-        tableViewField.beginUpdates()
-        let indexPath = IndexPath(row: (notes?.count ?? 1) - 1, section: 0)
-        tableViewField.insertRows(at: [indexPath], with: .fade)
+        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         tableViewField.endUpdates()
-        
+        tableViewField.reloadData()
+        let indexPath = IndexPath(row: (notes?.count ?? 1) - 1, section: 0)
+        print(indexPath.row)
         tableView(self.tableViewField, didSelectRowAt: indexPath)
     }
     
@@ -120,6 +121,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ColorPickerViewController,
                  segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
+            print(indexPath)
             guard let note = notes?[indexPath.row] else {return}
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
@@ -134,7 +136,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
                     notes.remove(at: index)
                 }
                 self?.notes = notes
-
             }
         }
     }
