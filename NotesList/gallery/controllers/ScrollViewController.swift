@@ -30,9 +30,10 @@ class ScrollViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        let offsetX = scrollView.frame.width * CGFloat(2)
-        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
-        scrollView.setNeedsDisplay()
+        pageControl.currentPage = startPageNumber ?? 0
+        let offsetX = scrollView.frame.width * CGFloat(startPageNumber ?? 0)
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
+        print(scrollView.contentOffset)
     }
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -53,9 +54,7 @@ class ScrollViewController: UIViewController {
 
     @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
         let offsetX = scrollView.frame.width * CGFloat(sender.currentPage)
-        print(sender.currentPage)
-        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
-        print(scrollView.contentOffset)
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
     }
 }
 
