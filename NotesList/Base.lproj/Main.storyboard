@@ -364,28 +364,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-rB-DVl">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
-                                <subviews>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="wFw-OQ-wZ9">
-                                        <rect key="frame" x="8" y="601" width="398" height="37"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="pageControlValueChanged:" destination="far-PS-BLc" eventType="valueChanged" id="cff-Mr-TdB"/>
-                                        </connections>
-                                    </pageControl>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="wFw-OQ-wZ9" firstAttribute="bottom" secondItem="0Tb-xh-gfb" secondAttribute="bottom" constant="1" id="7NT-Gc-YWc"/>
-                                    <constraint firstItem="wFw-OQ-wZ9" firstAttribute="leading" secondItem="0Tb-xh-gfb" secondAttribute="leading" constant="8" id="Dva-8B-fJe"/>
-                                    <constraint firstItem="0Tb-xh-gfb" firstAttribute="trailing" secondItem="wFw-OQ-wZ9" secondAttribute="trailing" constant="8" id="Xnw-52-Eb8"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="f5p-jA-GB2"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="0Tb-xh-gfb"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="wlk-Oh-BIy" firstAttribute="bottom" secondItem="Rbv-rB-DVl" secondAttribute="bottom" id="O0e-5Z-LLf"/>
                             <constraint firstItem="Rbv-rB-DVl" firstAttribute="trailing" secondItem="wlk-Oh-BIy" secondAttribute="trailing" id="T4Y-6d-Q2f"/>
                             <constraint firstItem="Rbv-rB-DVl" firstAttribute="leading" secondItem="wlk-Oh-BIy" secondAttribute="leading" id="bUF-2w-0dN"/>
                             <constraint firstItem="Rbv-rB-DVl" firstAttribute="bottom" secondItem="wlk-Oh-BIy" secondAttribute="bottom" id="mu4-fw-fF2"/>
@@ -396,13 +382,12 @@
                     <tabBarItem key="tabBarItem" title="Item" id="DXy-EE-k6G"/>
                     <navigationItem key="navigationItem" id="Hq7-Zj-aUJ"/>
                     <connections>
-                        <outlet property="pageControl" destination="wFw-OQ-wZ9" id="8hb-NX-t0f"/>
                         <outlet property="scrollView" destination="Rbv-rB-DVl" id="Foc-wy-Gj3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wlH-vw-zef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3348" y="-317"/>
+            <point key="canvasLocation" x="3347.826086956522" y="-317.41071428571428"/>
         </scene>
     </scenes>
 </document>

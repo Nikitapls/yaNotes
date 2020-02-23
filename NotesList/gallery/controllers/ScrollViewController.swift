@@ -10,27 +10,20 @@ import UIKit
 
 class ScrollViewController: UIViewController {
 
-    @IBOutlet weak var pageControl: UIPageControl!
     var photos = [Photo]()
     var imageViews = [UIImageView]()
     var startPageNumber: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.delegate = self
         for photo in photos {
              let imageView = UIImageView(image: photo.image)
              scrollView.addSubview(imageView)
              imageViews.append(imageView)
          }
-        pageControl.numberOfPages = photos.count
-        pageControl.currentPage = 0
-        pageControl.isEnabled = true
-        self.scrollView.bringSubviewToFront(pageControl)
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        pageControl.currentPage = startPageNumber ?? 0
         let offsetX = scrollView.frame.width * CGFloat(startPageNumber ?? 0)
         scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
         print(scrollView.contentOffset)
@@ -52,15 +45,15 @@ class ScrollViewController: UIViewController {
         scrollView.contentSize = CGSize(width: contentWidth, height: scrollView.frame.height)
     }
 
-    @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
-        let offsetX = scrollView.frame.width * CGFloat(sender.currentPage)
-        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
-    }
+//    @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
+//        let offsetX = scrollView.frame.width * CGFloat(sender.currentPage)
+//        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
+//    }
 }
 
-extension ScrollViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentIndex = Int((scrollView.contentOffset.x / scrollView.frame.width).rounded())
-        pageControl.currentPage = currentIndex
-    }
-}
+//extension ScrollViewController: UIScrollViewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let currentIndex = Int((scrollView.contentOffset.x / scrollView.frame.width).rounded())
+//        pageControl.currentPage = currentIndex
+//    }
+//}
