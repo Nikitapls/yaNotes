@@ -5,18 +5,24 @@ import UIKit
 class TableViewController: UIViewController {
     @IBOutlet weak var tableViewField: UITableView!
     var fileNotebook = FileNotebook()
+    var notes: [Note]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Заметки"
         
-        do {
-            try fileNotebook.loadFromFile()
-        } catch {
-            print(error.localizedDescription)
-        }
-        if fileNotebook.dict.count == 0 { //add test value
+//        do {
+//            try fileNotebook.loadFromFile()
+//
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+        
+        if fileNotebook.dict.count == 0 { //add test value if needed
             fileNotebook.add(Note(uid: "sad", title: "titleNote", content: "noteContent", color: .red, impotance: Impotance.unimpotant, selfDestructionDate: nil)) }
+        
+        notes = Array(fileNotebook.dict.values)
+        
         tableViewField.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "note")
         self.tableViewField.dataSource = self
@@ -36,17 +42,21 @@ class TableViewController: UIViewController {
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let note = Note(title: "", content: "", impotance: Impotance.usual)
+        
         fileNotebook.add(note)
+        notes?.append(note)
+        
         let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
         cell.contentLabel?.text = note.content
         
         tableViewField.beginUpdates()
-        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+        let indexPath = IndexPath(row: (notes?.count ?? 1) - 1, section: 0)
+        tableViewField.insertRows(at: [indexPath], with: .fade)
         tableViewField.endUpdates()
         
-        tableView(self.tableViewField, didSelectRowAt: IndexPath(row: 0, section: 0))
+        tableView(self.tableViewField, didSelectRowAt: indexPath)
     }
     
     @IBOutlet weak var addButton: UIBarButtonItem!
@@ -73,19 +83,24 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let note = Array(fileNotebook.dict.values)[indexPath.row]
+            guard var notes = notes else { return }
+            let note = notes[indexPath.row]
             fileNotebook.remove(with: note.uid)
+            if let index = notes.firstIndex(of: note) {
+                notes.remove(at: index)
+            }
+            self.notes = notes
             tableView.reloadData()
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fileNotebook.dict.count
+        return notes?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "note", for: indexPath) as! NoteTableViewCell
-        let note = Array(fileNotebook.dict.values)[indexPath.row]
+        guard let note = notes?[indexPath.row] else {return cell}
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
         cell.contentLabel?.text = note.content
@@ -104,13 +119,22 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ColorPickerViewController,
-                 segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath{
-            controller.note = Array(fileNotebook.dict.values)[indexPath.row]
+                 segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
+            guard let note = notes?[indexPath.row] else {return}
+            controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.fileNotebook.add(note)
+                self?.notes?.append(note)
             }
             controller.deleteOldNote = { [weak self] (note: Note) in
                 self?.fileNotebook.remove(with: note.uid)
+                
+                guard var notes = self?.notes else { return }
+                if let index = notes.firstIndex(of: note) {
+                    notes.remove(at: index)
+                }
+                self?.notes = notes
+
             }
         }
     }
