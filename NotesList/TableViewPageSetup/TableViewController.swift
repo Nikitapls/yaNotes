@@ -81,8 +81,11 @@ class TableViewController: UIViewController {
             guard let newNote = controller.newNote else {
                 return
             }
-         
-            if 
+           // if let
+            if let note = notes?.popLast() {
+                fileNotebook.remove(with: note.uid)
+            }
+            tableViewField.reloadData()
         }
     }
     
