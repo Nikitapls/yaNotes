@@ -11,7 +11,7 @@ import UIKit
 class ColorPickerViewController: UIViewController {
     
     var note: Note?
-    var newNote: Note?
+    var newNote: Note? = nil
     var currColorFromSecView: UIColor = .gray
     var lastColorChoice: DrawView?
     var addNewNote: ((Note) -> Void)?
@@ -39,11 +39,11 @@ class ColorPickerViewController: UIViewController {
             tapColorPicker.isEnabled = false
         }
     }
-    
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hidesBottomBarWhenPushed = false
         lastColorChoice = currentColor
         setBorder(view: currentColor)
         setBorder(view: firstColor)
@@ -82,6 +82,12 @@ class ColorPickerViewController: UIViewController {
         currentColor.backgroundColor = note?.color
         lastColorChoice = currentColor
         currentColor.moveDrawObject()
+       // navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func setBorder(view: UIView) {

@@ -18,7 +18,7 @@ struct Photo {
   }
   
   static func allPhotos() -> [Photo] {
-    let photoNames = ["screen_1","screen_2","screen_3"]
+    let photoNames = ["screen_1","screen_2","screen_3","screen_4","screen_5"]
     var photos: [Photo] = []
     for name in photoNames {
         if let image = UIImage(named: name) {

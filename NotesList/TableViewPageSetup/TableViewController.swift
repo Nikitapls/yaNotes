@@ -30,6 +30,12 @@ class TableViewController: UIViewController {
         self.tableViewField.allowsMultipleSelectionDuringEditing = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           tableViewField.reloadData()
+        
+       }
+    
     override func viewWillDisappear(_ animated: Bool) {
         do {
             try fileNotebook.saveToFile()
@@ -74,19 +80,16 @@ class TableViewController: UIViewController {
     }
 
     @IBAction func unwindToTableViewController(_ unwindSegue: UIStoryboardSegue) {
-//        let sourceViewController = unwindSegue.source as? ColorPickerViewController
-//        // Use data from the view controller which initiated the unwind segue
-//        guard _ = sourceViewController.newNote? else {}
         if let controller = unwindSegue.source as? ColorPickerViewController {
-            guard let newNote = controller.newNote else {
+            guard controller.newNote == nil else {
                 return
             }
-           // if let
             if let note = notes?.popLast() {
                 fileNotebook.remove(with: note.uid)
             }
             tableViewField.reloadData()
         }
+        //self.hidesBottomBarWhenPushed = false
     }
     
 }
@@ -134,6 +137,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.hidesBottomBarWhenPushed = true
         if let controller = segue.destination as? ColorPickerViewController,
                  segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
             print(indexPath)
@@ -152,12 +156,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 self?.notes = notes
             }
+            
         }
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableViewField.reloadData()
     }
 }

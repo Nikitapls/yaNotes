@@ -236,6 +236,11 @@
                         <viewLayoutGuide key="safeArea" id="ln0-dr-385"/>
                     </view>
                     <navigationItem key="navigationItem" id="2Fm-KW-Mwh">
+                        <barButtonItem key="leftBarButtonItem" title="Delete" id="eTm-UF-mrI">
+                            <connections>
+                                <segue destination="pn1-7T-t6l" kind="unwind" unwindAction="unwindToTableViewController:" id="lhl-Xe-PkI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="6ZU-zu-9dQ">
                             <connections>
                                 <action selector="saveButtonClicked:" destination="LJ3-My-5dY" id="WY9-HJ-wPX"/>
@@ -256,6 +261,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OwQ-52-V9w" sceneMemberID="firstResponder"/>
+                <exit id="pn1-7T-t6l" userLabel="Exit" sceneMemberID="exit"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="cRB-6u-IGJ">
                     <connections>
                         <action selector="longPressColorPicker:" destination="LJ3-My-5dY" id="7wP-Ee-X6J"/>
