@@ -43,7 +43,6 @@ class ColorPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hidesBottomBarWhenPushed = false
         lastColorChoice = currentColor
         setBorder(view: currentColor)
         setBorder(view: firstColor)

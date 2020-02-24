@@ -137,7 +137,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.hidesBottomBarWhenPushed = true
+        //self.hidesBottomBarWhenPushed = true
         if let controller = segue.destination as? ColorPickerViewController,
                  segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
             print(indexPath)
