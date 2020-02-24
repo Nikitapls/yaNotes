@@ -39,7 +39,7 @@
                                 <action selector="editButtonClicked:" destination="QqK-Qa-p1i" id="Onw-ia-OsG"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="mvu-it-VOw">
+                        <barButtonItem key="rightBarButtonItem" title="Add" image="plus" catalog="system" id="mvu-it-VOw">
                             <connections>
                                 <action selector="addButtonClicked:" destination="QqK-Qa-p1i" id="5qo-qP-gJj"/>
                             </connections>
@@ -390,4 +390,7 @@
             <point key="canvasLocation" x="3347.826086956522" y="-317.41071428571428"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="plus" catalog="system" width="64" height="56"/>
+    </resources>
 </document>

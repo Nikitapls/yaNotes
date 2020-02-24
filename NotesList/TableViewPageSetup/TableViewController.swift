@@ -73,6 +73,19 @@ class TableViewController: UIViewController {
         }
     }
 
+    @IBAction func unwindToTableViewController(_ unwindSegue: UIStoryboardSegue) {
+//        let sourceViewController = unwindSegue.source as? ColorPickerViewController
+//        // Use data from the view controller which initiated the unwind segue
+//        guard _ = sourceViewController.newNote? else {}
+        if let controller = unwindSegue.source as? ColorPickerViewController {
+            guard let newNote = controller.newNote else {
+                return
+            }
+         
+            if 
+        }
+    }
+    
 }
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate {
