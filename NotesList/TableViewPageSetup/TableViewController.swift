@@ -86,7 +86,7 @@ class TableViewController: UIViewController {
             }
             if let note = notes?.popLast() {
                 fileNotebook.remove(with: note.uid)
-            }
+            }//
             tableViewField.reloadData()
         }
         //self.hidesBottomBarWhenPushed = false
