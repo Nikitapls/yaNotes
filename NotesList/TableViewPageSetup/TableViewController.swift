@@ -38,7 +38,7 @@ class TableViewController: UIViewController {
         loadOperation.completionBlock = {
             if let loadNotesResult = loadOperation.notesLoadResult {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
-//                self.notes = Array(loadNotesResult.values)
+                self.notes = Array(loadNotesResult.values)
             }
 //            sleep(3000)
         }
