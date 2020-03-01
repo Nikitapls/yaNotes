@@ -11,18 +11,17 @@ import Foundation
 class LoadNotesOperation: AsyncOperation {
 
     private let notebook: FileNotebook
-    private let loadFromDB: LoadNotesDBOperation
     private var loadFromBackend: LoadNotesBackendOperation
-
-    private(set) var notes: [Note]?
+    private let backendQueue: OperationQueue
+    private(set) var notesLoadResult: [String: Note]?
 
     init(notebook: FileNotebook,
          backendQueue: OperationQueue,
          dbQueue: OperationQueue) {
         self.notebook = notebook
-
-        loadFromDB = LoadNotesDBOperation(fileNotebook: notebook)
-        loadFromBackend = LoadNotesBackendOperation(notes: Array(notebook.notes.values))
+        self.backendQueue = backendQueue
+        let loadFromDB = LoadNotesDBOperation(fileNotebook: notebook)
+        loadFromBackend = LoadNotesBackendOperation(notes: notebook.notes)
 
         super.init()
         
@@ -30,15 +29,15 @@ class LoadNotesOperation: AsyncOperation {
             guard let self = self else { return }
             switch self.loadFromBackend.result! {
             case .success(let notes):
-                self.notes = notes
+                self.notesLoadResult = notes
                 self.finish()
             case .failure:
-                dbQueue.addOperation(self.loadFromDB)
+                dbQueue.addOperation(loadFromDB)
             }
         }
         loadFromDB.completionBlock = { [weak self] in
             guard let self = self else { return }
-            self.notes = self.loadFromDB.result
+            self.notesLoadResult = loadFromDB.result
             self.finish()
         }
     }

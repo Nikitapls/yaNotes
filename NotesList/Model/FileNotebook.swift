@@ -4,26 +4,30 @@ import CocoaLumberjack
 //import CocoaLumberjack.swift
 class FileNotebook {
     
-    private(set) var dict: [String: Note] = [String: Note]()
+    private(set) var notes: [String: Note] = [String: Note]()
     private lazy var dirPath: URL  = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("caches")
     
     public func add(_ note: Note) {
-        if dict[note.uid] != nil {
+        if notes[note.uid] != nil {
             DDLogInfo("Note with id \(note.uid) is overwritten")
         } else {
-            dict[note.uid] = note
+            notes[note.uid] = note
             DDLogInfo("Note with id \(note.uid) is added")
         }
     }
     
+    init(notes: [String: Note]) {
+        self.notes = notes
+    }
+    
     public func remove(with uid: String) {
-        dict.removeValue(forKey: uid)
+        notes.removeValue(forKey: uid)
         DDLogInfo("Note with id \(uid) is removed")
     }
     
     public func saveToFile() throws {
         var dictJson = [String: Any]()
-        for (uid, value) in dict {
+        for (uid, value) in notes {
             dictJson[uid] = value.json
         }
         let jsdata = try JSONSerialization.data(withJSONObject: dictJson, options: [])
@@ -39,7 +43,7 @@ class FileNotebook {
             for (key, value) in dictData {
                 dictInput[key] = Note.parse(json: value)
             }
-            self.dict = dictInput
+            self.notes = dictInput
             DDLogInfo("Notes are loaded from file")
         }
     }
@@ -47,4 +51,5 @@ class FileNotebook {
     public func setUrl(url: URL) {
         self.dirPath = url
     }
+    
 }

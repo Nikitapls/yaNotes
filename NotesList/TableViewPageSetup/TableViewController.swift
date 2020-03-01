@@ -18,10 +18,10 @@ class TableViewController: UIViewController {
             print(error.localizedDescription)
         }
         
-        if fileNotebook.dict.count == 0 { //add test value if needed
+        if fileNotebook.notes.count == 0 { //add test value if needed
             fileNotebook.add(Note(uid: "sad", title: "titleNote", content: "noteContent", color: .red, impotance: Impotance.unimpotant, selfDestructionDate: nil)) }
         
-        notes = Array(fileNotebook.dict.values)
+        notes = Array(fileNotebook.notes.values)
         
         tableViewField.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "note")

@@ -9,7 +9,7 @@
 import Foundation
 
 enum LoadNotesBackendResult {
-  case success([Note])
+  case success([String: Note])
   case failure(NetworkError)
 }
 
@@ -17,7 +17,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
 
     var result: LoadNotesBackendResult?
     
-    init(notes: [Note]) {
+    init(notes: [String: Note]) {
         super.init()
     }
     

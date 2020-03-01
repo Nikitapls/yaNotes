@@ -17,7 +17,7 @@ class SaveNoteOperation: AsyncOperation {
         super.init()
         
         saveToDb.completionBlock = {
-            let saveToBackend = SaveNotesBackendOperation(notes: Array(notebook.notes.values))
+            let saveToBackend = SaveNotesBackendOperation(notes: notebook.notes)
             saveToBackend.completionBlock = {
                 switch saveToBackend.result! {
                 case .success:

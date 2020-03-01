@@ -9,14 +9,14 @@
 import Foundation
 
 class LoadNotesDBOperation: BaseDBOperation {
-    var result: [Note]?
+    var result: [String: Note]?
     
     init(fileNotebook: FileNotebook) {
         super.init(notebook: fileNotebook)
     }
     
     override func main() {
-        result = Array(notebook.notes.values)
+        result = notebook.notes
         finish()
     }
 }
