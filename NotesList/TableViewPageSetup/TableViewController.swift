@@ -61,7 +61,7 @@ class TableViewController: UIViewController {
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let note = Note(title: "", content: "", impotance: Impotance.usual)
-        //fileNotebook.add(note)
+        tableViewField.beginUpdates()
         addSaveOperationToQueue(note: note)
         notes?.append(note)
         
@@ -70,7 +70,7 @@ class TableViewController: UIViewController {
         cell.titleLabel?.text = note.title
         cell.contentLabel?.text = note.content
         
-        tableViewField.beginUpdates()
+        
         tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         tableViewField.endUpdates()
         tableViewField.reloadData()
@@ -97,7 +97,6 @@ class TableViewController: UIViewController {
             }
             if let note = notes?.popLast() {
                 addRemoveNoteOperationToQueue(note: note)
-                //fileNotebook.remove(with: note.uid)
             }//
             tableViewField.reloadData()
         }
@@ -152,15 +151,13 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         if let controller = segue.destination as? ColorPickerViewController,
                  segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
             print(indexPath)
-            guard let note = notes?[indexPath.row] else {return}
+            guard let note = notes?[indexPath.row] else { return }
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
-                //self?.fileNotebook.add(note)
                 self?.addSaveOperationToQueue(note: note)
                 self?.notes?.append(note)
             }
             controller.deleteOldNote = { [weak self] (note: Note) in
-                //self?.fileNotebook.remove(with: note.uid)
                 self?.addRemoveNoteOperationToQueue(note: note)
                 guard var notes = self?.notes else { return }
                 if let index = notes.firstIndex(of: note) {
