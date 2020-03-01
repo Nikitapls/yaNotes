@@ -1,10 +1,3 @@
-//
-//  LoadNotesOperation.swift
-//  ios-online-l5-ops-example
-//
-//  Created by ios_school on 2/28/20.
-//  Copyright © 2020 Dmitry Galimzyanov. All rights reserved.
-//
 
 import Foundation
 
