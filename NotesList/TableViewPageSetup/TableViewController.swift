@@ -136,6 +136,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         cell.contentLabel?.text = note.content
         
         tableView.beginUpdates()
+        //tableView.insertRows(at: [indexPath], with: .fade)
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
         tableView.endUpdates()
         return cell
