@@ -33,13 +33,23 @@ class TableViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           tableViewField.reloadData()
-       }
+        super.viewWillAppear(animated)
+        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        loadOperation.completionBlock = {
+            if let loadNotesResult = loadOperation.notesLoadResult {
+                self.fileNotebook.replaceNotes(notes: loadNotesResult)
+//                self.notes = Array(loadNotesResult.values)
+            }
+//            sleep(3000)
+        }
+        commonQueue.addOperation(loadOperation)
+        tableViewField.reloadData()
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         do {
             try fileNotebook.saveToFile()
+            print(fileNotebook.notes.count)
         } catch {
             print(error.localizedDescription)
         }
@@ -134,11 +144,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
         cell.contentLabel?.text = note.content
-        
-        tableView.beginUpdates()
-        //tableView.insertRows(at: [indexPath], with: .fade)
-        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
-        tableView.endUpdates()
         return cell
     }
 
