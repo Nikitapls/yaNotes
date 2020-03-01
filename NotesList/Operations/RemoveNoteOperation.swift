@@ -9,11 +9,12 @@
 import Foundation
 
 class RemoveNoteOperation: AsyncOperation {
-    private let note: Note
-    private let notebook: FileNotebook
-    private var removeFromDb: RemoveNoteDBOperation
-    private var removeFromBackend: SaveNotesBackendOperation
     
+//    private let note: Note
+//    private let notebook: FileNotebook
+    
+    private var removeFromBackend: SaveNotesBackendOperation
+    private let backendQueue: OperationQueue
     private(set) var result: Bool? = false
     
     init(note: Note,
@@ -21,11 +22,11 @@ class RemoveNoteOperation: AsyncOperation {
     backendQueue: OperationQueue,
     dbQueue: OperationQueue) {
         
-        self.notebook = notebook
-        self.note = note
-        
-        removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
-        removeFromBackend = SaveNotesBackendOperation(notes: Array(notebook.notes.values))
+//        self.notebook = notebook
+//        self.note = note
+        self.backendQueue = backendQueue
+        let removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
+        removeFromBackend = SaveNotesBackendOperation(notes: notebook.notes)
         super.init()
         
         removeFromBackend.completionBlock = { [weak self] in
@@ -36,7 +37,7 @@ class RemoveNoteOperation: AsyncOperation {
             case .failure(.unreachable):
                     self.result = false
             }
-            dbQueue.addOperation(self.removeFromDb)
+            dbQueue.addOperation(removeFromDb)
         }
         
         removeFromDb.completionBlock = { [weak self] in

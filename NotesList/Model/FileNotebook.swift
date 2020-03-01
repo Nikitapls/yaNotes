@@ -16,10 +16,6 @@ class FileNotebook {
         }
     }
     
-    init(notes: [String: Note]) {
-        self.notes = notes
-    }
-    
     public func remove(with uid: String) {
         notes.removeValue(forKey: uid)
         DDLogInfo("Note with id \(uid) is removed")
@@ -52,4 +48,7 @@ class FileNotebook {
         self.dirPath = url
     }
     
+    public func replaceNotes(notes: [String: Note]) {
+        self.notes = notes
+    }
 }
