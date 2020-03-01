@@ -3,6 +3,11 @@
 import UIKit
 
 class TableViewController: UIViewController {
+    
+    let backendQueue = OperationQueue()
+    let dbQueue = OperationQueue()
+    let commonQueue = OperationQueue()
+    
     @IBOutlet weak var tableViewField: UITableView!
     var fileNotebook = FileNotebook()
     var notes: [Note]?
@@ -18,9 +23,6 @@ class TableViewController: UIViewController {
             print(error.localizedDescription)
         }
         
-        if fileNotebook.notes.count == 0 { //add test value if needed
-            fileNotebook.add(Note(uid: "sad", title: "titleNote", content: "noteContent", color: .red, impotance: Impotance.unimpotant, selfDestructionDate: nil)) }
-        
         notes = Array(fileNotebook.notes.values)
         
         tableViewField.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
@@ -33,7 +35,6 @@ class TableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
            super.viewWillAppear(animated)
            tableViewField.reloadData()
-        
        }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,11 +46,23 @@ class TableViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
+    func addSaveOperationToQueue(note: Note) {
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        commonQueue.addOperation(saveNoteOperation)
+    }
+    
+    func addRemoveNoteOperationToQueue(note: Note) {
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        commonQueue.addOperation(removeNoteOperation)
+    }
+    
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
-        tableViewField.beginUpdates()
         let note = Note(title: "", content: "", impotance: Impotance.usual)
-               
-        fileNotebook.add(note)
+        //fileNotebook.add(note)
+        addSaveOperationToQueue(note: note)
         notes?.append(note)
         
         let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
@@ -57,6 +70,7 @@ class TableViewController: UIViewController {
         cell.titleLabel?.text = note.title
         cell.contentLabel?.text = note.content
         
+        tableViewField.beginUpdates()
         tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         tableViewField.endUpdates()
         tableViewField.reloadData()
@@ -64,10 +78,7 @@ class TableViewController: UIViewController {
         print(indexPath.row)
         tableView(self.tableViewField, didSelectRowAt: indexPath)
     }
-    
-    @IBOutlet weak var addButton: UIBarButtonItem!
-    @IBOutlet weak var editButton: UIBarButtonItem!
-    
+
     @IBAction func editButtonClicked(_ sender: UIBarButtonItem) {
        isEditing = !isEditing
         if(isEditing) {
@@ -85,11 +96,11 @@ class TableViewController: UIViewController {
                 return
             }
             if let note = notes?.popLast() {
-                fileNotebook.remove(with: note.uid)
+                addRemoveNoteOperationToQueue(note: note)
+                //fileNotebook.remove(with: note.uid)
             }//
             tableViewField.reloadData()
         }
-        //self.hidesBottomBarWhenPushed = false
     }
     
 }
@@ -104,7 +115,8 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             guard var notes = notes else { return }
             let note = notes[indexPath.row]
-            fileNotebook.remove(with: note.uid)
+            let removeNoteOperation = RemoveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+            commonQueue.addOperation(removeNoteOperation)
             if let index = notes.firstIndex(of: note) {
                 notes.remove(at: index)
             }
@@ -137,26 +149,25 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //self.hidesBottomBarWhenPushed = true
         if let controller = segue.destination as? ColorPickerViewController,
                  segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
             print(indexPath)
             guard let note = notes?[indexPath.row] else {return}
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
-                self?.fileNotebook.add(note)
+                //self?.fileNotebook.add(note)
+                self?.addSaveOperationToQueue(note: note)
                 self?.notes?.append(note)
             }
             controller.deleteOldNote = { [weak self] (note: Note) in
-                self?.fileNotebook.remove(with: note.uid)
-                
+                //self?.fileNotebook.remove(with: note.uid)
+                self?.addRemoveNoteOperationToQueue(note: note)
                 guard var notes = self?.notes else { return }
                 if let index = notes.firstIndex(of: note) {
                     notes.remove(at: index)
                 }
                 self?.notes = notes
             }
-            
         }
     }
 }
