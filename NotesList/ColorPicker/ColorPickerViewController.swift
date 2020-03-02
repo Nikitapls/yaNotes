@@ -59,26 +59,22 @@ class ColorPickerViewController: UIViewController {
         }
         userChoiceColor.setGestureRecognizers(recognizersArr: [tapColorPicker,longPressColorPicker])
         userChoiceColor = .init()
-        lastColorChoice = currentColor
-        currentColor.moveDrawObject()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        titleField.text = note?.title
-        contentField.text = note?.content
-        if let selfDestructionDate = note?.selfDestructionDate {
-            dateField.date = selfDestructionDate
-        } else {
-            dateSwitch.isOn = false
-            dateField.isHidden = true
+            titleField.text = note?.title
+            contentField.text = note?.content
+            if let selfDestructionDate = note?.selfDestructionDate {
+                dateField.date = selfDestructionDate
+            } else {
+                dateSwitch.isOn = false
+                dateField.isHidden = true
+            }
+            currentColor.backgroundColor = note?.color
+            lastColorChoice = currentColor
+            currentColor.moveDrawObject()
         }
-        currentColor.backgroundColor = note?.color
-        lastColorChoice = currentColor
-        currentColor.moveDrawObject()
-       // navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+        }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
