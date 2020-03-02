@@ -16,12 +16,12 @@ class TableViewController: UIViewController {
         super.viewDidLoad()
         title = "Заметки"
         
-        do {
-            try fileNotebook.loadFromFile()
-
-        } catch {
-            print(error.localizedDescription)
-        }
+//        do {
+//            try fileNotebook.loadFromFile()
+//
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         
         notes = Array(fileNotebook.notes.values)
         
@@ -52,12 +52,13 @@ class TableViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        do {
-            try fileNotebook.saveToFile()
-            print(fileNotebook.notes.count)
-        } catch {
-            print(error.localizedDescription)
-        }
+//        do {
+//            try fileNotebook.saveToFile()
+////            print("Dissapear: notes:count")
+////            print(fileNotebook.notes.count)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         super.viewWillDisappear(animated)
     }
     
@@ -90,7 +91,6 @@ class TableViewController: UIViewController {
         tableViewField.endUpdates()
         tableViewField.reloadData()
         let indexPath = IndexPath(row: (notes?.count ?? 1) - 1, section: 0)
-        print(indexPath.row)
         tableView(self.tableViewField, didSelectRowAt: indexPath)
     }
 
@@ -116,7 +116,6 @@ class TableViewController: UIViewController {
             tableViewField.reloadData()
         }
     }
-    
 }
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate {
@@ -145,6 +144,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "note", for: indexPath) as! NoteTableViewCell
+        print(indexPath.row)
         guard let note = notes?[indexPath.row] else {return cell}
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
