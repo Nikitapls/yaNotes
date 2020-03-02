@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecondViewController" customModule="test" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecondViewController" customModule="NotesList" customModuleProvider="target">
             <connections>
                 <outlet property="colorPickerField" destination="RSs-vD-Pdz" id="ADx-9A-Op7"/>
                 <outlet property="hexField" destination="j5m-f4-dkJ" id="jKC-qP-V2U"/>
@@ -58,7 +58,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSs-vD-Pdz" customClass="ColorPickerView" customModule="test" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSs-vD-Pdz" customClass="ColorPickerView" customModule="NotesList" customModuleProvider="target">
                     <rect key="frame" x="16" y="199" width="288" height="311"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
