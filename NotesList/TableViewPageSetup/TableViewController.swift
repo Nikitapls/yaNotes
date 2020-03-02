@@ -43,6 +43,9 @@ class TableViewController: UIViewController {
                     })
                 self.notes = newNotes
             }
+            DispatchQueue.main.async {
+                self.tableViewField.reloadData()
+            }
         }
         commonQueue.addOperation(loadOperation)
     }
@@ -50,7 +53,7 @@ class TableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addLoadNotesOperation()
-        tableViewField.reloadData()
+        //tableViewField.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,17 +85,21 @@ class TableViewController: UIViewController {
         tableViewField.beginUpdates()
         addSaveOperationToQueue(note: note)
         notes?.append(note)
-        let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
-        cell.colorField?.backgroundColor = note.color
-        cell.titleLabel?.text = note.title
-        cell.contentLabel?.text = note.content
         
-        
-        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        tableViewField.endUpdates()
-        tableViewField.reloadData()
-        let indexPath = IndexPath(row: (notes?.count ?? 1) - 1, section: 0)
-        tableView(self.tableViewField, didSelectRowAt: indexPath)
+        if !isEditing, let notesCount = notes?.count{
+            performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
+        }
+//        let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
+//        cell.colorField?.backgroundColor = note.color
+//        cell.titleLabel?.text = note.title
+//        cell.contentLabel?.text = note.content
+//
+//
+//        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+//        tableViewField.endUpdates()
+//        tableViewField.reloadData()
+//        let indexPath = IndexPath(row: (notes?.count ?? 1) - 1, section: 0)
+//        tableView(self.tableViewField, didSelectRowAt: indexPath)
     }
 
     @IBAction func editButtonClicked(_ sender: UIBarButtonItem) {
