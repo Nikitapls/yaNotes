@@ -16,12 +16,12 @@ class TableViewController: UIViewController {
         super.viewDidLoad()
         title = "Заметки"
         
-        do {
-            try fileNotebook.loadFromFile()
-
-        } catch {
-            print(error.localizedDescription)
-        }
+//        do {
+//            try fileNotebook.loadFromFile()
+//
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         
         notes = Array(fileNotebook.notes.values)
         
@@ -38,7 +38,7 @@ class TableViewController: UIViewController {
         loadOperation.completionBlock = {
             if let loadNotesResult = loadOperation.notesLoadResult {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
-                
+                //add self.notes update
             }
 //            sleep(3000)
         }

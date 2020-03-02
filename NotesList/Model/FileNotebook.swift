@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 import CocoaLumberjack
-//import CocoaLumberjack.swift
 class FileNotebook {
     
     private(set) var notes: [String: Note] = [String: Note]()
@@ -34,7 +33,7 @@ class FileNotebook {
     public func loadFromFile() throws {
         let jsonData = try Data(contentsOf: dirPath)
         let dictData = try JSONSerialization.jsonObject(with: jsonData, options: [])
-        if let dictData = dictData as? Dictionary<String, Dictionary<String,Any>> { // fixed from AnyObject
+        if let dictData = dictData as? Dictionary<String, Dictionary<String,Any>> {
             var dictInput = [String: Note]()
             for (key, value) in dictData {
                 dictInput[key] = Note.parse(json: value)

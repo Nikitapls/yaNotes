@@ -3,7 +3,7 @@ import UIKit
 extension Note {
     private static func checkJsonFields(json: [String: Any]) -> Bool {
         if let dict = json as? [String: String] {
-            let keys: Set = [Note.colorKey, Note.contentKey, Note.impotanceKey, Note.selfDestructionDateKey, Note.titleKey, Note.uidKey]
+            let keys: Set = [Note.colorKey, Note.contentKey, Note.creationDateKey, Note.selfDestructionDateKey, Note.titleKey, Note.uidKey]
             for (key, _) in dict {
                 if !keys.contains(key) {
                     return false
@@ -23,6 +23,7 @@ extension Note {
         var color: UIColor?
         var impotance: Impotance?
         var selfDestructionDate: Date?
+        var creationDate: Date?
         if let dict = json as? [String: String] {
             uid = dict[Note.uidKey]
             title = dict[Note.titleKey]
@@ -36,9 +37,13 @@ extension Note {
             if let value = dict[Note.selfDestructionDateKey], let timeValue = TimeInterval(value) {
             selfDestructionDate = Date(timeIntervalSince1970: timeValue)
             }
+            if let value = dict[Note.creationDateKey], let timeValue = TimeInterval(value) {
+            creationDate = Date(timeIntervalSince1970: timeValue)
+            }
         }
+        guard let creationDateValue = creationDate else { return nil }
         if let titleStr = title, let contentStr = content {
-            return Note(uid: uid, title: titleStr, content: contentStr, color: color, impotance: impotance ?? Impotance.usual , selfDestructionDate: selfDestructionDate)
+            return Note(uid: uid, title: titleStr, content: contentStr, color: color, impotance: impotance ?? Impotance.usual , selfDestructionDate: selfDestructionDate, creationDate: creationDateValue)
         }
         return nil
     }
@@ -48,6 +53,7 @@ extension Note {
         dict[Note.titleKey] = title
         dict[Note.contentKey] = content
         dict[Note.uidKey] = uid
+       
         if color != UIColor.white, let colorHex = color.toHex() {
             dict[Note.colorKey] = colorHex
         }
@@ -56,8 +62,9 @@ extension Note {
         }
         
         if let selfDestructionDate = selfDestructionDate {
-        dict[Note.selfDestructionDateKey] = String(selfDestructionDate.timeIntervalSince1970)
+            dict[Note.selfDestructionDateKey] = String(selfDestructionDate.timeIntervalSince1970)
         }
+        dict[Note.creationDateKey] = String(creationDate.timeIntervalSince1970)
         return dict
     }
 }
@@ -65,7 +72,7 @@ extension Note: Equatable {
     static func == (lhs: Note, rhs: Note) -> Bool {
         return lhs.color == rhs.color && lhs.content == rhs.content && lhs.impotance == rhs.impotance
             && lhs.selfDestructionDate == rhs.selfDestructionDate && lhs.title == rhs.title
-            && lhs.uid == rhs.uid
+            && lhs.uid == rhs.uid && lhs.creationDate == rhs.creationDate
     }
 }
 extension UIColor {
