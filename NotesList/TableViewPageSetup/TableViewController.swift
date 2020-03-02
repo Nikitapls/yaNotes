@@ -27,7 +27,7 @@ class TableViewController: UIViewController {
     func addLoadNotesOperation() {
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
         loadOperation.completionBlock = {
-            if let loadNotesResult = loadOperation.notesLoadResult {
+            if let loadNotesResult = loadOperation.loadedNotes {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
                 var newNotes: [Note] = Array(self.fileNotebook.notes.values)
                 newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
@@ -36,7 +36,6 @@ class TableViewController: UIViewController {
                 self.notes = newNotes
             }
             DispatchQueue.main.async {
-                print("loadedFromLoad")
                 self.tableViewField.reloadData()
             }
         }
@@ -55,18 +54,11 @@ class TableViewController: UIViewController {
     
     func addSaveOperationToQueue(note: Note) {
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
-        saveNoteOperation.completionBlock = {
-            print("saveNoteOperationCompleted")
-            print(note.title)
-        }
         commonQueue.addOperation(saveNoteOperation)
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
-        removeNoteOperation.completionBlock = {
-            print("removeNoteOperationCompleted")
-        }
         commonQueue.addOperation(removeNoteOperation)
     }
     
@@ -119,8 +111,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             guard var notes = notes else { return }
             let note = notes[indexPath.row]
-//            let removeNoteOperation = RemoveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
-//            commonQueue.addOperation(removeNoteOperation)
             addRemoveNoteOperationToQueue(note: note)
             if let index = notes.firstIndex(of: note) {
                 notes.remove(at: index)

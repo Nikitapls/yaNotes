@@ -6,7 +6,7 @@ class LoadNotesOperation: AsyncOperation {
     private let notebook: FileNotebook
     private var loadFromBackend: LoadNotesBackendOperation
     private let backendQueue: OperationQueue
-    private(set) var notesLoadResult: [String: Note]?
+    private(set) var loadedNotes: [String: Note]?
 
     init(notebook: FileNotebook,
          backendQueue: OperationQueue,
@@ -22,7 +22,7 @@ class LoadNotesOperation: AsyncOperation {
             guard let self = self else { return }
             switch self.loadFromBackend.result! {
             case .success(let notes):
-                self.notesLoadResult = notes
+                self.loadedNotes = notes
                 self.finish()
             case .failure:
                 dbQueue.addOperation(loadFromDB)
@@ -30,7 +30,7 @@ class LoadNotesOperation: AsyncOperation {
         }
         loadFromDB.completionBlock = { [weak self] in
             guard let self = self else { return }
-            self.notesLoadResult = loadFromDB.result
+            self.loadedNotes = loadFromDB.result
             self.finish()
         }
     }
