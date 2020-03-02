@@ -53,6 +53,9 @@ class SecondViewController: UIViewController, ColorPickerDelegate {
         colorPickerField.delegate = self
         slider.isContinuous = false
         setOutputViewColor(color: currentColor)
+        outputColorField.layer.cornerRadius = 5
+        outputColorField.layer.borderColor = UIColor.black.cgColor
+        outputColorField.layer.borderWidth = 1
     }
 }
 

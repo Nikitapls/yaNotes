@@ -183,7 +183,7 @@
                                                         <gestureRecognizers/>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="C6b-5M-7FJ" firstAttribute="height" secondItem="Obk-dV-Xea" secondAttribute="height" id="2NG-dD-nvF"/>
@@ -346,7 +346,7 @@
                         <viewLayoutGuide key="safeArea" id="vfG-hc-LcI"/>
                     </view>
                     <navigationItem key="navigationItem" id="rfZ-f8-WZe">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="1zb-CS-uJG">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="1zb-CS-uJG">
                             <connections>
                                 <action selector="nextButtonClicked:" destination="jUn-84-Odc" id="w7P-cG-xfl"/>
                             </connections>
