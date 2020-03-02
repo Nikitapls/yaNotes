@@ -32,22 +32,24 @@ class TableViewController: UIViewController {
         self.tableViewField.allowsMultipleSelectionDuringEditing = false
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func addLoadNotesOperation() {
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
         loadOperation.completionBlock = {
             if let loadNotesResult = loadOperation.notesLoadResult {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
-                //add self.notes update
                 var newNotes: [Note] = Array(self.fileNotebook.notes.values)
                 newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
                     return lhs.creationDate > rhs.creationDate
-                })
+                    })
                 self.notes = newNotes
             }
-//            sleep(3000)
         }
         commonQueue.addOperation(loadOperation)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addLoadNotesOperation()
         tableViewField.reloadData()
     }
     
@@ -79,8 +81,8 @@ class TableViewController: UIViewController {
         let note = Note(title: "", content: "", impotance: Impotance.usual)
         tableViewField.beginUpdates()
         addSaveOperationToQueue(note: note)
-        notes?.append(note)
-        
+        //notes?.append(note)
+        addLoadNotesOperation()
         let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
@@ -144,7 +146,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "note", for: indexPath) as! NoteTableViewCell
-        print(indexPath.row)
         guard let note = notes?[indexPath.row] else {return cell}
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
@@ -161,7 +162,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ColorPickerViewController,
                  segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
-            print(indexPath)
             guard let note = notes?[indexPath.row] else { return }
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
