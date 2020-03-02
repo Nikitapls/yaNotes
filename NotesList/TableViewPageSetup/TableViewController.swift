@@ -36,7 +36,7 @@ class TableViewController: UIViewController {
                 self.notes = newNotes
             }
             DispatchQueue.main.async {
-                print("reloadedFromLoad")
+                print("loadedFromLoad")
                 self.tableViewField.reloadData()
             }
         }
@@ -83,17 +83,6 @@ class TableViewController: UIViewController {
         if !isEditing, let notesCount = notes?.count{
             performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
         }
-//        let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
-//        cell.colorField?.backgroundColor = note.color
-//        cell.titleLabel?.text = note.title
-//        cell.contentLabel?.text = note.content
-//
-//
-//        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-//        tableViewField.endUpdates()
-//        tableViewField.reloadData()
-//        let indexPath = IndexPath(row: (notes?.count ?? 1) - 1, section: 0)
-//        tableView(self.tableViewField, didSelectRowAt: indexPath)
     }
 
     @IBAction func editButtonClicked(_ sender: UIBarButtonItem) {
@@ -109,12 +98,13 @@ class TableViewController: UIViewController {
 
     @IBAction func unwindToTableViewController(_ unwindSegue: UIStoryboardSegue) {
         if let controller = unwindSegue.source as? ColorPickerViewController {
-            guard controller.newNote == nil else {
+            guard controller.newNote == nil, let controllerNote = controller.note else {
                 return
             }
-            if let note = notes?.popLast() {
+            if let index = notes?.firstIndex(of: controllerNote),
+                let note = notes?.remove(at: index) {
                 addRemoveNoteOperationToQueue(note: note)
-            }//
+            }
         }
     }
 }
@@ -129,8 +119,9 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             guard var notes = notes else { return }
             let note = notes[indexPath.row]
-            let removeNoteOperation = RemoveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
-            commonQueue.addOperation(removeNoteOperation)
+//            let removeNoteOperation = RemoveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+//            commonQueue.addOperation(removeNoteOperation)
+            addRemoveNoteOperationToQueue(note: note)
             if let index = notes.firstIndex(of: note) {
                 notes.remove(at: index)
             }
@@ -168,14 +159,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
                 //self?.notes?.append(note)
                 self?.notes?[indexPath.row] = note
             }
-//            controller.deleteOldNote = { [weak self] (note: Note) in
-//                self?.addRemoveNoteOperationToQueue(note: note)
-//                guard var notes = self?.notes else { return }
-//                if let index = notes.firstIndex(of: note) {
-//                    notes.remove(at: index)
-//                }
-//                self?.notes = notes
-//            }
         }
     }
 }
