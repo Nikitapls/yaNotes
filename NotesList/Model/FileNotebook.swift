@@ -8,6 +8,7 @@ class FileNotebook {
     
     public func add(_ note: Note) {
         if notes[note.uid] != nil {
+            notes[note.uid] = note
             DDLogInfo("Note with id \(note.uid) is overwritten")
         } else {
             notes[note.uid] = note

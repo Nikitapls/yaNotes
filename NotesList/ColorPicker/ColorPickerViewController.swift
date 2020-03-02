@@ -15,20 +15,16 @@ class ColorPickerViewController: UIViewController {
     var currColorFromSecView: UIColor = .gray
     var lastColorChoice: DrawView?
     var addNewNote: ((Note) -> Void)?
-    var deleteOldNote: ((Note) -> Void)?
+    //var deleteOldNote: ((Note) -> Void)?
     @IBOutlet weak var userChoiceColor: ColorPickerView!
     
     @IBAction func saveButtonClicked(_ sender: Any) {
         if let title = titleField.text, let content = contentField.text, let importance = note?.impotance {
             newNote = Note(uid: note?.uid, title: title, content: content, color: lastColorChoice?.backgroundColor, impotance: importance, selfDestructionDate: dateField.date)
-            if let oldNote = self.note {
-                deleteOldNote?(oldNote)
-            }
             if let newNote = self.newNote {
                 addNewNote?(newNote)
             }
         }
-        
         navigationController?.popViewController(animated: true)
     }
     @IBOutlet weak var titleField: UITextField!

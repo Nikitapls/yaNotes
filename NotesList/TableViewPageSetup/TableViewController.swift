@@ -57,6 +57,7 @@ class TableViewController: UIViewController {
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
         saveNoteOperation.completionBlock = {
             print("saveNoteOperationCompleted")
+            print(note.title)
         }
         commonQueue.addOperation(saveNoteOperation)
     }
@@ -164,16 +165,17 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.addSaveOperationToQueue(note: note)
-                self?.notes?.append(note)
+                //self?.notes?.append(note)
+                self?.notes?[indexPath.row] = note
             }
-            controller.deleteOldNote = { [weak self] (note: Note) in
-                self?.addRemoveNoteOperationToQueue(note: note)
-                guard var notes = self?.notes else { return }
-                if let index = notes.firstIndex(of: note) {
-                    notes.remove(at: index)
-                }
-                self?.notes = notes
-            }
+//            controller.deleteOldNote = { [weak self] (note: Note) in
+//                self?.addRemoveNoteOperationToQueue(note: note)
+//                guard var notes = self?.notes else { return }
+//                if let index = notes.firstIndex(of: note) {
+//                    notes.remove(at: index)
+//                }
+//                self?.notes = notes
+//            }
         }
     }
 }
