@@ -16,12 +16,12 @@ class TableViewController: UIViewController {
         super.viewDidLoad()
         title = "Заметки"
         
-//        do {
-//            try fileNotebook.loadFromFile()
-//
-//        } catch {
-//            print(error.localizedDescription)
-//        }
+        do {
+            try fileNotebook.loadFromFile()
+
+        } catch {
+            print(error.localizedDescription)
+        }
         
         notes = Array(fileNotebook.notes.values)
         
@@ -39,6 +39,11 @@ class TableViewController: UIViewController {
             if let loadNotesResult = loadOperation.notesLoadResult {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
                 //add self.notes update
+                var newNotes: [Note] = Array(self.fileNotebook.notes.values)
+                newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
+                    return lhs.creationDate > rhs.creationDate
+                })
+                self.notes = newNotes
             }
 //            sleep(3000)
         }
@@ -161,15 +166,15 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.addSaveOperationToQueue(note: note)
-                self?.notes?.append(note)
+//                self?.notes?.append(note)
             }
             controller.deleteOldNote = { [weak self] (note: Note) in
                 self?.addRemoveNoteOperationToQueue(note: note)
-                guard var notes = self?.notes else { return }
-                if let index = notes.firstIndex(of: note) {
-                    notes.remove(at: index)
-                }
-                self?.notes = notes
+//                guard var notes = self?.notes else { return }
+//                if let index = notes.firstIndex(of: note) {
+//                    notes.remove(at: index)
+//                }
+                //self?.notes = notes
             }
         }
     }
