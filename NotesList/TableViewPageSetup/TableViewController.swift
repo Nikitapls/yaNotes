@@ -81,8 +81,7 @@ class TableViewController: UIViewController {
         let note = Note(title: "", content: "", impotance: Impotance.usual)
         tableViewField.beginUpdates()
         addSaveOperationToQueue(note: note)
-        //notes?.append(note)
-        addLoadNotesOperation()
+        notes?.append(note)
         let cell = tableViewField?.dequeueReusableCell(withIdentifier: "note") as! NoteTableViewCell
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
@@ -166,15 +165,15 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.addSaveOperationToQueue(note: note)
-//                self?.notes?.append(note)
+                self?.notes?.append(note)
             }
             controller.deleteOldNote = { [weak self] (note: Note) in
                 self?.addRemoveNoteOperationToQueue(note: note)
-//                guard var notes = self?.notes else { return }
-//                if let index = notes.firstIndex(of: note) {
-//                    notes.remove(at: index)
-//                }
-                //self?.notes = notes
+                guard var notes = self?.notes else { return }
+                if let index = notes.firstIndex(of: note) {
+                    notes.remove(at: index)
+                }
+                self?.notes = notes
             }
         }
     }
