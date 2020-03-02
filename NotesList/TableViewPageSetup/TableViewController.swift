@@ -15,14 +15,6 @@ class TableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Заметки"
-        
-//        do {
-//            try fileNotebook.loadFromFile()
-//
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-        
         notes = Array(fileNotebook.notes.values)
         
         tableViewField.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
@@ -44,6 +36,7 @@ class TableViewController: UIViewController {
                 self.notes = newNotes
             }
             DispatchQueue.main.async {
+                print("reloadedFromLoad")
                 self.tableViewField.reloadData()
             }
         }
@@ -51,29 +44,28 @@ class TableViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        tableViewField.reloadData()
         super.viewWillAppear(animated)
         addLoadNotesOperation()
-        //tableViewField.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        do {
-//            try fileNotebook.saveToFile()
-////            print("Dissapear: notes:count")
-////            print(fileNotebook.notes.count)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
         super.viewWillDisappear(animated)
     }
     
     func addSaveOperationToQueue(note: Note) {
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        saveNoteOperation.completionBlock = {
+            print("saveNoteOperationCompleted")
+        }
         commonQueue.addOperation(saveNoteOperation)
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        removeNoteOperation.completionBlock = {
+            print("removeNoteOperationCompleted")
+        }
         commonQueue.addOperation(removeNoteOperation)
     }
     
@@ -85,7 +77,8 @@ class TableViewController: UIViewController {
         tableViewField.beginUpdates()
         addSaveOperationToQueue(note: note)
         notes?.append(note)
-        
+        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        tableViewField.endUpdates()
         if !isEditing, let notesCount = notes?.count{
             performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
         }
@@ -121,7 +114,6 @@ class TableViewController: UIViewController {
             if let note = notes?.popLast() {
                 addRemoveNoteOperationToQueue(note: note)
             }//
-            tableViewField.reloadData()
         }
     }
 }
