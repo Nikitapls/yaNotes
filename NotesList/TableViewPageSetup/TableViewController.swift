@@ -23,7 +23,7 @@ class TableViewController: UIViewController {
         self.tableViewField.delegate = self
         self.tableViewField.allowsMultipleSelectionDuringEditing = false
     }
-     
+    
     func addLoadNotesOperation() {
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
         loadOperation.completionBlock = {

@@ -27,12 +27,12 @@ class FileNotebook {
             dictJson[uid] = value.json
         }
         let jsdata = try JSONSerialization.data(withJSONObject: dictJson, options: [])
-        FileManager.default.createFile(atPath: dirPath.path, contents: jsdata, attributes: nil)
+        FileManager.default.createFile(atPath: dirPath.path, contents: jsdata, attributes: nil)//
         DDLogInfo("Notes are saved to file")
     }
     
     public func loadFromFile() throws {
-        let jsonData = try Data(contentsOf: dirPath)
+        let jsonData = try Data(contentsOf: dirPath)//
         let dictData = try JSONSerialization.jsonObject(with: jsonData, options: [])
         if let dictData = dictData as? Dictionary<String, Dictionary<String,Any>> {
             var dictInput = [String: Note]()
