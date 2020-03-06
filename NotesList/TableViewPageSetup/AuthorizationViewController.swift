@@ -18,7 +18,7 @@ class AuthorizationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        webView.navigationDelegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -26,12 +26,11 @@ class AuthorizationViewController: UIViewController {
         super.viewWillAppear(animated)
         loadAuthorizationPage()
     }
-    let reditectUrl = "yaNotes"
+    let reditectUrl = "yanotes"
     private func loadAuthorizationPage() {
         let stringUrl = "https://github.com/login/oauth/authorize"
         var components = URLComponents(string: stringUrl)
-        components?.queryItems = [URLQueryItem(name: "client_id", value: "dc53c6ebf90d679280d2"),
-                                  URLQueryItem(name: "redirect_uri", value: reditectUrl)]
+        components?.queryItems = [URLQueryItem(name: "client_id", value: "dc53c6ebf90d679280d2")]
         let urlOptional = components?.url
         guard let url = urlOptional else { return }
         var request = URLRequest(url: url)
@@ -55,6 +54,10 @@ class AuthorizationViewController: UIViewController {
 extension AuthorizationViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        defer {
+            decisionHandler(.allow)
+        }
+
         if let url = navigationAction.request.url, url.scheme == reditectUrl {
             //let targetString = url.absoluteString.replacingOccurrences(of: "#", with: "?")
             guard let components = URLComponents(string: url.absoluteString) else { return }
@@ -63,9 +66,6 @@ extension AuthorizationViewController: WKNavigationDelegate {
                 delegate?.handleTokenChanged(token: token)
             }
             dismiss(animated: true, completion: nil)
-        }
-        defer {
-            decisionHandler(.allow)
         }
     }
 }
