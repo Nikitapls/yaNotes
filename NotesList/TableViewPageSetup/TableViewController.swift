@@ -11,6 +11,8 @@ class TableViewController: UIViewController {
     @IBOutlet weak var tableViewField: UITableView!
     var fileNotebook = FileNotebook()
     var notes: [Note]?
+    private var first = true
+    var token: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,14 @@ class TableViewController: UIViewController {
         tableViewField.reloadData()
         super.viewWillAppear(animated)
         addLoadNotesOperation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if first {
+            performSegue(withIdentifier: "showAuthViewController", sender: nil)
+            first = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -149,6 +159,17 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
                 //self?.notes?.append(note)
                 self?.notes?[indexPath.row] = note
             }
+        } else if let controller = segue.destination as? AuthorizationViewController,
+            segue.identifier == "showAuthViewController" {
+            controller.delegate = self
         }
     }
+}
+
+extension TableViewController: AuthorizationViewControllerDelegate {
+    func handleTokenChanged(token: String) {
+        self.token = token
+    }
+    
+    
 }

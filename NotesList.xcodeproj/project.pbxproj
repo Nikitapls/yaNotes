@@ -20,6 +20,7 @@
 		F50403E4240BB47600520C22 /* LoadNotesBackendOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50403D9240BB47600520C22 /* LoadNotesBackendOperation.swift */; };
 		F50403E5240BB47600520C22 /* BaseBackendOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50403DA240BB47600520C22 /* BaseBackendOperation.swift */; };
 		F50403E6240BB47600520C22 /* SaveNotesBackendOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50403DB240BB47600520C22 /* SaveNotesBackendOperation.swift */; };
+		F50EF5FA24127C07000BC5AE /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50EF5F924127C07000BC5AE /* AuthorizationViewController.swift */; };
 		F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */; };
 		F54F75BC23FDCE3C00AEE7BD /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */; };
 		F58B151D23FFDBED007E5497 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */; };
@@ -58,6 +59,7 @@
 		F50403D9240BB47600520C22 /* LoadNotesBackendOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadNotesBackendOperation.swift; sourceTree = "<group>"; };
 		F50403DA240BB47600520C22 /* BaseBackendOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseBackendOperation.swift; sourceTree = "<group>"; };
 		F50403DB240BB47600520C22 /* SaveNotesBackendOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveNotesBackendOperation.swift; sourceTree = "<group>"; };
+		F50EF5F924127C07000BC5AE /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthorizationViewController.swift; path = TableViewPageSetup/AuthorizationViewController.swift; sourceTree = "<group>"; };
 		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		F54F75BA23FDCE3C00AEE7BD /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		F58B151C23FFDBED007E5497 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				F5FAA70D23FD893C00514A2F /* Main.storyboard */,
 				F5FAA71023FD893D00514A2F /* Assets.xcassets */,
 				F5FAA71523FD893D00514A2F /* Info.plist */,
+				F50EF5F924127C07000BC5AE /* AuthorizationViewController.swift */,
 			);
 			path = NotesList;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F50EF5FA24127C07000BC5AE /* AuthorizationViewController.swift in Sources */,
 				F5FAA72B23FDB3BC00514A2F /* SecondViewController.swift in Sources */,
 				F50403E6240BB47600520C22 /* SaveNotesBackendOperation.swift in Sources */,
 				F50403E5240BB47600520C22 /* BaseBackendOperation.swift in Sources */,
