@@ -54,16 +54,6 @@ class AuthorizationViewController: UIViewController {
         webView.load(request)
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
@@ -79,8 +69,6 @@ extension AuthorizationViewController: WKNavigationDelegate {
             if let token = components.queryItems?.first(where: { $0.name == "code" })?.value {
                 postRequest(code: token)
             }
-            //dismiss(animated: true, completion: nil)
-            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -109,6 +97,9 @@ extension AuthorizationViewController: WKNavigationDelegate {
                         return
                     }
                     self.delegate?.handleTokenChanged(token: accessToken.token)
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
             task.resume()
