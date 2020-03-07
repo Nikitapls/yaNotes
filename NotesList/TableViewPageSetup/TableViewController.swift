@@ -169,7 +169,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
 extension TableViewController: AuthorizationViewControllerDelegate {
     func handleTokenChanged(token: String) {
         self.token = token
+        print(token)
     }
-    
-    
 }

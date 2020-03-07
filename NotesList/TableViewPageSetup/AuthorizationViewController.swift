@@ -74,22 +74,17 @@ extension AuthorizationViewController: WKNavigationDelegate {
             decisionHandler(.allow)
         }
 
-        if let url = navigationAction.request.url, url.scheme == "https" {
-            //let targetString = url.absoluteString.replacingOccurrences(of: "#", with: "?")
-            print(url)
+        if let url = navigationAction.request.url {
             guard let components = URLComponents(string: url.absoluteString) else { return }
             if let token = components.queryItems?.first(where: { $0.name == "code" })?.value {
                 postRequest(code: token)
-                delegate?.handleTokenChanged(token: token)
             }
-            dismiss(animated: true, completion: nil)
+            //dismiss(animated: true, completion: nil)
+            navigationController?.popViewController(animated: true)
         }
     }
     
     private func postRequest(code: String) {
-//        guard let url = URL(string: "https://github.com/login/oauth/access_token") else { return }
-//        var request = URLRequest(url: url)
-//        request.
         var urlComponents = URLComponents(string: "https://github.com/login/oauth/access_token")
         urlComponents?.queryItems = [
             URLQueryItem(name: PostKeys.clientId.rawValue, value: clientId),
@@ -99,6 +94,7 @@ extension AuthorizationViewController: WKNavigationDelegate {
         if let url = urlComponents?.url {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let response = response as? HTTPURLResponse {
                     switch response.statusCode {
@@ -106,14 +102,13 @@ extension AuthorizationViewController: WKNavigationDelegate {
                         print("ok")
                     default:
                         print(response.statusCode)
+                        return
                     }
-                    
-                    guard let tokenData = data else {
+                    guard let tokenData = data, let accessToken = try? JSONDecoder().decode(AccessToken.self, from: tokenData) else {
                         print("Error while parsing data")
                         return
                     }
-                    let str = String(decoding: tokenData, as: UTF8.self)
-                    print(str)
+                    self.delegate?.handleTokenChanged(token: accessToken.token)
                 }
             }
             task.resume()
