@@ -27,7 +27,7 @@ struct AccessToken: Codable{
 
 class AuthorizationViewController: UIViewController {
     private let clientId = "dc53c6ebf90d679280d2"
-    private let clientSecret = "06f782689686052d00d528b2f0344f058f89bd38"
+    private let clientSecret = "c501e6a0181662beb241d1350e1bd984c5f03076"
     
     @IBOutlet weak var webView: WKWebView!
     var delegate: AuthorizationViewControllerDelegate?
@@ -48,7 +48,7 @@ class AuthorizationViewController: UIViewController {
         var components = URLComponents(string: stringUrl)
         components?.queryItems = [
             URLQueryItem(name: "client_id", value: clientId),
- //           URLQueryItem(name: "scope", value: "gist")
+            URLQueryItem(name: "scope", value: "gist")
         ]
         let urlOptional = components?.url
         guard let url = urlOptional else { return }
