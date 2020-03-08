@@ -8,6 +8,7 @@ enum LoadNotesBackendResult {
 class LoadNotesBackendOperation: BaseBackendOperation {
 
     var result: LoadNotesBackendResult?
+    var rawUrl: String?
     
     init(notes: [String: Note], token: String) {
         super.init()
@@ -48,6 +49,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                 } else { return false }
             }) else { print("no");return }
             //print(gistArr[index].files[self.fileName]?.rawUrl)
+            self.rawUrl = gistArr[index].files[self.fileName]?.rawUrl
             self.notesFromGistDownload(gist: gistArr[index])
         }
         task.resume()

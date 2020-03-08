@@ -13,7 +13,7 @@ class TableViewController: UIViewController {
     var notes: [Note]?
     private var first = true
     var token: String?
-    
+    var rawUrl: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Заметки"
@@ -65,13 +65,13 @@ class TableViewController: UIViewController {
     
     func addSaveOperationToQueue(note: Note) {
         guard let token = token else { return }
-        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token)
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
         commonQueue.addOperation(saveNoteOperation)
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
         guard let token = token else { return }
-        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token)
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
         commonQueue.addOperation(removeNoteOperation)
     }
     

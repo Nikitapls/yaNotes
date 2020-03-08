@@ -11,9 +11,13 @@ enum SaveNotesBackendResult {
 
 class SaveNotesBackendOperation: BaseBackendOperation {
     var result: SaveNotesBackendResult?
+    var rawUrl: String?
+    var notes: [String: Note]
     //private let fileName = "ios-course-notes-db"
     
-    init(notes: [String: Note], token: String) {
+    init(notes: [String: Note], token: String, rawUrl: String?) {
+        self.rawUrl = rawUrl
+        self.notes = notes
         super.init()
         self.token = token
     }
@@ -23,14 +27,24 @@ class SaveNotesBackendOperation: BaseBackendOperation {
         finish()
     }
     
-    func uploadGist(str: String) {
+    func uploadGist() {
+        
+    }
+    
+    func postGist(str: String) {
         let stringUrl = "https://api.github.com/gists"
         guard let token = token else {
             result = .failure(.unreachable)
             return
         }
         let components = URLComponents(string: stringUrl)
-        let gist = GistUpload(files: [fileName :GistFileUpload(content: str)])
+        var dictJson = [String: Any]()
+        for (uid, value) in notes {
+            dictJson[uid] = value.json
+        }
+        let jsdata = try? JSONSerialization.data(withJSONObject: dictJson, options: [])
+        
+        let gist = GistLoad(files: [fileName :GistFileLoad(content: jsdata)])
         let jsonEncoder = JSONEncoder()
         do {
             let jsonData = try jsonEncoder.encode(gist)

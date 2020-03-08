@@ -7,8 +7,8 @@
 //
 
 import Foundation
-struct GistUpload: Codable {
-    let files: [String: GistFileUpload]
+struct GistLoad: Codable {
+    let files: [String: GistFileLoad]
 }
 
 struct GistDownload: Codable {
@@ -25,6 +25,6 @@ struct GistFileDownload: Codable {
     }
 }
 
-struct GistFileUpload: Codable {
-    let content: String
+struct GistFileLoad: Codable {
+    let content: Data?
 }

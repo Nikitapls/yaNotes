@@ -10,7 +10,8 @@ class SaveNoteOperation: AsyncOperation {
          notebook: FileNotebook,
          backendQueue: OperationQueue,
          dbQueue: OperationQueue,
-         token: String) {
+         token: String,
+         rawUrl: String?) {
         
         saveToDb = SaveNoteDBOperation(note: note, notebook: notebook)
         self.dbQueue = dbQueue
@@ -18,7 +19,7 @@ class SaveNoteOperation: AsyncOperation {
         super.init()
         
         saveToDb.completionBlock = {
-            let saveToBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token)
+            let saveToBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, rawUrl: rawUrl)
             saveToBackend.completionBlock = {
                 switch saveToBackend.result! {
                 case .success:
