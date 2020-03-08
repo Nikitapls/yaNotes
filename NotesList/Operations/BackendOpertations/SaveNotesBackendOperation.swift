@@ -11,7 +11,7 @@ enum SaveNotesBackendResult {
 
 class SaveNotesBackendOperation: BaseBackendOperation {
     var result: SaveNotesBackendResult?
-    private let fileName = "ios-course-notes-db"
+    //private let fileName = "ios-course-notes-db"
     
     init(notes: [String: Note], token: String) {
         super.init()

@@ -10,11 +10,12 @@ class LoadNotesOperation: AsyncOperation {
 
     init(notebook: FileNotebook,
          backendQueue: OperationQueue,
-         dbQueue: OperationQueue) {
+         dbQueue: OperationQueue,
+         token: String) {
         self.notebook = notebook
         self.backendQueue = backendQueue
         let loadFromDB = LoadNotesDBOperation(fileNotebook: notebook)
-        loadFromBackend = LoadNotesBackendOperation(notes: notebook.notes)
+        loadFromBackend = LoadNotesBackendOperation(notes: notebook.notes, token: token)
 
         super.init()
         

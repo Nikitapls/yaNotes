@@ -27,7 +27,7 @@ struct AccessToken: Codable{
 
 class AuthorizationViewController: UIViewController {
     private let clientId = "dc53c6ebf90d679280d2"
-    private let clientSecret = "a53698aee79a290375f461e0c79a7b28651f2177"
+    private let clientSecret = "06f782689686052d00d528b2f0344f058f89bd38"
     
     @IBOutlet weak var webView: WKWebView!
     var delegate: AuthorizationViewControllerDelegate?

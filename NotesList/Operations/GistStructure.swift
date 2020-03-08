@@ -16,11 +16,11 @@ struct GistDownload: Codable {
 }
 
 struct GistFileDownload: Codable {
-    let content: String
+    //let content: String
     let rawUrl: String
 
     enum CodingKeys: String, CodingKey {
-        case content
+        //case content
         case rawUrl = "raw_url"
     }
 }

@@ -27,7 +27,8 @@ class TableViewController: UIViewController {
     }
     
     func addLoadNotesOperation() {
-        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        guard let token = token else { return }
+        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token)
         loadOperation.completionBlock = {
             if let loadNotesResult = loadOperation.loadedNotes {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
@@ -63,12 +64,14 @@ class TableViewController: UIViewController {
     }
     
     func addSaveOperationToQueue(note: Note) {
-        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        guard let token = token else { return }
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token)
         commonQueue.addOperation(saveNoteOperation)
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
-        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue)
+        guard let token = token else { return }
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token)
         commonQueue.addOperation(removeNoteOperation)
     }
     
