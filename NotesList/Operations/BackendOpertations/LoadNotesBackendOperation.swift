@@ -1,11 +1,3 @@
-//
-//  LoadNotesBackendOperations.swift
-//  ios-online-l5-ops-example
-//
-//  Created by ios_school on 2/27/20.
-//  Copyright © 2020 Dmitry Galimzyanov. All rights reserved.
-//
-
 import Foundation
 
 enum LoadNotesBackendResult {
@@ -23,8 +15,8 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     }
     
     override func main() {
-        result = .failure(.unreachable)
         updateData()
+       // waitUntilFinished()
         finish()
     }
     
@@ -63,11 +55,21 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     
     func notesFromGistDownload(gist: GistDownload) {
         guard let urlPath = gist.files[self.fileName]?.rawUrl,
-            let url = URL(string: urlPath) else { return }
+        let url = URL(string: urlPath) else { return }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
+            guard let data = data else { return }
+            let dictData = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let dictData = dictData as? Dictionary<String, Dictionary<String,Any>> {
+                var dictInput = [String: Note]()
+                for (key, value) in dictData {
+                    dictInput[key] = Note.parse(json: value)
+                }
+                self.result = .success(dictInput)
+            }
         }
+        task.resume()
     }
 }
