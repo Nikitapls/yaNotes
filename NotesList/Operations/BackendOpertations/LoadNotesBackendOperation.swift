@@ -17,12 +17,14 @@ class LoadNotesBackendOperation: BaseBackendOperation {
 
     var result: LoadNotesBackendResult?
     
-    init(notes: [String: Note]) {
+    init(notes: [String: Note], token: String) {
         super.init()
+        self.token = token
     }
     
     override func main() {
         result = .failure(.unreachable)
         finish()
     }
+    
 }

@@ -9,12 +9,10 @@
 import Foundation
 struct GistUpload: Codable {
     let files: [String: GistFileUpload]
-    let description: String
 }
 
 struct GistDownload: Codable {
     let files: [String: GistFileDownload]
-    let description: String
 }
 
 struct GistFileDownload: Codable {
