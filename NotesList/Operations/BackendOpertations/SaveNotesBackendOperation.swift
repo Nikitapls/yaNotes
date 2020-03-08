@@ -24,6 +24,8 @@ class SaveNotesBackendOperation: BaseBackendOperation {
     
     override func main() {
         result = .failure(.unreachable)
+        postGist()
+        waitUntilFinished()
         finish()
     }
     
@@ -31,7 +33,7 @@ class SaveNotesBackendOperation: BaseBackendOperation {
         
     }
     
-    func postGist(str: String) {
+    func postGist() {
         let stringUrl = "https://api.github.com/gists"
         guard let token = token else {
             result = .failure(.unreachable)
@@ -57,7 +59,7 @@ class SaveNotesBackendOperation: BaseBackendOperation {
                 if let response = response as? HTTPURLResponse {
                   switch response.statusCode {
                     case 200..<300:
-                        print("ok")
+                        print("ok99")
                     default:
                         print(response.statusCode)
                     }

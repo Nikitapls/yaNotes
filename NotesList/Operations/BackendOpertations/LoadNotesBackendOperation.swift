@@ -7,7 +7,7 @@ enum LoadNotesBackendResult {
 
 class LoadNotesBackendOperation: BaseBackendOperation {
 
-    var result: LoadNotesBackendResult?
+    var result: LoadNotesBackendResult? //= .failure(.unreachable)
     var rawUrl: String?
     
     init(notes: [String: Note], token: String) {
@@ -17,7 +17,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     
     override func main() {
         updateData()
-       // waitUntilFinished()
+        waitUntilFinished()
         finish()
     }
     
@@ -48,7 +48,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                     return true
                 } else { return false }
             }) else { print("no");return }
-            //print(gistArr[index].files[self.fileName]?.rawUrl)
+            print(gistArr[index].files[self.fileName]?.rawUrl)
             self.rawUrl = gistArr[index].files[self.fileName]?.rawUrl
             self.notesFromGistDownload(gist: gistArr[index])
         }
@@ -70,7 +70,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                     dictInput[key] = Note.parse(json: value)
                 }
                 self.result = .success(dictInput)
-            }
+            } else { self.result = .failure(.unreachable) }
         }
         task.resume()
     }
