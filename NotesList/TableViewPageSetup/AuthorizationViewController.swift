@@ -46,7 +46,10 @@ class AuthorizationViewController: UIViewController {
     private func loadAuthorizationPage() {
         let stringUrl = "https://github.com/login/oauth/authorize"
         var components = URLComponents(string: stringUrl)
-        components?.queryItems = [URLQueryItem(name: "client_id", value: clientId)]
+        components?.queryItems = [
+            URLQueryItem(name: "client_id", value: clientId),
+ //           URLQueryItem(name: "scope", value: "gist")
+        ]
         let urlOptional = components?.url
         guard let url = urlOptional else { return }
         var request = URLRequest(url: url)
