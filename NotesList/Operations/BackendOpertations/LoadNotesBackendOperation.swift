@@ -81,7 +81,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
+            guard let data = data else { self.finish(); return }
             let dictData = try? JSONSerialization.jsonObject(with: data, options: [])
             if let dictData = dictData as? Dictionary<String, Dictionary<String,Any>> {
                 var dictInput = [String: Note]()
