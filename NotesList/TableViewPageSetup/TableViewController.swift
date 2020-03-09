@@ -47,7 +47,7 @@ class TableViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tableViewField.reloadData()
+        //tableViewField.reloadData()
         super.viewWillAppear(animated)
         addLoadNotesOperation()
     }
@@ -69,6 +69,9 @@ class TableViewController: UIViewController {
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
+            DispatchQueue.main.async {
+                self.tableViewField.reloadData()
+            }
         }
         commonQueue.addOperation(saveNoteOperation)
         print(commonQueue.operationCount)
@@ -129,6 +132,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        //reloaddata when editin style = .delete?
         if editingStyle == .delete {
             guard var notes = notes else { return }
             let note = notes[indexPath.row]
