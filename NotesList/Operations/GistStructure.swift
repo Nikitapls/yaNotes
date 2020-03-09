@@ -26,5 +26,6 @@ struct GistFileDownload: Codable {
 }
 
 struct GistFileLoad: Codable {
-    let content: [String: [String: String]]
+    //let content: [String: [String: String]]
+    let content: String
 }
