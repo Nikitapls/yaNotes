@@ -24,10 +24,8 @@ class LoadNotesOperation: AsyncOperation {
             switch self.loadFromBackend.result! {
             case .success(let notes):
                 self.loadedNotes = notes
-                print("case success")
                 self.finish()
             case .failure:
-                print("case fail")
                 dbQueue.addOperation(loadFromDB)
             }
         }

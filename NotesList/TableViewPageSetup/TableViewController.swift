@@ -38,6 +38,7 @@ class TableViewController: UIViewController {
                     })
                 self.notes = newNotes
             }
+            print("endLoadNotesOperation")
             DispatchQueue.main.async {
                 self.tableViewField.reloadData()
             }
@@ -66,12 +67,18 @@ class TableViewController: UIViewController {
     func addSaveOperationToQueue(note: Note) {
         //guard let token = token else { return }
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
+        saveNoteOperation.completionBlock = {
+            print("endSaveNotesOperation")
+        }
         commonQueue.addOperation(saveNoteOperation)
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
         //guard let token = token else { return }
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
+        removeNoteOperation.completionBlock = {
+            print("endRemoveNotesOperation")
+        }
         commonQueue.addOperation(removeNoteOperation)
     }
     

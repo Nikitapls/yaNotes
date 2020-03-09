@@ -58,16 +58,11 @@ class SaveNotesBackendOperation: BaseBackendOperation {
             request.setValue("token \(token)", forHTTPHeaderField: "Authorization")
             request.httpMethod = "POST"
             request.httpBody = jsonData
-            let str = String(decoding: jsonData, as: UTF8.self)
-            print(str)
+            //let str = String(decoding: jsonData, as: UTF8.self)
+            //print(str)
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let response = response as? HTTPURLResponse {
-                  switch response.statusCode {
-                    case 200..<300:
-                        print("ok99")
-                    default:
-                        print(response.statusCode)
-                    }
+                    print(response.statusCode)
                 }
             }
             task.resume()

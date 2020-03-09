@@ -19,8 +19,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
        // result = .failure(.unreachable)
         updateData()
         
-        //waitUntilFinished()
-        print("loadNotesBackendCompleted")
+        //wriaitUntilFinished()
         //finish()
     }
     
@@ -36,21 +35,23 @@ class LoadNotesBackendOperation: BaseBackendOperation {
         var request = URLRequest(url: url)
         guard let token = token else {
             result = .failure(.unreachable)
+            self.finish()
             return
         }
         request.setValue("token \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
+                self.finish()
                 return
             }
             guard let gistArr = try? JSONDecoder().decode([GistDownload].self, from: data) else {
                 print("Error while parsing data")
+                self.finish()
                 return
             }
             guard let index = gistArr.firstIndex(where: {
                 if ($0.files.firstIndex(where: {
-                    print($0.key)
                     if $0.key == self.fileName {
                         return true
                     }
@@ -58,7 +59,11 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                 }) != nil) {
                     return true
                 } else { return false }
-            }) else { print("no");return }
+            }) else {
+                print("no")
+                self.finish()
+                return
+            }
            // print(gistArr[index].files[self.fileName]?.rawUrl)
             self.rawUrl = gistArr[index].files[self.fileName]?.rawUrl
             self.notesFromGistDownload(gist: gistArr[index])
@@ -69,8 +74,8 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     func notesFromGistDownload(gist: GistDownload) {
         guard let urlPath = gist.files[self.fileName]?.rawUrl,
         let url = URL(string: urlPath) else {
+            self.finish()
             return
-            
         }
         
         var request = URLRequest(url: url)
@@ -84,8 +89,10 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                     dictInput[key] = Note.parse(json: value)
                 }
                 self.result = .success(dictInput)
+                self.finish()
             } else {
                 self.result = .failure(.unreachable)
+                self.finish()
             }
         }
         task.resume()
