@@ -68,6 +68,28 @@ extension Note {
         return dict
     }
 }
+
+extension Note {
+    var jsonStringString: [String: String] {
+        var dict = [String: String]()
+         dict[Note.titleKey] = title
+         dict[Note.contentKey] = content
+         dict[Note.uidKey] = uid
+        
+         if color != UIColor.white, let colorHex = color.toHex() {
+             dict[Note.colorKey] = colorHex
+         }
+         if impotance != Impotance.usual {
+             dict[Note.impotanceKey] = impotance.rawValue
+         }
+         
+         if let selfDestructionDate = selfDestructionDate {
+             dict[Note.selfDestructionDateKey] = String(selfDestructionDate.timeIntervalSince1970)
+         }
+         dict[Note.creationDateKey] = String(creationDate.timeIntervalSince1970)
+         return dict
+    }
+}
 extension Note: Equatable {
     static func == (lhs: Note, rhs: Note) -> Bool {
         return lhs.color == rhs.color && lhs.content == rhs.content && lhs.impotance == rhs.impotance

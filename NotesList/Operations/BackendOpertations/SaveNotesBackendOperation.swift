@@ -40,13 +40,16 @@ class SaveNotesBackendOperation: BaseBackendOperation {
             return
         }
         let components = URLComponents(string: stringUrl)
-        var dictJson = [String: Any]()
-        for (uid, value) in notes {
-            dictJson[uid] = value.json
-        }
-        let jsdata = try? JSONSerialization.data(withJSONObject: dictJson, options: [])
+        var dictJson = [String: [String: String]]()
         
-        let gist = GistLoad(files: [fileName :GistFileLoad(content: jsdata)])
+        for (uid,note) in notes {
+            dictJson[uid] = note.jsonStringString
+        }
+        
+        let jsdata = try? JSONSerialization.data(withJSONObject: dictJson, options: [])
+         let str = String(decoding: jsdata!, as: UTF8.self)
+        print(str)
+        let gist = GistLoad(files: [fileName: GistFileLoad(content: dictJson)])
         let jsonEncoder = JSONEncoder()
         do {
             let jsonData = try jsonEncoder.encode(gist)
@@ -55,6 +58,8 @@ class SaveNotesBackendOperation: BaseBackendOperation {
             request.setValue("token \(token)", forHTTPHeaderField: "Authorization")
             request.httpMethod = "POST"
             request.httpBody = jsonData
+            let str = String(decoding: jsonData, as: UTF8.self)
+            print(str)
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let response = response as? HTTPURLResponse {
                   switch response.statusCode {
