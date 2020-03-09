@@ -21,7 +21,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
         
         //waitUntilFinished()
         print("loadNotesBackendCompleted")
-        finish()
+        //finish()
     }
     
     func updateData() {
@@ -30,6 +30,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
         //let token = "26151f23b63e588415729feb76658d125e61075d"
         let components = URLComponents(string: stringUrl)
         guard let url = components?.url else {
+            self.finish()
             return
         }
         var request = URLRequest(url: url)
