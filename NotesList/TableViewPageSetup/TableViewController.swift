@@ -71,6 +71,7 @@ class TableViewController: UIViewController {
             print("endSaveNotesOperation")
         }
         commonQueue.addOperation(saveNoteOperation)
+        print(commonQueue.operationCount)
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
