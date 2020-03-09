@@ -46,9 +46,9 @@ class SaveNotesBackendOperation: BaseBackendOperation {
             dictJson[uid] = note.jsonStringString
         }
         
-        let jsdata = try? JSONSerialization.data(withJSONObject: dictJson, options: [])
-         let str = String(decoding: jsdata!, as: UTF8.self)
-        print(str)
+//        let jsdata = try? JSONSerialization.data(withJSONObject: dictJson, options: [])
+//         let str = String(decoding: jsdata!, as: UTF8.self)
+//        print(str)
         let gist = GistLoad(files: [fileName: GistFileLoad(content: dictJson)])
         let jsonEncoder = JSONEncoder()
         do {
