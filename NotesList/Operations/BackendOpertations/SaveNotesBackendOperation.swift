@@ -15,7 +15,7 @@ class SaveNotesBackendOperation: BaseBackendOperation {
     var notes: [String: Note]
     //private let fileName = "ios-course-notes-db"
     
-    init(notes: [String: Note], token: String, rawUrl: String?) {
+    init(notes: [String: Note], token: String?, rawUrl: String?) {
         self.rawUrl = rawUrl
         self.notes = notes
         super.init()

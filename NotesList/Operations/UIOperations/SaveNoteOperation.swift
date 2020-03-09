@@ -10,7 +10,7 @@ class SaveNoteOperation: AsyncOperation {
          notebook: FileNotebook,
          backendQueue: OperationQueue,
          dbQueue: OperationQueue,
-         token: String,
+         token: String?,
          rawUrl: String?) {
         
         saveToDb = SaveNoteDBOperation(note: note, notebook: notebook)

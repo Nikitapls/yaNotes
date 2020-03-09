@@ -11,7 +11,7 @@ class RemoveNoteOperation: AsyncOperation {
     notebook: FileNotebook,
     backendQueue: OperationQueue,
     dbQueue: OperationQueue,
-    token: String,
+    token: String?,
     rawUrl: String?) {
 
         self.backendQueue = backendQueue

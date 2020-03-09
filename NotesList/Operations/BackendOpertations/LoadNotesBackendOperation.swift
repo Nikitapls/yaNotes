@@ -10,14 +10,17 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     var result: LoadNotesBackendResult? //= .failure(.unreachable)
     var rawUrl: String?
     
-    init(notes: [String: Note], token: String) {
+    init(notes: [String: Note], token: String?) {
         super.init()
         self.token = token
     }
     
     override func main() {
+       // result = .failure(.unreachable)
         updateData()
-        waitUntilFinished()
+        
+        //waitUntilFinished()
+        print("loadNotesBackendCompleted")
         finish()
     }
     
@@ -26,13 +29,20 @@ class LoadNotesBackendOperation: BaseBackendOperation {
 //        let fileName = "ios-course-notes-db"
         //let token = "26151f23b63e588415729feb76658d125e61075d"
         let components = URLComponents(string: stringUrl)
-        guard let url = components?.url else { return }
+        guard let url = components?.url else {
+            return
+        }
         var request = URLRequest(url: url)
-        guard let token = token else { return }
+        guard let token = token else {
+            result = .failure(.unreachable)
+            return
+        }
         request.setValue("token \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
+            guard let data = data else {
+                return
+            }
             guard let gistArr = try? JSONDecoder().decode([GistDownload].self, from: data) else {
                 print("Error while parsing data")
                 return
@@ -48,7 +58,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                     return true
                 } else { return false }
             }) else { print("no");return }
-            print(gistArr[index].files[self.fileName]?.rawUrl)
+           // print(gistArr[index].files[self.fileName]?.rawUrl)
             self.rawUrl = gistArr[index].files[self.fileName]?.rawUrl
             self.notesFromGistDownload(gist: gistArr[index])
         }
@@ -57,7 +67,10 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     
     func notesFromGistDownload(gist: GistDownload) {
         guard let urlPath = gist.files[self.fileName]?.rawUrl,
-        let url = URL(string: urlPath) else { return }
+        let url = URL(string: urlPath) else {
+            return
+            
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -70,7 +83,9 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                     dictInput[key] = Note.parse(json: value)
                 }
                 self.result = .success(dictInput)
-            } else { self.result = .failure(.unreachable) }
+            } else {
+                self.result = .failure(.unreachable)
+            }
         }
         task.resume()
     }

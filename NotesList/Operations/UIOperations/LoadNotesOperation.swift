@@ -11,7 +11,7 @@ class LoadNotesOperation: AsyncOperation {
     init(notebook: FileNotebook,
          backendQueue: OperationQueue,
          dbQueue: OperationQueue,
-         token: String) {
+         token: String?) {
         self.notebook = notebook
         self.backendQueue = backendQueue
         let loadFromDB = LoadNotesDBOperation(fileNotebook: notebook)
@@ -24,8 +24,10 @@ class LoadNotesOperation: AsyncOperation {
             switch self.loadFromBackend.result! {
             case .success(let notes):
                 self.loadedNotes = notes
+                print("case success")
                 self.finish()
             case .failure:
+                print("case fail")
                 dbQueue.addOperation(loadFromDB)
             }
         }
