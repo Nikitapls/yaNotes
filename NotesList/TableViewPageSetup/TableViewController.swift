@@ -70,7 +70,8 @@ class TableViewController: UIViewController {
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
             DispatchQueue.main.async {
-                self.tableViewField.reloadData()
+                self.addLoadNotesOperation()
+                //saself.tableViewField.reloadData()
             }
         }
         commonQueue.addOperation(saveNoteOperation)
@@ -173,8 +174,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.addSaveOperationToQueue(note: note)
-                //self?.notes?.append(note)
-                self?.notes?[indexPath.row] = note
+  //                self?.notes?[indexPath.row] = note
             }
         } else if let controller = segue.destination as? AuthorizationViewController,
             segue.identifier == "showAuthViewController" {
