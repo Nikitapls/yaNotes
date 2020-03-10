@@ -10,16 +10,16 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     var result: LoadNotesBackendResult? //= .failure(.unreachable)
     //var rawUrl: String?
     
-    init(notes: [String: Note], token: String?,rawUrl: String?) {
+    init(notes: [String: Note], token: String?, currentGist: GistDownload?) {
         super.init()
-        self.rawUrl = rawUrl
+        self.currentGist = currentGist
         self.token = token
     }
     
     override func main() {
        // result = .failure(.unreachable)
-        if rawUrl == nil {
-            print("raw url nil")
+        if currentGist == nil {
+            print("currentGistNil nil")
             postRequest()
         } else {
             loadData()
@@ -30,7 +30,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     }
     
     func loadData() {
-        guard let rawUrl = rawUrl else {
+        guard let rawUrl = currentGist?.files[fileName]?.rawUrl else {
             self.finish()
             return
         }
@@ -94,7 +94,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                 return
             }
            // print(gistArr[index].files[self.fileName]?.rawUrl)
-            self.rawUrl = gistArr[index].files[self.fileName]?.rawUrl
+            self.currentGist = gistArr[index]
             self.notesFromGistDownload(gist: gistArr[index])
         }
         task.resume()

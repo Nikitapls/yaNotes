@@ -7,16 +7,16 @@ class LoadNotesOperation: AsyncOperation {
     private var loadFromBackend: LoadNotesBackendOperation
     private let backendQueue: OperationQueue
     private(set) var loadedNotes: [String: Note]?
-    private(set) var rawUrl: String?
+    private(set) var currentGist: GistDownload?
     init(notebook: FileNotebook,
          backendQueue: OperationQueue,
          dbQueue: OperationQueue,
          token: String?,
-         rawUrl:String? ) {
+         currentGist: GistDownload? ) {
         self.notebook = notebook
         self.backendQueue = backendQueue
         let loadFromDB = LoadNotesDBOperation(fileNotebook: notebook)
-        loadFromBackend = LoadNotesBackendOperation(notes: notebook.notes, token: token, rawUrl: rawUrl)
+        loadFromBackend = LoadNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
 
         super.init()
         
@@ -25,7 +25,7 @@ class LoadNotesOperation: AsyncOperation {
             switch self.loadFromBackend.result! {
             case .success(let notes):
                 self.loadedNotes = notes
-                self.rawUrl = self.loadFromBackend.rawUrl
+                self.currentGist = self.loadFromBackend.currentGist
                 self.finish()
             case .failure:
                 dbQueue.addOperation(loadFromDB)

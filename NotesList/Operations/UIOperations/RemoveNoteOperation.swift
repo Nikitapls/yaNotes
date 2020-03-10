@@ -12,11 +12,11 @@ class RemoveNoteOperation: AsyncOperation {
     backendQueue: OperationQueue,
     dbQueue: OperationQueue,
     token: String?,
-    currentGist: GistDownload) {
+    currentGist: GistDownload?) {
 
         self.backendQueue = backendQueue
         let removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
-        removeFromBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, rawUrl: rawUrl)
+        removeFromBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
         super.init()
         
         removeFromBackend.completionBlock = { [weak self] in

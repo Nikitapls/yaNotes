@@ -11,19 +11,23 @@ struct GistLoad: Codable {
     let files: [String: GistFileLoad]
 }
 
+struct GistFileLoad: Codable {
+    let content: String
+}
+
 struct GistDownload: Codable {
+    let gistId: String
     let files: [String: GistFileDownload]
+    enum CodingKeys: String, CodingKey {
+        case gistId = "id"
+        case files = "files"
+    }
 }
 
 struct GistFileDownload: Codable {
     let rawUrl: String
-    let gistId: String
     enum CodingKeys: String, CodingKey {
-        case gistId = "id"
-        case rawUrl = "raw_url"
+       case rawUrl = "raw_url"
     }
 }
 
-struct GistFileLoad: Codable {
-    let content: String
-}

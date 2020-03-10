@@ -13,7 +13,8 @@ class TableViewController: UIViewController {
     var notes: [Note]?
     private var first = true
     var token: String?
-    var rawUrl: String?
+    var currentGist: GistDownload?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Заметки"
@@ -28,7 +29,7 @@ class TableViewController: UIViewController {
     
     func addLoadNotesOperation() {
         //guard let token = token else { return }
-        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
+        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         loadOperation.completionBlock = {
             if let loadNotesResult = loadOperation.loadedNotes {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
@@ -68,7 +69,7 @@ class TableViewController: UIViewController {
     
     func addSaveOperationToQueue(note: Note) {
         //guard let token = token else { return }
-        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
             DispatchQueue.main.async {
@@ -82,7 +83,7 @@ class TableViewController: UIViewController {
     
     func addRemoveNoteOperationToQueue(note: Note) {
         //guard let token = token else { return }
-        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         removeNoteOperation.completionBlock = {
             print("endRemoveNotesOperation")
         }
@@ -94,14 +95,35 @@ class TableViewController: UIViewController {
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let note = Note(title: "", content: "", impotance: Impotance.usual)
-        tableViewField.beginUpdates()
-        addSaveOperationToQueue(note: note)
-        notes?.append(note)
-        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        tableViewField.endUpdates()
-        if !isEditing, let notesCount = notes?.count{
-            performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
+//        tableViewField.beginUpdates()
+//        addSaveOperationToQueue(note: note)
+//        notes?.append(note)
+//        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+//        tableViewField.endUpdates()
+//        if !isEditing, let notesCount = notes?.count{
+//            performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
+//        }
+        addSaveOperationWhenAddButtonClicked(note: note)
+    }
+    
+    func addSaveOperationWhenAddButtonClicked(note: Note) {
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
+        saveNoteOperation.completionBlock = {
+            
+            DispatchQueue.main.async {
+                self.tableViewField.beginUpdates()
+                self.notes?.append(note)
+                self.tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                self.tableViewField.endUpdates()
+                if !self.isEditing, let notesCount = self.notes?.count{
+                    self.performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
+                }
+                self.addLoadNotesOperation()
+                //saself.tableViewField.reloadData()
+            }
         }
+        commonQueue.addOperation(saveNoteOperation)
+        print(commonQueue.operationCount)
     }
 
     @IBAction func editButtonClicked(_ sender: UIBarButtonItem) {
@@ -176,7 +198,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.addSaveOperationToQueue(note: note)
-  //                self?.notes?[indexPath.row] = note
+                //self?.notes?[indexPath.row] = note
             }
         } else if let controller = segue.destination as? AuthorizationViewController,
             segue.identifier == "showAuthViewController" {
