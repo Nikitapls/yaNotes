@@ -41,14 +41,19 @@ class LoadNotesBackendOperation: BaseBackendOperation {
             //print(String(decoding: data!, as: UTF8.self))
             //self.result = .failure(.unreachable)
             guard let data = data else { self.finish(); return }
-            guard let gist = try? JSONDecoder().decode(GistFileDownload.self, from: data) else {
-                print(String(decoding: data, as: UTF8.self))
-                print("Error while parsing data")
+            let dictData = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let dictData = dictData as? Dictionary<String, Dictionary<String,Any>> {
+                var dictInput = [String: Note]()
+                for (key, value) in dictData {
+                    dictInput[key] = Note.parse(json: value)
+                }
+                self.result = .success(dictInput)
                 self.finish()
-                return
+            } else {
+                self.result = .failure(.unreachable)
+                self.finish()
             }
             //self.notesFromGistDownload(gist: gist)
-            print(gist)
         }
         task.resume()
         
