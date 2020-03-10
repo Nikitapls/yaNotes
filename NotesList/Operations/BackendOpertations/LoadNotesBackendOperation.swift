@@ -22,7 +22,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
             print("currentGistNil nil")
             findRequest()
         } else {
-            loadData()
+            loadData()//tut
         }
         
         //wriaitUntilFinished()
@@ -132,17 +132,14 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                 }
                 self.result = .success(dictInput)
                 self.finish()
+                return
             } else {
                 self.result = .failure(.unreachable)
                 self.finish()
+                return
             }
             
-            defer {
-                if self.result == nil {
-                    self.result = .failure(.unreachable)
-                }
-                self.finish()
-            }
+    
         }
         task.resume()
     }
