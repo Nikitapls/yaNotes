@@ -69,7 +69,7 @@ class TableViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        addLoadNotesOperation()
+        //addLoadNotesOperation()
     }
     
     func addSaveOperationToQueue(note: Note) {
