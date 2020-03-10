@@ -11,14 +11,14 @@ enum SaveNotesBackendResult {
 
 class SaveNotesBackendOperation: BaseBackendOperation {
     var result: SaveNotesBackendResult?
-    var rawUrl: String?
+    //var rawUrl: String?
     var notes: [String: Note]
     //private let fileName = "ios-course-notes-db"
     
     init(notes: [String: Note], token: String?, rawUrl: String?) {
-        self.rawUrl = rawUrl
         self.notes = notes
         super.init()
+        self.rawUrl = rawUrl
         self.token = token
     }
     

@@ -28,7 +28,7 @@ class TableViewController: UIViewController {
     
     func addLoadNotesOperation() {
         //guard let token = token else { return }
-        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token)
+        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, rawUrl: rawUrl)
         loadOperation.completionBlock = {
             if let loadNotesResult = loadOperation.loadedNotes {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
@@ -37,6 +37,7 @@ class TableViewController: UIViewController {
                     return lhs.creationDate > rhs.creationDate
                     })
                 self.notes = newNotes
+                //self.rawUrl = loadOperation.raw
             }
             print("endLoadNotesOperation")
             DispatchQueue.main.async {
@@ -62,6 +63,7 @@ class TableViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        addLoadNotesOperation()
     }
     
     func addSaveOperationToQueue(note: Note) {

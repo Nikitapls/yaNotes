@@ -8,22 +8,50 @@ enum LoadNotesBackendResult {
 class LoadNotesBackendOperation: BaseBackendOperation {
 
     var result: LoadNotesBackendResult? //= .failure(.unreachable)
-    var rawUrl: String?
+    //var rawUrl: String?
     
-    init(notes: [String: Note], token: String?) {
+    init(notes: [String: Note], token: String?,rawUrl: String?) {
         super.init()
+        self.rawUrl = rawUrl
         self.token = token
     }
     
     override func main() {
        // result = .failure(.unreachable)
-        updateData()
+        if rawUrl == nil {
+            print("raw url nil")
+            postRequest()
+        } else {
+            loadData()
+        }
         
         //wriaitUntilFinished()
         //finish()
     }
     
-    func updateData() {
+    func loadData() {
+        guard let rawUrl = rawUrl else {
+            self.finish()
+            return
+        }
+        
+        var request = URLRequest(url: URL(string: rawUrl)!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            //print(String(decoding: data!, as: UTF8.self))
+            //self.result = .failure(.unreachable)
+            guard let data = data else { self.finish(); return }
+            guard let gist = try? JSONDecoder().decode(GistDownload.self, from: data) else {
+                print("Error while parsing data")
+                self.finish()
+                return
+            }
+            self.notesFromGistDownload(gist: gist)
+        }
+        task.resume()
+    }
+    
+    func postRequest() {
         let stringUrl = "https://api.github.com/gists"
 //        let fileName = "ios-course-notes-db"
         //let token = "26151f23b63e588415729feb76658d125e61075d"
@@ -61,6 +89,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                 } else { return false }
             }) else {
                 print("no")
+                self.result = .failure(.unreachable)
                 self.finish()
                 return
             }
