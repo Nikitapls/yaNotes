@@ -78,10 +78,10 @@ class TableViewController: UIViewController {
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
             self.currentGist = saveNoteOperation.currentGist
-            DispatchQueue.main.async {
+            //DispatchQueue.main.async {
                 self.addLoadNotesOperation()
                 //saself.tableViewField.reloadData()
-            }
+            //}
         }
         commonQueue.addOperation(saveNoteOperation)
         print(commonQueue.operationCount)
@@ -101,32 +101,36 @@ class TableViewController: UIViewController {
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let note = Note(title: "", content: "", impotance: Impotance.usual)
-//        tableViewField.beginUpdates()
-//        addSaveOperationToQueue(note: note)
-//        notes?.append(note)
-//        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-//        tableViewField.endUpdates()
-//        if !isEditing, let notesCount = notes?.count{
-//            performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
-//        }
-        addSaveOperationWhenAddButtonClicked(note: note)
+        tableViewField.beginUpdates()
+        notes?.insert(note, at: 0)
+        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        tableViewField.endUpdates()
+        addSaveOperationToQueue(note: note)
+        if !isEditing, let notesCount = notes?.count{
+            performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: 0, section: 0))
+        }
+       // addSaveOperationWhenAddButtonClicked(note: note)
     }
-    
+    /* следующая функция не используется, так скажем legacy*/
     func addSaveOperationWhenAddButtonClicked(note: Note) {
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         saveNoteOperation.completionBlock = {
             
             DispatchQueue.main.async {
                 self.tableViewField.beginUpdates()
-                self.notes?.append(note)
+                //self.notes?.append(note)
+                self.notes?.insert(note, at: 0)
                 self.tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 self.tableViewField.endUpdates()
-                if !self.isEditing, let notesCount = self.notes?.count{
-                    self.performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
+                if !self.isEditing {
+//                    self.performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
+                    self.performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: 0, section: 0))
+
                 }
-                self.addLoadNotesOperation()
+                
                 //saself.tableViewField.reloadData()
             }
+            self.addLoadNotesOperation()
         }
         commonQueue.addOperation(saveNoteOperation)
         print(commonQueue.operationCount)
@@ -204,7 +208,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.addSaveOperationToQueue(note: note)
-                //self?.notes?[indexPath.row] = note
+                self?.notes?[indexPath.row] = note
             }
         } else if let controller = segue.destination as? AuthorizationViewController,
             segue.identifier == "showAuthViewController" {
