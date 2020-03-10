@@ -112,7 +112,7 @@ class SaveNotesBackendOperation: BaseBackendOperation {
                     return
                 }
                 self.currentGist = gist
-                self.finish()
+                self.finish()//
             }
             task.resume()
         } catch {}
