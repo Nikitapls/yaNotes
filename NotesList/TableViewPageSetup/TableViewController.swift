@@ -15,7 +15,7 @@ class TableViewController: UIViewController {
     var token: String?
     var currentGist: GistDownload? {
         didSet {
-            print("currentGist changed \(self.currentGist?.gistId)")
+            print("currentGist changed \(self.currentGist?.gistId ?? "nil")")
         }
     }
     
@@ -29,6 +29,25 @@ class TableViewController: UIViewController {
         self.tableViewField.dataSource = self
         self.tableViewField.delegate = self
         self.tableViewField.allowsMultipleSelectionDuringEditing = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //tableViewField.reloadData()
+        super.viewWillAppear(animated)
+        addLoadNotesOperation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if first {
+            performSegue(withIdentifier: "showAuthViewController", sender: nil)
+            first = false
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //addLoadNotesOperation()
     }
     
     func addLoadNotesOperation() {
@@ -51,25 +70,6 @@ class TableViewController: UIViewController {
             }
         }
         commonQueue.addOperation(loadOperation)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //tableViewField.reloadData()
-        super.viewWillAppear(animated)
-        addLoadNotesOperation()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if first {
-            performSegue(withIdentifier: "showAuthViewController", sender: nil)
-            first = false
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //addLoadNotesOperation()
     }
     
     func addSaveOperationToQueue(note: Note) {
