@@ -20,7 +20,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
        // result = .failure(.unreachable)
         if currentGist == nil {
             print("currentGistNil nil")
-            postRequest()
+            findRequest()
         } else {
             loadData()
         }
@@ -41,17 +41,20 @@ class LoadNotesBackendOperation: BaseBackendOperation {
             //print(String(decoding: data!, as: UTF8.self))
             //self.result = .failure(.unreachable)
             guard let data = data else { self.finish(); return }
-            guard let gist = try? JSONDecoder().decode(GistDownload.self, from: data) else {
+            guard let gist = try? JSONDecoder().decode(GistFileDownload.self, from: data) else {
+                print(String(decoding: data, as: UTF8.self))
                 print("Error while parsing data")
                 self.finish()
                 return
             }
-            self.notesFromGistDownload(gist: gist)
+            //self.notesFromGistDownload(gist: gist)
+            print(gist)
         }
         task.resume()
+        
     }
     
-    func postRequest() {
+    func findRequest() {
         let stringUrl = "https://api.github.com/gists"
 //        let fileName = "ios-course-notes-db"
         //let token = "26151f23b63e588415729feb76658d125e61075d"
@@ -104,6 +107,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     }
     
     func notesFromGistDownload(gist: GistDownload) {
+        
         guard let urlPath = gist.files[self.fileName]?.rawUrl,
         let url = URL(string: urlPath) else {
             self.result = .failure(.unreachable)
@@ -125,6 +129,13 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                 self.finish()
             } else {
                 self.result = .failure(.unreachable)
+                self.finish()
+            }
+            
+            defer {
+                if self.result == nil {
+                    self.result = .failure(.unreachable)
+                }
                 self.finish()
             }
         }
