@@ -16,16 +16,14 @@ struct GistDownload: Codable {
 }
 
 struct GistFileDownload: Codable {
-    //let content: String
     let rawUrl: String
-
+    let gistId: String
     enum CodingKeys: String, CodingKey {
-        //case content
+        case gistId = "id"
         case rawUrl = "raw_url"
     }
 }
 
 struct GistFileLoad: Codable {
-    //let content: [String: [String: String]]
     let content: String
 }

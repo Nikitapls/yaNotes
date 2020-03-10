@@ -12,7 +12,7 @@ class RemoveNoteOperation: AsyncOperation {
     backendQueue: OperationQueue,
     dbQueue: OperationQueue,
     token: String?,
-    rawUrl: String?) {
+    currentGist: GistDownload) {
 
         self.backendQueue = backendQueue
         let removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
