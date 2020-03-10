@@ -105,6 +105,13 @@ class SaveNotesBackendOperation: BaseBackendOperation {
                 if let response = response as? HTTPURLResponse {
                     print(response.statusCode)
                 }
+                guard let data = data,
+                    let gist = try? JSONDecoder().decode(GistDownload.self, from: data) else {
+                    print("Error while parsing data")
+                    self.finish()
+                    return
+                }
+                self.currentGist = gist
                 self.finish()
             }
             task.resume()

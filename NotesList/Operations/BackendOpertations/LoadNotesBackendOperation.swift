@@ -57,6 +57,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
         //let token = "26151f23b63e588415729feb76658d125e61075d"
         let components = URLComponents(string: stringUrl)
         guard let url = components?.url else {
+            result = .failure(.unreachable)
             self.finish()
             return
         }
@@ -70,11 +71,13 @@ class LoadNotesBackendOperation: BaseBackendOperation {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
+                self.result = .failure(.unreachable)
                 self.finish()
                 return
             }
             guard let gistArr = try? JSONDecoder().decode([GistDownload].self, from: data) else {
                 print("Error while parsing data")
+                self.result = .failure(.unreachable)
                 self.finish()
                 return
             }
@@ -103,6 +106,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     func notesFromGistDownload(gist: GistDownload) {
         guard let urlPath = gist.files[self.fileName]?.rawUrl,
         let url = URL(string: urlPath) else {
+            self.result = .failure(.unreachable)
             self.finish()
             return
         }

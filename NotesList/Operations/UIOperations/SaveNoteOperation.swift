@@ -3,7 +3,7 @@ import Foundation
 class SaveNoteOperation: AsyncOperation {
     private let saveToDb: SaveNoteDBOperation
     private let dbQueue: OperationQueue
-    
+    private(set) var currentGist: GistDownload?
     private(set) var result: Bool? = false
     
     init(note: Note,
@@ -17,7 +17,7 @@ class SaveNoteOperation: AsyncOperation {
         self.dbQueue = dbQueue
         
         super.init()
-        
+        self.currentGist = currentGist
         saveToDb.completionBlock = {
             let saveToBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
             saveToBackend.completionBlock = {
@@ -27,6 +27,7 @@ class SaveNoteOperation: AsyncOperation {
                 case .failure:
                     self.result = false
                 }
+                self.currentGist = saveToBackend.currentGist
                 self.finish()
             }
             backendQueue.addOperation(saveToBackend)

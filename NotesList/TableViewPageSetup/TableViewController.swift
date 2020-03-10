@@ -13,7 +13,11 @@ class TableViewController: UIViewController {
     var notes: [Note]?
     private var first = true
     var token: String?
-    var currentGist: GistDownload?
+    var currentGist: GistDownload? {
+        didSet {
+            print("currentGist changed \(self.currentGist?.gistId)")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,7 @@ class TableViewController: UIViewController {
         //guard let token = token else { return }
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         loadOperation.completionBlock = {
+            self.currentGist = loadOperation.currentGist
             if let loadNotesResult = loadOperation.loadedNotes {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
                 var newNotes: [Note] = Array(self.fileNotebook.notes.values)
@@ -72,6 +77,7 @@ class TableViewController: UIViewController {
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
+            self.currentGist = saveNoteOperation.currentGist
             DispatchQueue.main.async {
                 self.addLoadNotesOperation()
                 //saself.tableViewField.reloadData()
