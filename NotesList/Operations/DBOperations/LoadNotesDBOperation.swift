@@ -9,7 +9,13 @@ class LoadNotesDBOperation: BaseDBOperation {
     }
     
     override func main() {
-        result = notebook.notes
+        do {
+            try notebook.loadFromFile()
+            result = notebook.notes
+        } catch {
+            print("loadFromFileError: \(error.localizedDescription)")
+            result = [String: Note]()
+        }
         finish()
     }
 }

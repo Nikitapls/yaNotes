@@ -11,6 +11,11 @@ class SaveNoteDBOperation: BaseDBOperation {
     
     override func main() {
         notebook.add(note)
+        do {
+            try notebook.saveToFile()
+        } catch {
+            print("saveToFileError: \(error.localizedDescription)")
+        }
         finish()
     }
 }
