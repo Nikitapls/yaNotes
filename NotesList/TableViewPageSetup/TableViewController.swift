@@ -22,7 +22,30 @@ class TableViewController: UIViewController, LoadDataDelegate {
             print("currentGist changed \(self.currentGist?.gistId ?? "nil")")
         }
     }
-    
+    var refreshControl = UIRefreshControl()
+
+    @objc func refresh(sender: AnyObject) {
+       let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
+       loadOperation.completionBlock = {
+           self.currentGist = loadOperation.currentGist
+           if let loadNotesResult = loadOperation.loadedNotes {
+               self.fileNotebook.replaceNotes(notes: loadNotesResult)
+               var newNotes: [Note] = Array(self.fileNotebook.notes.values)
+               newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
+                   return lhs.creationDate > rhs.creationDate
+                   })
+               self.notes = newNotes
+               //self.rawUrl = loadOperation.raw
+           }
+        print("endLoadNotesOperation")
+        DispatchQueue.main.async {
+            self.tableViewField.reloadData()
+            self.refreshControl.endRefreshing()
+            print("refreshFinish")
+        }
+        }
+       commonQueue.addOperation(loadOperation)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Заметки"
@@ -33,6 +56,10 @@ class TableViewController: UIViewController, LoadDataDelegate {
         self.tableViewField.dataSource = self
         self.tableViewField.delegate = self
         self.tableViewField.allowsMultipleSelectionDuringEditing = false
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableViewField.addSubview(refreshControl) // not required when using UITableViewController
         addLoadNotesOperation()
     }
     
@@ -116,7 +143,10 @@ class TableViewController: UIViewController, LoadDataDelegate {
         }
        // addSaveOperationWhenAddButtonClicked(note: note)
     }
-//    /* следующая функция не используется, так скажем legacy*/
+    @IBAction func authorizationButtonClicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showAuthViewController", sender: nil)
+    }
+    //    /* следующая функция не используется, так скажем legacy*/
 //    func addSaveOperationWhenAddButtonClicked(note: Note) {
 //        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
 //        saveNoteOperation.completionBlock = {
