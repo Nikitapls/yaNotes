@@ -216,8 +216,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "note", for: indexPath) as! NoteTableViewCell
-        print("index = \(indexPath.row)")
-       // guard indexPath.row < notes?.count else {return cell}
         guard let note = notes?[indexPath.row] else {return cell}
         cell.colorField?.backgroundColor = note.color
         cell.titleLabel?.text = note.title
