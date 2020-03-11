@@ -66,7 +66,7 @@ extension AuthorizationViewController: WKNavigationDelegate {
         defer {
             decisionHandler(.allow)
         }
-        print(navigationAction.request.url)
+        //print(navigationAction.request.url)
         if let url = navigationAction.request.url {
             guard let components = URLComponents(string: url.absoluteString) else { return }
             if let token = components.queryItems?.first(where: { $0.name == "code" })?.value {
