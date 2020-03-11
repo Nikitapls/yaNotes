@@ -3,8 +3,8 @@ import Foundation
 
 class RemoveNoteOperation: AsyncOperation {
     
-    private var removeFromBackend: SaveNotesBackendOperation
-    private let backendQueue: OperationQueue
+    private var removeFromDb: RemoveNoteDBOperation
+    private let dbQueue: OperationQueue
     private(set) var result: Bool? = false
     
     init(note: Note,
@@ -14,29 +14,47 @@ class RemoveNoteOperation: AsyncOperation {
     token: String?,
     currentGist: GistDownload?) {
 
-        self.backendQueue = backendQueue
-        let removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
-        removeFromBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
+        self.dbQueue = dbQueue
+        removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
         super.init()
         
-        removeFromBackend.completionBlock = { [weak self] in
-            guard let self = self else { return }
-            switch self.removeFromBackend.result! {
-            case .success:
+//        removeFromBackend.completionBlock = { [weak self] in
+//            guard let self = self else { return }
+//            switch self.removeFromBackend.result! {
+//            case .success:
+//                    self.result = true
+//            case .failure(.unreachable):
+//                    self.result = false
+//            }
+//            dbQueue.addOperation(removeFromDb)
+//        }
+//
+//        removeFromDb.completionBlock = { [weak self] in
+//        guard let self = self else { return }
+//            self.finish()
+//        }
+        
+        removeFromDb.completionBlock = {
+            let removeFromBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
+            removeFromBackend.completionBlock = { [weak self] in
+                guard let self = self else { return }
+                switch removeFromBackend.result {
+                case .success:
                     self.result = true
-            case .failure(.unreachable):
+                case .failure(.unreachable):
                     self.result = false
+                case .none:
+                    self.result = false
+                }
+                self.finish()
             }
-            dbQueue.addOperation(removeFromDb)
+            backendQueue.addOperation(removeFromBackend)
         }
         
-        removeFromDb.completionBlock = { [weak self] in
-        guard let self = self else { return }
-            self.finish()
-        }
+        
     }
     
     override func main() {
-        backendQueue.addOperation(removeFromBackend)
+        dbQueue.addOperation(removeFromDb)
     }
 }

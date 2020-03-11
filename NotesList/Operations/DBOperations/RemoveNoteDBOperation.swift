@@ -18,6 +18,11 @@ class RemoveNoteDBOperation: BaseDBOperation {
     
     override func main() {
         notebook.remove(with: note.uid)
+        do {
+            try notebook.saveToFile()
+        } catch {
+            print("saveToFileError: \(error.localizedDescription)")
+        }
         finish()
     }
 

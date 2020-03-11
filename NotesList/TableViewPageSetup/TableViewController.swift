@@ -94,7 +94,9 @@ class TableViewController: UIViewController, LoadDataDelegate {
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         removeNoteOperation.completionBlock = {
             print("endRemoveNotesOperation")
-            //self.addLoadNotesOperation()
+            DispatchQueue.main.async {
+                self.tableViewField.reloadData()
+            }
         }
         commonQueue.addOperation(removeNoteOperation)
     }
@@ -118,7 +120,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
 //    func addSaveOperationWhenAddButtonClicked(note: Note) {
 //        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
 //        saveNoteOperation.completionBlock = {
-//            
+//
 //            DispatchQueue.main.async {
 //                self.tableViewField.beginUpdates()
 //                //self.notes?.append(note)
