@@ -22,9 +22,9 @@ class TableViewController: UIViewController, LoadDataDelegate {
             print("currentGist changed \(self.currentGist?.gistId ?? "nil")")
         }
     }
-    var refreshControl = UIRefreshControl()
+    //var refreshControl = UIRefreshControl()
 
-    @objc func refresh(sender: AnyObject) {
+    @objc func refresh(refreshControl: UIRefreshControl) {
        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
        loadOperation.completionBlock = {
            self.currentGist = loadOperation.currentGist
@@ -32,13 +32,13 @@ class TableViewController: UIViewController, LoadDataDelegate {
                self.fileNotebook.replaceNotes(notes: loadNotesResult)
                var newNotes: [Note] = Array(self.fileNotebook.notes.values)
                newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
-                   return lhs.creationDate > rhs.creationDate
+                   return lhs.creationDate >= rhs.creationDate
                    })
                self.notes = newNotes
            }
         print("endLoadNotesOperation")
         DispatchQueue.main.async {
-            self.refreshControl.endRefreshing()
+            refreshControl.endRefreshing()
             self.tableViewField.reloadData()
         }
         }
@@ -54,10 +54,12 @@ class TableViewController: UIViewController, LoadDataDelegate {
         self.tableViewField.dataSource = self
         self.tableViewField.delegate = self
         self.tableViewField.allowsMultipleSelectionDuringEditing = false
-        
+        let refreshControl = UIRefreshControl()
+       
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        tableViewField.addSubview(refreshControl) // not required when using UITableViewController
+         tableViewField.refreshControl = refreshControl
+       // tableViewField.addSubview(refreshControl) // not required when using UITableViewController
         addLoadNotesOperation()
     }
     
