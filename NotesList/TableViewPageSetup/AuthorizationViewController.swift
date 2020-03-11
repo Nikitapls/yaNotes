@@ -31,7 +31,7 @@ class AuthorizationViewController: UIViewController {
     
     @IBOutlet weak var webView: WKWebView!
     var delegate: AuthorizationViewControllerDelegate?
-    
+    var loadDataDelegate: LoadDataDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.navigationDelegate = self
@@ -100,6 +100,7 @@ extension AuthorizationViewController: WKNavigationDelegate {
                         return
                     }
                     self.delegate?.handleTokenChanged(token: accessToken.token)
+                    self.loadDataDelegate?.addLoadNotesOperation()
                     DispatchQueue.main.async {
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -107,5 +108,9 @@ extension AuthorizationViewController: WKNavigationDelegate {
             }
             task.resume()
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.loadDataDelegate?.addLoadNotesOperation()
     }
 }

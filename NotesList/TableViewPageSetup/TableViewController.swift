@@ -2,7 +2,11 @@
 
 import UIKit
 
-class TableViewController: UIViewController {
+protocol LoadDataDelegate {
+    func addLoadNotesOperation()
+}
+
+class TableViewController: UIViewController, LoadDataDelegate {
     
     let backendQueue = OperationQueue()
     let dbQueue = OperationQueue()
@@ -29,12 +33,13 @@ class TableViewController: UIViewController {
         self.tableViewField.dataSource = self
         self.tableViewField.delegate = self
         self.tableViewField.allowsMultipleSelectionDuringEditing = false
+        //addLoadNotesOperation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //tableViewField.reloadData()
         super.viewWillAppear(animated)
-        addLoadNotesOperation()
+        //addLoadNotesOperation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -78,20 +83,17 @@ class TableViewController: UIViewController {
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
             self.currentGist = saveNoteOperation.currentGist
-            //DispatchQueue.main.async {
-                self.addLoadNotesOperation()
-                //saself.tableViewField.reloadData()
-            //}
+            self.addLoadNotesOperation()
         }
         commonQueue.addOperation(saveNoteOperation)
         print(commonQueue.operationCount)
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
-        //guard let token = token else { return }
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         removeNoteOperation.completionBlock = {
             print("endRemoveNotesOperation")
+            self.addLoadNotesOperation()
         }
         commonQueue.addOperation(removeNoteOperation)
     }
@@ -123,12 +125,8 @@ class TableViewController: UIViewController {
                 self.tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 self.tableViewField.endUpdates()
                 if !self.isEditing {
-//                    self.performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: notesCount - 1, section: 0))
                     self.performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: 0, section: 0))
-
                 }
-                
-                //saself.tableViewField.reloadData()
             }
             self.addLoadNotesOperation()
         }
@@ -167,7 +165,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        //reloaddata when editin style = .delete?
         if editingStyle == .delete {
             guard var notes = notes else { return }
             let note = notes[indexPath.row]
@@ -213,6 +210,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         } else if let controller = segue.destination as? AuthorizationViewController,
             segue.identifier == "showAuthViewController" {
             controller.delegate = self
+            controller.loadDataDelegate = self
         }
     }
 }
