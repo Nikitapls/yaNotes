@@ -35,7 +35,7 @@ class LoadNotesOperation: AsyncOperation {
             guard let self = self else { return }
             self.loadedNotes = loadFromDB.result
             self.finish()
-        }
+        }//
     }
 
     override func main() {
