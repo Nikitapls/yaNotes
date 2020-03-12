@@ -25,24 +25,29 @@ class TableViewController: UIViewController, LoadDataDelegate {
     //var refreshControl = UIRefreshControl()
 
     @objc func refresh(refreshControl: UIRefreshControl) {
-       let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
-       loadOperation.completionBlock = {
-           self.currentGist = loadOperation.currentGist
-           if let loadNotesResult = loadOperation.loadedNotes {
-               self.fileNotebook.replaceNotes(notes: loadNotesResult)
-               var newNotes: [Note] = Array(self.fileNotebook.notes.values)
-               newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
-                   return lhs.creationDate >= rhs.creationDate
-                   })
-               self.notes = newNotes
-           }
-        print("endLoadNotesOperation")
-        DispatchQueue.main.async {
-            refreshControl.endRefreshing()
-            self.tableViewField.reloadData()
+        commonQueue.waitUntilAllOperationsAreFinished()
+        commonQueue.addOperation {
+            let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist)
+            loadOperation.completionBlock = {
+                self.currentGist = loadOperation.currentGist
+                if let loadNotesResult = loadOperation.loadedNotes {
+                    self.fileNotebook.replaceNotes(notes: loadNotesResult)
+                    var newNotes: [Note] = Array(self.fileNotebook.notes.values)
+                    newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
+                        return lhs.creationDate >= rhs.creationDate
+                        })
+                    self.notes = newNotes
+                }
+             print("endLoadNotesOperation")
+             DispatchQueue.main.async {
+                 refreshControl.endRefreshing()
+                 self.tableViewField.reloadData()
+             }
+             }
+            self.commonQueue.addOperation(loadOperation)
         }
-        }
-       commonQueue.addOperation(loadOperation)
+       
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
