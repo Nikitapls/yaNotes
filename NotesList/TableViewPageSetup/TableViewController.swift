@@ -19,7 +19,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     var token: String?
     var currentGist: GistDownload? {
         didSet {
-            print("currentGist changed \(self.currentGist?.gistId ?? "nil")")
+            print("currentGist changed \(self.currentGist?.files["ios-course-notes-db"]?.rawUrl ?? "nil")")
         }
     }
     //var refreshControl = UIRefreshControl()

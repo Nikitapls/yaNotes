@@ -54,6 +54,13 @@ class SaveNotesBackendOperation: BaseBackendOperation {
             if let response = response as? HTTPURLResponse {
                 print("PatchAnswer\(response.statusCode)")
             }
+            guard let data = data,
+                let gist = try? JSONDecoder().decode(GistDownload.self, from: data) else {
+                print("Error while parsing data")
+                self.finish()
+                return
+            }
+            self.currentGist = gist
             self.result = .success
             self.finish()
         }
@@ -80,16 +87,6 @@ class SaveNotesBackendOperation: BaseBackendOperation {
             return
         }
         let components = URLComponents(string: stringUrl)
-//        var dictJson = [String: [String: String]]()
-//
-//        for (uid,note) in notes {
-//            dictJson[uid] = note.jsonStringString
-//        }
-//
-//        let jsdata = try? JSONSerialization.data(withJSONObject: dictJson, options: [])
-//        let str = String(decoding: jsdata!, as: UTF8.self)
-//        print(str)
-//        let gist = GistLoad(files: [fileName: GistFileLoad(content: str)])
         let gist = notebookJson()
         let jsonEncoder = JSONEncoder()
         do {
@@ -112,6 +109,7 @@ class SaveNotesBackendOperation: BaseBackendOperation {
                     return
                 }
                 self.currentGist = gist
+                self.result = .success
                 self.finish()//
             }
             task.resume()
