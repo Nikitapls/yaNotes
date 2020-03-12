@@ -139,7 +139,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         notes?.insert(note, at: 0)
         tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         tableViewField.endUpdates()
-        addSaveOperationToQueue(note: note)
+        
         if !isEditing {
             performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: 0, section: 0))
         }
