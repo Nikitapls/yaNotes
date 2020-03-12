@@ -18,22 +18,6 @@ class RemoveNoteOperation: AsyncOperation {
         removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
         super.init()
         
-//        removeFromBackend.completionBlock = { [weak self] in
-//            guard let self = self else { return }
-//            switch self.removeFromBackend.result! {
-//            case .success:
-//                    self.result = true
-//            case .failure(.unreachable):
-//                    self.result = false
-//            }
-//            dbQueue.addOperation(removeFromDb)
-//        }
-//
-//        removeFromDb.completionBlock = { [weak self] in
-//        guard let self = self else { return }
-//            self.finish()
-//        }
-        
         removeFromDb.completionBlock = {
             let removeFromBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
             removeFromBackend.completionBlock = { [weak self] in
