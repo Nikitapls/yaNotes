@@ -117,6 +117,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
         removeNoteOperation.completionBlock = {
             print("endRemoveNotesOperation")
+             self.currentGist = removeNoteOperation.currentGist
             DispatchQueue.main.async {
                 self.tableViewField.reloadData()
             }

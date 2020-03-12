@@ -6,7 +6,7 @@ class RemoveNoteOperation: AsyncOperation {
     private var removeFromDb: RemoveNoteDBOperation
     private let dbQueue: OperationQueue
     private(set) var result: Bool? = false
-    
+    private(set) var currentGist: GistDownload?
     init(note: Note,
     notebook: FileNotebook,
     backendQueue: OperationQueue,
@@ -17,7 +17,7 @@ class RemoveNoteOperation: AsyncOperation {
         self.dbQueue = dbQueue
         removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
         super.init()
-        
+        self.currentGist = currentGist
         removeFromDb.completionBlock = {
             let removeFromBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
             removeFromBackend.completionBlock = { [weak self] in
@@ -30,6 +30,7 @@ class RemoveNoteOperation: AsyncOperation {
                 case .none:
                     self.result = false
                 }
+                self.currentGist = removeFromBackend.currentGist
                 self.finish()
             }
             backendQueue.addOperation(removeFromBackend)

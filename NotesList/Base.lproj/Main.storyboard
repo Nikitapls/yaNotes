@@ -319,11 +319,11 @@
             </objects>
             <point key="canvasLocation" x="2339" y="-1005"/>
         </scene>
-        <!--Item-->
+        <!--Галерея-->
         <scene sceneID="Dbe-2g-sbU">
             <objects>
                 <navigationController id="TFW-u6-8ap" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="S1M-He-Rh1"/>
+                    <tabBarItem key="tabBarItem" title="Галерея" id="S1M-He-Rh1"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wRO-7s-wmF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
