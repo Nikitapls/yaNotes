@@ -21,10 +21,12 @@ class SaveNoteOperation: AsyncOperation {
         saveToDb.completionBlock = {
             let saveToBackend = SaveNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
             saveToBackend.completionBlock = {
-                switch saveToBackend.result! {
+                switch saveToBackend.result {
                 case .success:
                     self.result = true
                 case .failure:
+                    self.result = false
+                case .none:
                     self.result = false
                 }
                 self.currentGist = saveToBackend.currentGist

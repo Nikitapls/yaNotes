@@ -22,12 +22,14 @@ class LoadNotesOperation: AsyncOperation {
         
         loadFromBackend.completionBlock = { [weak self] in
             guard let self = self else { return }
-            switch self.loadFromBackend.result! {
+            switch self.loadFromBackend.result {
             case .success(let notes):
                 self.loadedNotes = notes
                 self.currentGist = self.loadFromBackend.currentGist
                 self.finish()
             case .failure:
+                dbQueue.addOperation(loadFromDB)
+            case .none:
                 dbQueue.addOperation(loadFromDB)
             }
         }
