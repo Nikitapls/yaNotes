@@ -1,6 +1,7 @@
 
 
 import UIKit
+import CoreData
 
 protocol LoadDataDelegate {
     func addLoadNotesOperation()
@@ -17,13 +18,21 @@ class TableViewController: UIViewController, LoadDataDelegate {
     var notes: [Note]?
     private var first = true
     var token: String?
-    var currentGist: GistDownload? {
-        didSet {
-            print("currentGist changed \(self.currentGist?.gistId)")
-        }
-    }
-    //var refreshControl = UIRefreshControl()
-
+    var currentGist: GistDownload?
+//    var context: NSManagedObjectContext!{
+//        didSet {
+//            setupFetchedResultsControler(for: context)
+//            fetchData()
+//        }
+//    }
+//
+//    func setupFetchedResultsControler(for context: NSManagedObjectContext) {
+//        let request = NSFetchRequest<Lap>(entityName: "Lap")
+//        let sortDescriptor = NSSortDescriptor(key: "timeInterval", ascending: true)
+//        request.sortDescriptors = [sortDescriptor]
+//        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+//        fetchedResultsController?.delegate = self
+//    }
     @objc func refresh(refreshControl: UIRefreshControl) {
         commonQueue.waitUntilAllOperationsAreFinished()
         commonQueue.addOperation {
