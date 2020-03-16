@@ -19,24 +19,19 @@ class TableViewController: UIViewController, LoadDataDelegate {
     private var first = true
     var token: String?
     var currentGist: GistDownload?
-//    var context: NSManagedObjectContext!{
-//        didSet {
-//            setupFetchedResultsControler(for: context)
-//            fetchData()
-//        }
-//    }
-//
-//    func setupFetchedResultsControler(for context: NSManagedObjectContext) {
-//        let request = NSFetchRequest<Lap>(entityName: "Lap")
-//        let sortDescriptor = NSSortDescriptor(key: "timeInterval", ascending: true)
-//        request.sortDescriptors = [sortDescriptor]
-//        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-//        fetchedResultsController?.delegate = self
-//    }
+    var context: NSManagedObjectContext!
+    var backgroundContext: NSManagedObjectContext!
+    
+    private func setupContext() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        context = appDelegate.container.viewContext
+        backgroundContext = appDelegate.container.newBackgroundContext()
+    }
+    
     @objc func refresh(refreshControl: UIRefreshControl) {
         commonQueue.waitUntilAllOperationsAreFinished()
         commonQueue.addOperation {
-            let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist)
+            let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, context: self.context, backgroundContext: self.backgroundContext)
             loadOperation.completionBlock = {
                 self.currentGist = loadOperation.currentGist
                 if let loadNotesResult = loadOperation.loadedNotes {
@@ -55,11 +50,11 @@ class TableViewController: UIViewController, LoadDataDelegate {
              }
             self.commonQueue.addOperation(loadOperation)
         }
-       
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupContext()
         title = "Заметки"
         notes = Array(fileNotebook.notes.values)
         
@@ -96,7 +91,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addLoadNotesOperation() {
-        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
+        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, context: context, backgroundContext: backgroundContext)
         loadOperation.completionBlock = {
             self.currentGist = loadOperation.currentGist
             if let loadNotesResult = loadOperation.loadedNotes {
@@ -118,7 +113,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     func addSaveOperationToQueue(note: Note) {
         //guard let token = token else { return }
-        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, context: context, backgroundContext: backgroundContext)
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
             self.currentGist = saveNoteOperation.currentGist
@@ -128,7 +123,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
-        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist)
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, context: context, backgroundContext: backgroundContext)
         removeNoteOperation.completionBlock = {
             print("endRemoveNotesOperation")
              self.currentGist = removeNoteOperation.currentGist
@@ -244,3 +239,19 @@ extension TableViewController: AuthorizationViewControllerDelegate {
         print(token)
     }
 }
+
+//extension TableViewController {
+//    func fetchData() {
+//        do {
+//            try fetchedResultsController?.performFetch()
+//        } catch { print(error) }
+//        tableView.reloadData()
+//    }
+//        func setupFetchedResultsControler(for context: NSManagedObjectContext) {
+//            let request = NSFetchRequest<Lap>(entityName: "Lap")
+//            let sortDescriptor = NSSortDescriptor(key: "timeInterval", ascending: true)
+//            request.sortDescriptors = [sortDescriptor]
+//            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+//            fetchedResultsController?.delegate = self
+//        }
+//}

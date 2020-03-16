@@ -1,6 +1,6 @@
 
 import Foundation
-
+import CoreData
 class RemoveNoteOperation: AsyncOperation {
     
     private var removeFromDb: RemoveNoteDBOperation
@@ -12,10 +12,13 @@ class RemoveNoteOperation: AsyncOperation {
     backendQueue: OperationQueue,
     dbQueue: OperationQueue,
     token: String?,
-    currentGist: GistDownload?) {
+    currentGist: GistDownload?,
+    context: NSManagedObjectContext,
+    backgroundContext: NSManagedObjectContext) {
 
         self.dbQueue = dbQueue
-        removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook)
+        removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook,
+        context: context, backgroundContext: backgroundContext)
         super.init()
         self.currentGist = currentGist
         removeFromDb.completionBlock = {

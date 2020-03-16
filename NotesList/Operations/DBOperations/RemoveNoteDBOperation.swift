@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import CoreData
 class RemoveNoteDBOperation: BaseDBOperation {
     
     private var note: Note
     
-    init(note: Note,fileNotebook: FileNotebook) {
+    init(note: Note,fileNotebook: FileNotebook, context: NSManagedObjectContext, backgroundContext: NSManagedObjectContext) {
         self.note = note
-        super.init(notebook: fileNotebook)
+        super.init(notebook: fileNotebook, context: context, backgroundContext: backgroundContext)
     }
     
     override func main() {
