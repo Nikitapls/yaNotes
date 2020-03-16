@@ -43,12 +43,26 @@ class LoadNotesDBOperation: BaseDBOperation {
 //        finish()
         setupFetchedResultsControler(for: backgroundContext)
         fetchData()
-        
+        var resultDict = [String: Note]()
+        fetchedResultsController?.fetchedObjects?.forEach({ (noteEntity) in
+            if let note = noteFromNoteEntity(noteEntity: noteEntity) {
+                resultDict[note.uid] = note
+            }
+        })
+        self.result = resultDict
+        finish()
     }
     
-    func noteFromNoteEntity(note: NoteEntity) ->Note {
-        note.
-        //Impotance.init(rawValue: note.importance)
-        return Note(uid: note.uid, title: note.title, content: note.content, color: <#T##UIColor?#>, impotance: , selfDestructionDate: <#T##Date?#>, creationDate: <#T##Date#>)
+    func noteFromNoteEntity(noteEntity: NoteEntity) -> Note? {
+        if let uid = noteEntity.uid,
+            let title = noteEntity.title,
+            let content = noteEntity.content,
+            let colorHex = noteEntity.color,
+            let color = UIColor.hexStringToUIColor(hex: colorHex),
+            let importanceHex = noteEntity.importance,
+            let importance = Impotance.init(rawValue: importanceHex),
+            let creationDate = noteEntity.creationDate {
+            return Note(uid: uid, title: title, content: content, color: color, impotance: importance, selfDestructionDate: noteEntity.selfDestructionDate, creationDate: creationDate)
+        } else { return nil }
     }
 }
