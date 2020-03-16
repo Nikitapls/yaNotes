@@ -12,16 +12,7 @@ class LoadNotesDBOperation: BaseDBOperation {
     
     func setupFetchedResultsControler(for context: NSManagedObjectContext) {
         let request = NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
-        let sortByCreationDate = NSSortDescriptor(key: "creationDate", ascending: true, comparator: { // comparator function
-            id1, id2 in
-            if let lhs = id1 as? Date, let rhs = id2 as? Date {
-                if lhs < rhs { return .orderedAscending }
-                if lhs > rhs { return .orderedDescending }
-                return .orderedSame
-            }
-            print("error Sort descriptor \(id1),\(id2)")
-            return .orderedSame
-        })
+        let sortByCreationDate = NSSortDescriptor(key: "creationDate", ascending: true)
         request.sortDescriptors = [sortByCreationDate]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
     }

@@ -10,13 +10,15 @@ class SaveNoteDBOperation: BaseDBOperation {
     }
     
     override func main() {
+//        notebook.add(note)
+//        do {
+//            try notebook.saveToFile()
+//        } catch {
+//            print("saveToFileError: \(error.localizedDescription)")
+//        }
+//        finish()
+        addNote(note: note)
         notebook.add(note)
-        do {
-            try notebook.saveToFile()
-        } catch {
-            print("saveToFileError: \(error.localizedDescription)")
-        }
-        finish()
     }
     
     func addNote(note: Note) {
@@ -29,13 +31,13 @@ class SaveNoteDBOperation: BaseDBOperation {
             noteEntity.creationDate = note.creationDate
             noteEntity.importance = note.impotance.rawValue
             noteEntity.selfDestructionDate = note.selfDestructionDate
-            
+            noteEntity.title = note.title
+            noteEntity.uid = note.uid
             
             self.backgroundContext.performAndWait {
                 do {
                     try self.backgroundContext.save()
                 } catch { print(error.localizedDescription) }
-                
             }
         }
     }
