@@ -25,14 +25,6 @@ class LoadNotesDBOperation: BaseDBOperation {
     }
     
     override func main() {
-//        do {
-//            try notebook.loadFromFile()
-//            result = notebook.notes
-//        } catch {
-//            print("loadFromFileError: \(error.localizedDescription)")
-//            result = [String: Note]()
-//        }
-//        finish()
         setupFetchedResultsControler(for: backgroundContext)
         fetchData()
         var resultDict = [String: Note]()
