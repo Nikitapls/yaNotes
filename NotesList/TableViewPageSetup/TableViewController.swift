@@ -26,6 +26,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         context = appDelegate.container.viewContext
         backgroundContext = appDelegate.container.newBackgroundContext()
+        print(Thread.current)
     }
     
     @objc func refresh(refreshControl: UIRefreshControl) {

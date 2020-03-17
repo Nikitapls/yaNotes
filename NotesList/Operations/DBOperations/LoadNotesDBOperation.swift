@@ -15,6 +15,7 @@ class LoadNotesDBOperation: BaseDBOperation {
         let sortByCreationDate = NSSortDescriptor(key: "creationDate", ascending: true)
         request.sortDescriptors = [sortByCreationDate]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        print(Thread.current)
     }
     
     func fetchData() {
