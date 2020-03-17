@@ -6,8 +6,8 @@ class LoadNotesDBOperation: BaseDBOperation {
     var result: [String: Note]?
     var fetchedResultsController: NSFetchedResultsController<NoteEntity>?
     
-    init(fileNotebook: FileNotebook, context: NSManagedObjectContext, backgroundContext: NSManagedObjectContext) {
-        super.init(notebook: fileNotebook, context: context, backgroundContext: backgroundContext)
+    init(fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
+        super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
     }
     
     func setupFetchedResultsControler(for context: NSManagedObjectContext) {

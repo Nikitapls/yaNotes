@@ -12,10 +12,9 @@ class SaveNoteOperation: AsyncOperation {
          dbQueue: OperationQueue,
          token: String?,
          currentGist: GistDownload?,
-         context: NSManagedObjectContext,
          backgroundContext: NSManagedObjectContext) {
         
-        saveToDb = SaveNoteDBOperation(note: note, fileNotebook: notebook, context: context, backgroundContext: backgroundContext)
+        saveToDb = SaveNoteDBOperation(note: note, fileNotebook: notebook, backgroundContext: backgroundContext)
         self.dbQueue = dbQueue
         
         super.init()
