@@ -53,9 +53,16 @@ class TableViewController: UIViewController, LoadDataDelegate {
         }
         
     }
+    
+    @objc func managedObjectContextDidSave(notification: Notification) {
+        context.perform {
+            self.context.mergeChanges(fromContextDidSave: notification)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupContext()
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
         title = "Заметки"
         notes = Array(fileNotebook.notes.values)
         
