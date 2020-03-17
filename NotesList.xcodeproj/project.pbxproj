@@ -62,6 +62,7 @@
 		F50403DA240BB47600520C22 /* BaseBackendOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseBackendOperation.swift; sourceTree = "<group>"; };
 		F50403DB240BB47600520C22 /* SaveNotesBackendOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveNotesBackendOperation.swift; sourceTree = "<group>"; };
 		F50A9DA1241FBC9B00289383 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		F50ABDA02421648C00087CD4 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		F50EF5F924127C07000BC5AE /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		F50EF5FC24142DD6000BC5AE /* GistStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistStructure.swift; sourceTree = "<group>"; };
 		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -613,9 +614,10 @@
 		F50A9DA0241FBC9B00289383 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				F50ABDA02421648C00087CD4 /* Model 2.xcdatamodel */,
 				F50A9DA1241FBC9B00289383 /* Model.xcdatamodel */,
 			);
-			currentVersion = F50A9DA1241FBC9B00289383 /* Model.xcdatamodel */;
+			currentVersion = F50ABDA02421648C00087CD4 /* Model 2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
