@@ -42,7 +42,7 @@ class AuthorizationViewController: UIViewController {
         super.viewWillAppear(animated)
         loadAuthorizationPage()
     }
-    //let reditectUrl = "yanotes"
+    
     private func loadAuthorizationPage() {
         let stringUrl = "https://github.com/login/oauth/authorize"
         var components = URLComponents(string: stringUrl)
@@ -55,7 +55,6 @@ class AuthorizationViewController: UIViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         webView.load(request)
-        
     }
 }
 

@@ -15,7 +15,7 @@ class BaseDBOperation: AsyncOperation {
         if let uid = noteEntity.uid,
             let title = noteEntity.title,
             let content = noteEntity.content,
-            let colorHex = noteEntity.color,
+            let colorHex = noteEntity.colorHex,
             let color = UIColor.hexStringToUIColor(hex: colorHex),
             let importanceHex = noteEntity.importance,
             let importance = Impotance.init(rawValue: importanceHex),

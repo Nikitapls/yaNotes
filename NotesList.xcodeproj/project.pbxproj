@@ -21,6 +21,7 @@
 		F50403E5240BB47600520C22 /* BaseBackendOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50403DA240BB47600520C22 /* BaseBackendOperation.swift */; };
 		F50403E6240BB47600520C22 /* SaveNotesBackendOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50403DB240BB47600520C22 /* SaveNotesBackendOperation.swift */; };
 		F50A9DA2241FBC9B00289383 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F50A9DA0241FBC9B00289383 /* Model.xcdatamodeld */; };
+		F50ABDA5242174DC00087CD4 /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = F50ABDA4242174DC00087CD4 /* Model.xcmappingmodel */; };
 		F50EF5FA24127C07000BC5AE /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50EF5F924127C07000BC5AE /* AuthorizationViewController.swift */; };
 		F50EF5FD24142DD6000BC5AE /* GistStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50EF5FC24142DD6000BC5AE /* GistStructure.swift */; };
 		F54F75BB23FDCE3C00AEE7BD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */; };
@@ -63,6 +64,7 @@
 		F50403DB240BB47600520C22 /* SaveNotesBackendOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveNotesBackendOperation.swift; sourceTree = "<group>"; };
 		F50A9DA1241FBC9B00289383 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		F50ABDA02421648C00087CD4 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		F50ABDA4242174DC00087CD4 /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		F50EF5F924127C07000BC5AE /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		F50EF5FC24142DD6000BC5AE /* GistStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistStructure.swift; sourceTree = "<group>"; };
 		F54F75B923FDCE3C00AEE7BD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				F5FAA71023FD893D00514A2F /* Assets.xcassets */,
 				F5FAA71523FD893D00514A2F /* Info.plist */,
 				F50A9DA0241FBC9B00289383 /* Model.xcdatamodeld */,
+				F50ABDA4242174DC00087CD4 /* Model.xcmappingmodel */,
 			);
 			path = NotesList;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				F5FAA70823FD893C00514A2F /* AppDelegate.swift in Sources */,
 				F50403DC240BB47600520C22 /* SaveNoteDBOperation.swift in Sources */,
 				F50403E4240BB47600520C22 /* LoadNotesBackendOperation.swift in Sources */,
+				F50ABDA5242174DC00087CD4 /* Model.xcmappingmodel in Sources */,
 				F5FAA70A23FD893C00514A2F /* SceneDelegate.swift in Sources */,
 				F5FAA72C23FDB3BC00514A2F /* NoteExtension.swift in Sources */,
 				F58B151D23FFDBED007E5497 /* CollectionViewCell.swift in Sources */,

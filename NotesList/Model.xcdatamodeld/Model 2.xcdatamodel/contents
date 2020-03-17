@@ -5,12 +5,11 @@
         <attribute name="content" attributeType="String"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="importance" attributeType="String"/>
-        <attribute name="isSecret" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="selfDestructionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="uid" attributeType="String"/>
     </entity>
     <elements>
-        <element name="NoteEntity" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="NoteEntity" positionX="-63" positionY="-18" width="128" height="148"/>
     </elements>
 </model>

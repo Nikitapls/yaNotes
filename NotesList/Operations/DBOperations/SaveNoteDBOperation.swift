@@ -20,7 +20,7 @@ class SaveNoteDBOperation: BaseDBOperation {
             [weak self] in
             guard let self = self else { return }
             let noteEntity = NoteEntity(context: self.backgroundContext)
-            noteEntity.color = note.color.toHex()
+            noteEntity.colorHex = note.color.toHex()
             noteEntity.content = note.content
             noteEntity.creationDate = note.creationDate
             noteEntity.importance = note.impotance.rawValue

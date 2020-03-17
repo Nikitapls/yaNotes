@@ -43,7 +43,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
                         })
                     self.notes = newNotes
                 }
-             print("endLoadNotesOperation")
              DispatchQueue.main.async {
                  refreshControl.endRefreshing()
                  self.tableViewField.reloadData()
@@ -76,7 +75,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
          tableViewField.refreshControl = refreshControl
-       // tableViewField.addSubview(refreshControl) // not required when using UITableViewController
         addLoadNotesOperation()
     }
     
@@ -109,9 +107,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
                     return lhs.creationDate > rhs.creationDate
                     })
                 self.notes = newNotes
-                //self.rawUrl = loadOperation.raw
             }
-            print("endLoadNotesOperation")
             DispatchQueue.main.async {
                 self.tableViewField.reloadData()
             }
@@ -120,7 +116,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addSaveOperationToQueue(note: Note) {
-        //guard let token = token else { return }
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
@@ -247,19 +242,3 @@ extension TableViewController: AuthorizationViewControllerDelegate {
         print(token)
     }
 }
-
-//extension TableViewController {
-//    func fetchData() {
-//        do {
-//            try fetchedResultsController?.performFetch()
-//        } catch { print(error) }
-//        tableView.reloadData()
-//    }
-//        func setupFetchedResultsControler(for context: NSManagedObjectContext) {
-//            let request = NSFetchRequest<Lap>(entityName: "Lap")
-//            let sortDescriptor = NSSortDescriptor(key: "timeInterval", ascending: true)
-//            request.sortDescriptors = [sortDescriptor]
-//            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-//            fetchedResultsController?.delegate = self
-//        }
-//}
