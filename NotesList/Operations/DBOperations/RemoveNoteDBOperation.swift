@@ -21,8 +21,8 @@ class RemoveNoteDBOperation: BaseDBOperation {
         notebook.remove(with: note.uid)
         setupFetchedResultsControler(for: backgroundContext)
         fetchData()
-        if let fetchedNotes = fetchedResultsController?.fetchedObjects {
-            //fetchedNotes.count == 1 {//всегда ли уникален uid?
+        if let fetchedNotes = fetchedResultsController?.fetchedObjects,
+            fetchedNotes.count == 1 {//всегда ли уникален uid?
             backgroundContext.delete(fetchedNotes[0])
             self.backgroundContext.performAndWait {
                 do {
@@ -30,13 +30,14 @@ class RemoveNoteDBOperation: BaseDBOperation {
                 } catch { print(error.localizedDescription) }
             }
         }
+        finish()
     }
     
     func setupFetchedResultsControler(for context: NSManagedObjectContext) {
         let request = NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
         let sortByCreationDate = NSSortDescriptor(key: "creationDate", ascending: true)
         request.sortDescriptors = [sortByCreationDate]
-        //request.predicate = NSPredicate(format: "uid = %@", note.uid)
+        request.predicate = NSPredicate(format: "uid = %@", note.uid)
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
     }
 
