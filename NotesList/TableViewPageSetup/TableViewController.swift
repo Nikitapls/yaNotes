@@ -20,12 +20,10 @@ class TableViewController: UIViewController, LoadDataDelegate {
     var token: String?
     var currentGist: GistDownload?
     var context: NSManagedObjectContext!
-    //var backgroundContext: NSManagedObjectContext!
     
     private func setupContext() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         context = appDelegate.container.viewContext
-        //backgroundContext = appDelegate.container.newBackgroundContext()
     }
     
     private func backgroundObjectContext() -> NSManagedObjectContext? {//fix
@@ -34,10 +32,10 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     @objc func refresh(refreshControl: UIRefreshControl) {//отдельный поток
-        
-      //  commonQueue.waitUntilAllOperationsAreFinished()
         guard let backgroundContext = backgroundObjectContext() else { return }
+        
         commonQueue.addOperation {
+            self.commonQueue.waitUntilAllOperationsAreFinished()
             let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: backgroundContext)
             loadOperation.completionBlock = {
                 self.currentGist = loadOperation.currentGist
@@ -49,10 +47,10 @@ class TableViewController: UIViewController, LoadDataDelegate {
                         })
                     self.notes = newNotes
                 }
-             DispatchQueue.main.async {
-                 refreshControl.endRefreshing()
-                 self.tableViewField.reloadData()
-             }
+                DispatchQueue.main.async {
+                    refreshControl.endRefreshing()
+                    self.tableViewField.reloadData()
+                }
              }
             self.commonQueue.addOperation(loadOperation)
         }
