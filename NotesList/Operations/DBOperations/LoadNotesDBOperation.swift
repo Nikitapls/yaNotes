@@ -28,7 +28,7 @@ class LoadNotesDBOperation: BaseDBOperation {
         setupFetchedResultsControler(for: backgroundContext)
         fetchData()
         var resultDict = [String: Note]()
-        fetchedResultsController?.fetchedObjects?.forEach({ (noteEntity) in
+        //fetchedResultsController?.fetchedObjects?.forEach({ (noteEntity) in
             if let note = noteFromNoteEntity(noteEntity: noteEntity) {
                 resultDict[note.uid] = note
             }

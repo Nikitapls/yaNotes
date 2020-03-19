@@ -20,19 +20,24 @@ class TableViewController: UIViewController, LoadDataDelegate {
     var token: String?
     var currentGist: GistDownload?
     var context: NSManagedObjectContext!
-    var backgroundContext: NSManagedObjectContext!
+    //var backgroundContext: NSManagedObjectContext!
     
     private func setupContext() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         context = appDelegate.container.viewContext
-        backgroundContext = appDelegate.container.newBackgroundContext()
-        print(Thread.current)
+        //backgroundContext = appDelegate.container.newBackgroundContext()
+    }
+    
+    private func backgroundObjectContext() -> NSManagedObjectContext? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        return appDelegate.container.newBackgroundContext()
     }
     
     @objc func refresh(refreshControl: UIRefreshControl) {
         commonQueue.waitUntilAllOperationsAreFinished()
+        guard let backgroundContext = backgroundObjectContext() else { return }
         commonQueue.addOperation {
-            let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: self.backgroundContext)
+            let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: backgroundContext)
             loadOperation.completionBlock = {
                 self.currentGist = loadOperation.currentGist
                 if let loadNotesResult = loadOperation.loadedNotes {
@@ -97,6 +102,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addLoadNotesOperation() {
+        guard let backgroundContext = backgroundObjectContext() else { return }
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         loadOperation.completionBlock = {
             self.currentGist = loadOperation.currentGist
@@ -116,6 +122,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addSaveOperationToQueue(note: Note) {
+        guard let backgroundContext = backgroundObjectContext() else { return }
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         saveNoteOperation.completionBlock = {
             print("endSaveNotesOperation")
@@ -126,6 +133,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
+        guard let backgroundContext = backgroundObjectContext() else { return }
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         removeNoteOperation.completionBlock = {
             print("endRemoveNotesOperation")

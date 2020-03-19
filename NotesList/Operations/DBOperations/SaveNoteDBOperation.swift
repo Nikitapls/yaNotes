@@ -16,8 +16,7 @@ class SaveNoteDBOperation: BaseDBOperation {
     }
     
     func addNote(note: Note) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            [weak self] in
+        
             guard let self = self else { return }
             let noteEntity = NoteEntity(context: self.backgroundContext)
             noteEntity.colorHex = note.color.toHex()
@@ -27,12 +26,11 @@ class SaveNoteDBOperation: BaseDBOperation {
             noteEntity.selfDestructionDate = note.selfDestructionDate
             noteEntity.title = note.title
             noteEntity.uid = note.uid
-            
-            self.backgroundContext.performAndWait {
+            self.backgroundContext.perform {
                 do {
                     try self.backgroundContext.save()
                 } catch { print(error.localizedDescription) }
             }
-        }
-    }
+        
+    
 }

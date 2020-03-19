@@ -11,18 +11,11 @@ class RemoveNoteDBOperation: BaseDBOperation {
     }
     
     override func main() {
-//        notebook.remove(with: note.uid)
-//        do {
-//            try notebook.saveToFile()
-//        } catch {
-//            print("saveToFileError: \(error.localizedDescription)")
-//        }
-//        finish()
         notebook.remove(with: note.uid)
         setupFetchedResultsControler(for: backgroundContext)
         fetchData()
         if let fetchedNotes = fetchedResultsController?.fetchedObjects,
-            fetchedNotes.count == 1 {//всегда ли уникален uid?
+            fetchedNotes.count == 1 {
             backgroundContext.delete(fetchedNotes[0])
             self.backgroundContext.performAndWait {
                 do {
@@ -38,7 +31,7 @@ class RemoveNoteDBOperation: BaseDBOperation {
         let sortByCreationDate = NSSortDescriptor(key: "creationDate", ascending: true)
         request.sortDescriptors = [sortByCreationDate]
         request.predicate = NSPredicate(format: "uid = %@", note.uid)
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        //fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
     }
 
     func fetchData() {
