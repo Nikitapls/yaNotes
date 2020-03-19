@@ -32,20 +32,21 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     @objc func refresh(refreshControl: UIRefreshControl) {//отдельный поток
-        guard let backgroundContext = backgroundObjectContext() else { return }
-        
-        commonQueue.addOperation {
+        let queue = OperationQueue()
+        let updateOperation = BlockOperation {
+            guard let backgroundContext = self.backgroundObjectContext() else { return }
             self.commonQueue.waitUntilAllOperationsAreFinished()
-            let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: backgroundContext)
-            loadOperation.completionBlock = {
-                self.currentGist = loadOperation.currentGist
-                if let loadNotesResult = loadOperation.loadedNotes {
-                    self.fileNotebook.replaceNotes(notes: loadNotesResult)
-                    var newNotes: [Note] = Array(self.fileNotebook.notes.values)
-                    newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
-                        return lhs.creationDate >= rhs.creationDate
+            self.commonQueue.addOperation {
+                let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: backgroundContext)
+                loadOperation.completionBlock = {
+                    self.currentGist = loadOperation.currentGist
+                    if let loadNotesResult = loadOperation.loadedNotes {
+                        self.fileNotebook.replaceNotes(notes: loadNotesResult)
+                        var newNotes: [Note] = Array(self.fileNotebook.notes.values)
+                        newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
+                            return lhs.creationDate >= rhs.creationDate
                         })
-                    self.notes = newNotes
+                        self.notes = newNotes
                 }
                 DispatchQueue.main.async {
                     refreshControl.endRefreshing()
@@ -53,8 +54,9 @@ class TableViewController: UIViewController, LoadDataDelegate {
                 }
              }
             self.commonQueue.addOperation(loadOperation)
+            }
         }
-        
+        queue.addOperation(updateOperation)
     }
     
     @objc func managedObjectContextDidSave(notification: Notification) {
