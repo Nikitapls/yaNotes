@@ -28,13 +28,14 @@ class TableViewController: UIViewController, LoadDataDelegate {
         //backgroundContext = appDelegate.container.newBackgroundContext()
     }
     
-    private func backgroundObjectContext() -> NSManagedObjectContext? {
+    private func backgroundObjectContext() -> NSManagedObjectContext? {//fix
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         return appDelegate.container.newBackgroundContext()
     }
     
-    @objc func refresh(refreshControl: UIRefreshControl) {
-        commonQueue.waitUntilAllOperationsAreFinished()
+    @objc func refresh(refreshControl: UIRefreshControl) {//отдельный поток
+        
+      //  commonQueue.waitUntilAllOperationsAreFinished()
         guard let backgroundContext = backgroundObjectContext() else { return }
         commonQueue.addOperation {
             let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: backgroundContext)
