@@ -39,6 +39,7 @@ class ColorPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         lastColorChoice = currentColor
         setBorder(view: currentColor)
         setBorder(view: firstColor)
@@ -127,5 +128,16 @@ class ColorPickerViewController: UIViewController {
         }
         secondViewController.currentColor = currColorFromSecView
         present(secondViewController, animated: true, completion: nil)
+    }
+}
+extension ColorPickerViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
