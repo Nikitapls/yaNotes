@@ -233,7 +233,6 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
             controller.note = note
             controller.addNewNote = { [weak self] (note: Note) in
                 self?.addSaveOperationToQueue(note: note)
-                //self?.notes?[indexPath.row] = note
                 self?.notes?.remove(at: indexPath.row)
                 self?.notes?.insert(note, at: 0)
             }

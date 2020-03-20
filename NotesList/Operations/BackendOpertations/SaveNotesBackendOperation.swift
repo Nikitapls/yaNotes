@@ -11,9 +11,7 @@ enum SaveNotesBackendResult {
 
 class SaveNotesBackendOperation: BaseBackendOperation {
     var result: SaveNotesBackendResult?
-    //var rawUrl: String?
     var notes: [String: Note]
-    //private let fileName = "ios-course-notes-db"
     
     init(notes: [String: Note], token: String?, currentGist: GistDownload?) {
         self.notes = notes
@@ -29,8 +27,6 @@ class SaveNotesBackendOperation: BaseBackendOperation {
         } else {
             postGist()
         }
-        //waitUntilFinished()
-        //finish()
     }
     
     func uploadGist(gist: GistDownload) {
@@ -96,8 +92,6 @@ class SaveNotesBackendOperation: BaseBackendOperation {
             request.setValue("token \(token)", forHTTPHeaderField: "Authorization")
             request.httpMethod = "POST"
             request.httpBody = jsonData
-            //let str = String(decoding: jsonData, as: UTF8.self)
-            //print(str)
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let response = response as? HTTPURLResponse {
                     print(response.statusCode)
