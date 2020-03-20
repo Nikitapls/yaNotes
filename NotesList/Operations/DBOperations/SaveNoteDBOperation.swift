@@ -14,11 +14,14 @@ class SaveNoteDBOperation: BaseDBOperation {
         if notebook.notes[note.uid] != note {
             notebook.add(note)
         }
-        self.backgroundContext.perform {
-            do {
-                try self.backgroundContext.save()
-            } catch { print(error.localizedDescription) }
+        if backgroundContext.hasChanges {
+            backgroundContext.perform {
+                do {
+                    try self.backgroundContext.save()
+                } catch { print(error.localizedDescription) }
+            }
         }
+        print("\(note.title) saved")
         finish()
     }
     
