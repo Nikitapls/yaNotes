@@ -33,8 +33,8 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     @objc func refresh(refreshControl: UIRefreshControl) {//отдельный поток
         let queue = OperationQueue()
+        guard let backgroundContext = self.backgroundObjectContext() else { return }
         let updateOperation = BlockOperation {
-            guard let backgroundContext = self.backgroundObjectContext() else { return }
             self.commonQueue.waitUntilAllOperationsAreFinished()
             self.commonQueue.addOperation {
                 let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: backgroundContext)
@@ -85,7 +85,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
         tableViewField.reloadData()
     }
@@ -138,7 +137,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         removeNoteOperation.completionBlock = {
             print("endRemoveNotesOperation")
-             self.currentGist = removeNoteOperation.currentGist
+            self.currentGist = removeNoteOperation.currentGist
             DispatchQueue.main.async {
                 self.tableViewField.reloadData()
             }

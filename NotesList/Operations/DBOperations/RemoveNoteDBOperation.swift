@@ -2,9 +2,9 @@ import Foundation
 import CoreData
 
 class RemoveNoteDBOperation: BaseDBOperation {
-    var fetchedResultsController: NSFetchedResultsController<NoteEntity>?
     private var note: Note
-    //
+    private var noteEntityArr: [NoteEntity]?
+    
     init(note: Note,fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
         self.note = note
         super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
@@ -12,10 +12,8 @@ class RemoveNoteDBOperation: BaseDBOperation {
     
     override func main() {
         notebook.remove(with: note.uid)
-        setupFetchedResultsControler(for: backgroundContext)
         fetchData()
-        if let fetchedNotes = fetchedResultsController?.fetchedObjects,
-            fetchedNotes.count == 1 {
+        if let fetchedNotes = noteEntityArr, fetchedNotes.count == 1 {
             backgroundContext.delete(fetchedNotes[0])
             self.backgroundContext.performAndWait {
                 do {
@@ -26,17 +24,11 @@ class RemoveNoteDBOperation: BaseDBOperation {
         finish()
     }
     
-    func setupFetchedResultsControler(for context: NSManagedObjectContext) {
-        let request = NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
-        let sortByCreationDate = NSSortDescriptor(key: "creationDate", ascending: true)
-        request.sortDescriptors = [sortByCreationDate]
-        request.predicate = NSPredicate(format: "uid = %@", note.uid)
-        //fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-    }
-
     func fetchData() {
+        let request = NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
+        request.predicate = NSPredicate(format: "uid = %@", note.uid)
         do {
-            try fetchedResultsController?.performFetch()
-        } catch { print(error) }
+            noteEntityArr = try backgroundContext.fetch(request)
+        } catch { print(error.localizedDescription) }
     }
 }

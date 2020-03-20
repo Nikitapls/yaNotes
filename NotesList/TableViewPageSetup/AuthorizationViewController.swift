@@ -98,17 +98,13 @@ extension AuthorizationViewController: WKNavigationDelegate {
                         return
                     }
                     self.delegate?.handleTokenChanged(token: accessToken.token)
-                    self.loadDataDelegate?.addLoadNotesOperation()//тут вызов с другого потока
                     DispatchQueue.main.async {
+                        self.loadDataDelegate?.addLoadNotesOperation()
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
             }
             task.resume()
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        self.loadDataDelegate?.addLoadNotesOperation()
     }
 }

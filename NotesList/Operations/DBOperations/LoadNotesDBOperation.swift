@@ -3,9 +3,8 @@ import UIKit
 import CoreData
 
 class LoadNotesDBOperation: BaseDBOperation {
-    var result: [String: Note]?
-    var fetchedResultsController: NSFetchedResultsController<NoteEntity>?
-    var noteEntityArr: [NoteEntity]?
+    private(set) var result: [String: Note]?
+    private var noteEntityArr: [NoteEntity]?
     
     init(fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
         super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
