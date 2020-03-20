@@ -11,7 +11,9 @@ class SaveNoteDBOperation: BaseDBOperation {
     
     override func main() {
         addNote(note: note)
-        notebook.add(note)
+        if notebook.notes[note.uid] != note {
+            notebook.add(note)
+        }
         self.backgroundContext.perform {
             do {
                 try self.backgroundContext.save()

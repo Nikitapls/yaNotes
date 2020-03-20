@@ -113,12 +113,32 @@ class TableViewController: UIViewController, LoadDataDelegate {
                     return lhs.creationDate > rhs.creationDate
                     })
                 self.notes = newNotes
+                
+                if loadOperation.loadedFrom == .backend {
+                    self.clearCoreData()
+                    for note in newNotes {
+                        let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: self.fileNotebook, backgroundContext: backgroundContext)
+                        self.dbQueue.addOperation(saveNoteDBOperation)
+                    }
+                }
             }
             DispatchQueue.main.async {
                 self.tableViewField.reloadData()
             }
         }
         commonQueue.addOperation(loadOperation)
+    }
+    
+    func clearCoreData() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "NoteEntity")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        batchDeleteRequest.resultType = .resultTypeObjectIDs
+        do {
+            try context.execute(batchDeleteRequest)
+            try context.save()
+        } catch {
+          print (error)
+        }
     }
     
     func addSaveOperationToQueue(note: Note) {

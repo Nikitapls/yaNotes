@@ -1,8 +1,14 @@
 
 import Foundation
 import CoreData
-class LoadNotesOperation: AsyncOperation {
 
+enum OperationType {
+    case backend
+    case database
+}
+
+class LoadNotesOperation: AsyncOperation {
+    private(set) var loadedFrom: OperationType?
     private let notebook: FileNotebook
     private var loadFromBackend: LoadNotesBackendOperation
     private let backendQueue: OperationQueue
@@ -29,10 +35,13 @@ class LoadNotesOperation: AsyncOperation {
             case .success(let notes):
                 self.loadedNotes = notes
                 self.currentGist = self.loadFromBackend.currentGist
+                self.loadedFrom = .backend
                 self.finish()
             case .failure:
+                self.loadedFrom = .database
                 dbQueue.addOperation(loadFromDB)
             case .none:
+                self.loadedFrom = .database
                 dbQueue.addOperation(loadFromDB)
             }
         }
