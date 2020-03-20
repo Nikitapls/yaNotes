@@ -12,6 +12,11 @@ class SaveNoteDBOperation: BaseDBOperation {
     override func main() {
         addNote(note: note)
         notebook.add(note)
+        self.backgroundContext.perform {
+            do {
+                try self.backgroundContext.save()
+            } catch { print(error.localizedDescription) }
+        }
         finish()
     }
     
@@ -24,10 +29,5 @@ class SaveNoteDBOperation: BaseDBOperation {
         noteEntity.selfDestructionDate = note.selfDestructionDate
         noteEntity.title = note.title
         noteEntity.uid = note.uid
-        self.backgroundContext.perform {
-            do {
-                try self.backgroundContext.save()
-            } catch { print(error.localizedDescription) }
-        }
     }
 }
