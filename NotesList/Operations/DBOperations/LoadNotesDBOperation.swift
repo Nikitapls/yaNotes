@@ -5,35 +5,33 @@ import CoreData
 class LoadNotesDBOperation: BaseDBOperation {
     var result: [String: Note]?
     var fetchedResultsController: NSFetchedResultsController<NoteEntity>?
+    var noteEntityArr: [NoteEntity]?
     
     init(fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
         super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
     }
     
-    func setupFetchedResultsControler(for context: NSManagedObjectContext) {
-        let request = NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
-        let sortByCreationDate = NSSortDescriptor(key: "creationDate", ascending: true)
-        request.sortDescriptors = [sortByCreationDate]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        print(Thread.current)
-    }
-    
     func fetchData() {
+        let request = NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
         do {
-            try fetchedResultsController?.performFetch()
-        } catch { print(error) }
+            noteEntityArr = try backgroundContext.fetch(request)
+        } catch { print(error.localizedDescription) }
     }
     
     override func main() {
-        setupFetchedResultsControler(for: backgroundContext)
         fetchData()
         var resultDict = [String: Note]()
-        fetchedResultsController?.fetchedObjects?.forEach({ (noteEntity) in
+        guard let noteEntities = noteEntityArr else {
+            finish()
+            result = resultDict
+            return
+        }
+        noteEntities.forEach({ (noteEntity) in
             if let note = noteFromNoteEntity(noteEntity: noteEntity) {
                 resultDict[note.uid] = note
             }
         })
-        self.result = resultDict
+        result = resultDict
         finish()
     }
     
