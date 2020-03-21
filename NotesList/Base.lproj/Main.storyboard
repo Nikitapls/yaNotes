@@ -147,7 +147,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-wV-EQH">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1018"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="868"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sh-v0-dhY">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
@@ -167,20 +167,20 @@
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" keyboardDismissMode="interactive" text="someContent" translatesAutoresizingMaskIntoConstraints="NO" id="Idn-pO-rX7">
-                                                <rect key="frame" x="0.0" y="52" width="414" height="350"/>
+                                                <rect key="frame" x="0.0" y="52" width="414" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="350" id="AG5-nF-TA1"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="AG5-nF-TA1"/>
                                                 </constraints>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                             </textView>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="F5M-Ff-1dB">
-                                                <rect key="frame" x="0.0" y="402" width="414" height="216"/>
+                                                <rect key="frame" x="0.0" y="252" width="414" height="216"/>
                                             </datePicker>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Bm-2v-hdm">
-                                                <rect key="frame" x="0.0" y="618" width="414" height="400"/>
+                                                <rect key="frame" x="0.0" y="468" width="414" height="400"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Destroy Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yx2-34-XQB">
                                                         <rect key="frame" x="16" y="42" width="188.5" height="31"/>
