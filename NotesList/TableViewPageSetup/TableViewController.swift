@@ -118,9 +118,8 @@ class TableViewController: UIViewController, LoadDataDelegate {
                 
                 if loadOperation.loadedFrom == .backend {
                     self.clearCoreData()
-                    for note in newNotes {
-                        let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: self.fileNotebook, backgroundContext: backgroundContext)
-                        self.dbQueue.addOperation(saveNoteDBOperation)//here
+                    DispatchQueue.main.async {
+                        self.addNotesToNSPersistentContainer(notes: newNotes)
                     }
                 }
             }
@@ -140,6 +139,15 @@ class TableViewController: UIViewController, LoadDataDelegate {
             try context.save()
         } catch {
           print (error)
+        }
+    }
+    
+    func addNotesToNSPersistentContainer(notes: [Note]) {
+        for note in notes {
+            if let backgroundContext = backgroundObjectContext() {
+                let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: fileNotebook, backgroundContext: backgroundContext)
+                dbQueue.addOperation(saveNoteDBOperation)
+            }
         }
     }
     
