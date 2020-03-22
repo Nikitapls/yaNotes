@@ -14,7 +14,7 @@ class SaveNoteDBOperation: BaseDBOperation {
         if notebook.notes[note.uid] != note {
             notebook.add(note)
         }
-        backgroundContext.perform {
+        backgroundContext.performAndWait {
             do {
                 try self.backgroundContext.save()
             } catch { print(error.localizedDescription) }

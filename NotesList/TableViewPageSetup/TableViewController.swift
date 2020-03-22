@@ -64,7 +64,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupContext()
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
         title = "Заметки"
         notes = Array(fileNotebook.notes.values)
@@ -79,7 +78,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableViewField.refreshControl = refreshControl
-//        addLoadNotesOperation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
