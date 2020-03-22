@@ -18,10 +18,10 @@ class SaveNoteDBOperation: BaseDBOperation {
             backgroundContext.perform {
                 do {
                     try self.backgroundContext.save()
+                    print("\(self.note.title) saved")
                 } catch { print(error.localizedDescription) }
             }
         }
-        print("\(note.title) saved")
         finish()
     }
     

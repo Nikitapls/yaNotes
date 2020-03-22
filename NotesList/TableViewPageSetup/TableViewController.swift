@@ -13,6 +13,8 @@ class TableViewController: UIViewController, LoadDataDelegate {
     let dbQueue = OperationQueue()
     let commonQueue = OperationQueue()
     
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var tableViewField: UITableView!
     var fileNotebook = FileNotebook()
     var notes: [Note]?
@@ -31,7 +33,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         return appDelegate.container.newBackgroundContext()
     }
     
-    @objc func refresh(refreshControl: UIRefreshControl) {//отдельный поток
+    @objc func refresh(refreshControl: UIRefreshControl) {
         let queue = OperationQueue()
         guard let backgroundContext = self.backgroundObjectContext() else { return }
         let updateOperation = BlockOperation {
@@ -64,6 +66,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
             self.context.mergeChanges(fromContextDidSave: notification)
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupContext()
@@ -80,7 +83,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-         tableViewField.refreshControl = refreshControl
+        tableViewField.refreshControl = refreshControl
         addLoadNotesOperation()
     }
     
@@ -110,15 +113,14 @@ class TableViewController: UIViewController, LoadDataDelegate {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
                 var newNotes: [Note] = Array(self.fileNotebook.notes.values)
                 newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
-                    return lhs.creationDate > rhs.creationDate
-                    })
+                    return lhs.creationDate > rhs.creationDate })
                 self.notes = newNotes
                 
                 if loadOperation.loadedFrom == .backend {
                     self.clearCoreData()
                     for note in newNotes {
                         let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: self.fileNotebook, backgroundContext: backgroundContext)
-                        self.dbQueue.addOperation(saveNoteDBOperation)
+                        self.dbQueue.addOperation(saveNoteDBOperation)//here
                     }
                 }
             }
@@ -145,7 +147,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
         guard let backgroundContext = backgroundObjectContext() else { return }
         let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         saveNoteOperation.completionBlock = {
-            print("endSaveNotesOperation")
             self.currentGist = saveNoteOperation.currentGist
         }
         commonQueue.addOperation(saveNoteOperation)
@@ -156,7 +157,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
         guard let backgroundContext = backgroundObjectContext() else { return }
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         removeNoteOperation.completionBlock = {
-            print("endRemoveNotesOperation")
             self.currentGist = removeNoteOperation.currentGist
             DispatchQueue.main.async {
                 self.tableViewField.reloadData()
@@ -165,17 +165,14 @@ class TableViewController: UIViewController, LoadDataDelegate {
         commonQueue.addOperation(removeNoteOperation)
     }
     
-    @IBOutlet weak var addButton: UIBarButtonItem!
-    @IBOutlet weak var editButton: UIBarButtonItem!
-    
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
-        let note = Note(title: "", content: "", impotance: Impotance.usual)
-        tableViewField.beginUpdates()
-        notes?.insert(note, at: 0)
-        tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        tableViewField.endUpdates()
-        
         if !isEditing {
+            let note = Note(title: "", content: "", impotance: Impotance.usual)
+            tableViewField.beginUpdates()
+            notes?.insert(note, at: 0)
+            tableViewField.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            tableViewField.endUpdates()
+        
             performSegue(withIdentifier: "ShowNoteEditor", sender: IndexPath(row: 0, section: 0))
         }
     }
@@ -191,6 +188,23 @@ class TableViewController: UIViewController, LoadDataDelegate {
         } else {
             editButton.title = "edit"
             addButton.isEnabled = true
+        }
+    }
+    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? ColorPickerViewController,
+                 segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
+            guard let note = notes?[indexPath.row] else { return }
+            controller.note = note
+            controller.addNewNote = { [weak self] (note: Note) in
+                self?.addSaveOperationToQueue(note: note)
+                self?.notes?.remove(at: indexPath.row)
+                self?.notes?.insert(note, at: 0)
+            }
+        } else if let controller = segue.destination as? AuthorizationViewController,
+            segue.identifier == "showAuthViewController" {
+            controller.delegate = self
+            controller.loadDataDelegate = self
         }
     }
 
@@ -245,27 +259,10 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? ColorPickerViewController,
-                 segue.identifier == "ShowNoteEditor", let indexPath = sender as? IndexPath {
-            guard let note = notes?[indexPath.row] else { return }
-            controller.note = note
-            controller.addNewNote = { [weak self] (note: Note) in
-                self?.addSaveOperationToQueue(note: note)
-                self?.notes?.remove(at: indexPath.row)
-                self?.notes?.insert(note, at: 0)
-            }
-        } else if let controller = segue.destination as? AuthorizationViewController,
-            segue.identifier == "showAuthViewController" {
-            controller.delegate = self
-            controller.loadDataDelegate = self
-        }
-    }
 }
 
 extension TableViewController: AuthorizationViewControllerDelegate {
     func handleTokenChanged(token: String) {
         self.token = token
-        print(token)
     }
 }
