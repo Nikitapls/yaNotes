@@ -22,24 +22,19 @@ class TableViewController: UIViewController, LoadDataDelegate {
     var token: String?
     var currentGist: GistDownload?
     var context: NSManagedObjectContext!
-    
-    private func setupContext() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        context = appDelegate.container.viewContext
-    }
-    
-    private func backgroundObjectContext() -> NSManagedObjectContext? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-        return appDelegate.container.newBackgroundContext()
+    var backgroundContext: NSManagedObjectContext! {
+        didSet {
+            print("backgroundSet")
+            addLoadNotesOperation()
+        }
     }
     
     @objc func refresh(refreshControl: UIRefreshControl) {
         let queue = OperationQueue()
-        guard let backgroundContext = self.backgroundObjectContext() else { return }
         let updateOperation = BlockOperation {
             self.commonQueue.waitUntilAllOperationsAreFinished()
             self.commonQueue.addOperation {
-                let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: backgroundContext)
+                let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: self.backgroundContext)
                 loadOperation.completionBlock = {
                     self.currentGist = loadOperation.currentGist
                     if let loadNotesResult = loadOperation.loadedNotes {
@@ -69,7 +64,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupContext()
+        //setupContext()
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
         title = "Заметки"
         notes = Array(fileNotebook.notes.values)
@@ -84,7 +79,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableViewField.refreshControl = refreshControl
-        addLoadNotesOperation()
+//        addLoadNotesOperation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,7 +100,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addLoadNotesOperation() {
-        guard let backgroundContext = backgroundObjectContext() else { return }
+        //guard let backgroundContext = backgroundObjectContext() else { return }
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
         loadOperation.completionBlock = {
             self.currentGist = loadOperation.currentGist
@@ -115,7 +110,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
                 newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
                     return lhs.creationDate > rhs.creationDate })
                 self.notes = newNotes
-                
+        
                 if loadOperation.loadedFrom == .backend {
                     self.clearCoreData()
                     DispatchQueue.main.async {
@@ -144,16 +139,13 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     func addNotesToNSPersistentContainer(notes: [Note]) {
         for note in notes {
-            if let backgroundContext = backgroundObjectContext() {
-                let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: fileNotebook, backgroundContext: backgroundContext)
-                dbQueue.addOperation(saveNoteDBOperation)
-            }
+            let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: fileNotebook, backgroundContext: backgroundContext)
+            dbQueue.addOperation(saveNoteDBOperation)
         }
     }
     
     func addSaveOperationToQueue(note: Note) {
-        guard let backgroundContext = backgroundObjectContext() else { return }
-        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.backgroundContext)
         saveNoteOperation.completionBlock = {
             self.currentGist = saveNoteOperation.currentGist
         }
@@ -162,8 +154,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
-        guard let backgroundContext = backgroundObjectContext() else { return }
-        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.backgroundContext)
         removeNoteOperation.completionBlock = {
             self.currentGist = removeNoteOperation.currentGist
             DispatchQueue.main.async {
