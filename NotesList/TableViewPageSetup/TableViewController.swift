@@ -28,7 +28,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         context = appDelegate.container.viewContext
     }
     
-    private func backgroundObjectContext() -> NSManagedObjectContext? {//fix
+    private func backgroundObjectContext() -> NSManagedObjectContext? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         return appDelegate.container.newBackgroundContext()
     }
