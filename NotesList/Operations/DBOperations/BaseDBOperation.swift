@@ -7,7 +7,9 @@ class BaseDBOperation: AsyncOperation {
     
     init(notebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
         self.notebook = notebook
-        self.backgroundContext = backgroundContext
+        let privateContext = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.persistentStoreCoordinator = backgroundContext.persistentStoreCoordinator
+        self.backgroundContext = privateContext
         super.init()
     }
     

@@ -6,9 +6,7 @@ class SaveNoteDBOperation: BaseDBOperation {
 
     init(note: Note,fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
         self.note = note
-        let privateContext = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
-        privateContext.persistentStoreCoordinator = backgroundContext.persistentStoreCoordinator
-        super.init(notebook: fileNotebook, backgroundContext: privateContext)
+        super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
     }
     
     override func main() {

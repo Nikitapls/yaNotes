@@ -22,11 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.container = container
             
             if let tabBarController = self.window?.rootViewController as? UITabBarController, let nc = tabBarController.selectedViewController as? UINavigationController, let vc = nc.topViewController as? TableViewController {
-                vc.context = container.viewContext
                 let privateContext = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
                 privateContext.persistentStoreCoordinator = container.persistentStoreCoordinator
-                //vc.backgroundContext = container.newBackgroundContext()
-                vc.backgroundContext = privateContext
+                vc.context = privateContext
             }
         }
     }

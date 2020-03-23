@@ -21,8 +21,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     private var first = true
     var token: String?
     var currentGist: GistDownload?
-    var context: NSManagedObjectContext!
-    var backgroundContext: NSManagedObjectContext! {
+    var context: NSManagedObjectContext!{
         didSet {
             print("backgroundSet")
             addLoadNotesOperation()
@@ -34,7 +33,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         let updateOperation = BlockOperation {
             self.commonQueue.waitUntilAllOperationsAreFinished()
             self.commonQueue.addOperation {
-                let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: self.backgroundContext)
+                let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: self.context)
                 loadOperation.completionBlock = {
                     self.currentGist = loadOperation.currentGist
                     if let loadNotesResult = loadOperation.loadedNotes {
@@ -102,8 +101,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addLoadNotesOperation() {
-        //guard let backgroundContext = backgroundObjectContext() else { return }
-        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: backgroundContext)
+        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: context)
         loadOperation.completionBlock = {
             self.currentGist = loadOperation.currentGist
             if let loadNotesResult = loadOperation.loadedNotes {
@@ -139,7 +137,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     func addNotesToNSPersistentContainer(notes: [Note]) {
         for note in notes {
-            let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: fileNotebook, backgroundContext: backgroundContext)
+            let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: fileNotebook, backgroundContext: context)
             saveNoteDBOperation.completionBlock = {
                 print(saveNoteDBOperation.note.title)
             }
@@ -148,7 +146,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addSaveOperationToQueue(note: Note) {
-        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.backgroundContext)
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.context)
         saveNoteOperation.completionBlock = {
             self.currentGist = saveNoteOperation.currentGist
         }
@@ -157,7 +155,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
-        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.backgroundContext)
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.context)
         removeNoteOperation.completionBlock = {
             self.currentGist = removeNoteOperation.currentGist
             DispatchQueue.main.async {
