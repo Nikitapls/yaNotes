@@ -44,6 +44,10 @@ class TableViewController: UIViewController, LoadDataDelegate {
                             return lhs.creationDate >= rhs.creationDate
                         })
                         self.notes = newNotes
+                        if loadOperation.loadedFrom == .backend {
+                            self.clearCoreData()
+                            self.addNotesToNSPersistentContainer(notes: newNotes)
+                        }
                 }
                 DispatchQueue.main.async {
                     refreshControl.endRefreshing()
@@ -111,9 +115,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         
                 if loadOperation.loadedFrom == .backend {
                     self.clearCoreData()
-//                    DispatchQueue.main.async {
                     self.addNotesToNSPersistentContainer(notes: newNotes)
-                    //}
                 }
             }
             DispatchQueue.main.async {
