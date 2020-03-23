@@ -2,11 +2,13 @@ import Foundation
 import CoreData
 
 class SaveNoteDBOperation: BaseDBOperation {
-    private let note: Note
+    let note: Note
 
     init(note: Note,fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
         self.note = note
-        super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
+        var privateContext = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.persistentStoreCoordinator = backgroundContext.persistentStoreCoordinator
+        super.init(notebook: fileNotebook, backgroundContext: privateContext)
     }
     
     override func main() {
@@ -14,7 +16,7 @@ class SaveNoteDBOperation: BaseDBOperation {
         if notebook.notes[note.uid] != note {
             notebook.add(note)
         }
-        backgroundContext.performAndWait {
+        backgroundContext.perform {
             do {
                 try self.backgroundContext.save()
             } catch { print(error.localizedDescription) }
