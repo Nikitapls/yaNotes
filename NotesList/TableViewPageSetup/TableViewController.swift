@@ -12,6 +12,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     let backendQueue = OperationQueue()
     let dbQueue = OperationQueue()
     let commonQueue = OperationQueue()
+    let refreshQueue = OperationQueue()
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -29,21 +30,20 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     @objc func refresh(refreshControl: UIRefreshControl) {
-        let queue = OperationQueue()
+        
         let updateOperation = BlockOperation {
             self.commonQueue.waitUntilAllOperationsAreFinished()
             let loadOperation = self.loadOperationWithCompletionBlock()
             let endRefreshOperation = BlockOperation {
-                DispatchQueue.main.async {
+                OperationQueue.main.addOperation {
                     refreshControl.endRefreshing()
                 }
             }
             endRefreshOperation.addDependency(loadOperation)
             self.commonQueue.addOperation(loadOperation)
             self.commonQueue.addOperation(endRefreshOperation)
-            
         }
-        queue.addOperation(updateOperation)
+        refreshQueue.addOperation(updateOperation)
     }
     
     @objc func managedObjectContextDidSave(notification: Notification) {
@@ -103,7 +103,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
                     self.addNotesToNSPersistentContainer(notes: newNotes)
                 }
             }
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 self.tableViewField.reloadData()
             }
         }
@@ -150,7 +150,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.context)
         removeNoteOperation.completionBlock = {
             self.currentGist = removeNoteOperation.currentGist
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 self.tableViewField.reloadData()
             }
         }
