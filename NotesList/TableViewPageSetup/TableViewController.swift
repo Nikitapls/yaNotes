@@ -32,29 +32,16 @@ class TableViewController: UIViewController, LoadDataDelegate {
         let queue = OperationQueue()
         let updateOperation = BlockOperation {
             self.commonQueue.waitUntilAllOperationsAreFinished()
-            self.commonQueue.addOperation {
-                let loadOperation = LoadNotesOperation(notebook: self.fileNotebook, backendQueue: self.backendQueue, dbQueue: self.dbQueue, token: self.token, currentGist: self.currentGist, backgroundContext: self.context)
-                loadOperation.completionBlock = {
-                    self.currentGist = loadOperation.currentGist
-                    if let loadNotesResult = loadOperation.loadedNotes {
-                        self.fileNotebook.replaceNotes(notes: loadNotesResult)
-                        var newNotes: [Note] = Array(self.fileNotebook.notes.values)
-                        newNotes.sort(by: { (lhs: Note, rhs: Note) -> Bool in
-                            return lhs.creationDate >= rhs.creationDate
-                        })
-                        self.notes = newNotes
-                        if loadOperation.loadedFrom == .backend {
-                            self.clearCoreData()
-                            self.addNotesToNSPersistentContainer(notes: newNotes)
-                        }
-                }
+            let loadOperation = self.loadOperationWithCompletionBlock()
+            let endRefreshOperation = BlockOperation {
                 DispatchQueue.main.async {
                     refreshControl.endRefreshing()
-                    self.tableViewField.reloadData()
                 }
-             }
-            self.commonQueue.addOperation(loadOperation)
             }
+            endRefreshOperation.addDependency(loadOperation)
+            self.commonQueue.addOperation(loadOperation)
+            self.commonQueue.addOperation(endRefreshOperation)
+            
         }
         queue.addOperation(updateOperation)
     }
@@ -100,7 +87,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
         super.viewWillDisappear(animated)
     }
     
-    func addLoadNotesOperation() {
+    private func loadOperationWithCompletionBlock() -> LoadNotesOperation {
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: context)
         loadOperation.completionBlock = {
             self.currentGist = loadOperation.currentGist
@@ -120,6 +107,11 @@ class TableViewController: UIViewController, LoadDataDelegate {
                 self.tableViewField.reloadData()
             }
         }
+        return loadOperation
+    }
+    
+    func addLoadNotesOperation() {
+        let loadOperation = loadOperationWithCompletionBlock()
         commonQueue.addOperation(loadOperation)
     }
     
