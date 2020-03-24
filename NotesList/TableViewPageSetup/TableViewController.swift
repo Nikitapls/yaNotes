@@ -48,9 +48,10 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     @objc func managedObjectContextDidSave(notification: Notification) {
-        context.perform {
+        context.perform { [unowned self] in
             self.context.mergeChanges(fromContextDidSave: notification)
         }
+        
     }
     
     override func viewDidLoad() {
