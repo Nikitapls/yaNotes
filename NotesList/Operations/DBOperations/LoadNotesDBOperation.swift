@@ -6,8 +6,8 @@ class LoadNotesDBOperation: BaseDBOperation {
     private(set) var result: [String: Note]?
     private var noteEntityArr: [NoteEntity]?
     
-    init(fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
-        super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
+    init(fileNotebook: FileNotebook, context: NSManagedObjectContext) {
+        super.init(notebook: fileNotebook, context: context)
     }
     
     func fetchData() {

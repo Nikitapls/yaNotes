@@ -14,10 +14,10 @@ class RemoveNoteOperation: AsyncOperation {
     dbQueue: OperationQueue,
     token: String?,
     currentGist: GistDownload?,
-    backgroundContext: NSManagedObjectContext) {
+    context: NSManagedObjectContext) {
 
         self.dbQueue = dbQueue
-        removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook, backgroundContext: backgroundContext)
+        removeFromDb = RemoveNoteDBOperation(note: note, fileNotebook: notebook, context: context)
         super.init()
         self.currentGist = currentGist
         removeFromDb.completionBlock = {

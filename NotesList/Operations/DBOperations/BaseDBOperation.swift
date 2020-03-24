@@ -5,10 +5,10 @@ class BaseDBOperation: AsyncOperation {
     let notebook: FileNotebook
     var backgroundContext: NSManagedObjectContext
     
-    init(notebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
+    init(notebook: FileNotebook, context: NSManagedObjectContext) {
         self.notebook = notebook
         let privateContext = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
-        privateContext.persistentStoreCoordinator = backgroundContext.persistentStoreCoordinator
+        privateContext.persistentStoreCoordinator = context.persistentStoreCoordinator
         self.backgroundContext = privateContext
         super.init()
     }

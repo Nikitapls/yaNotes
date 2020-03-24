@@ -20,11 +20,11 @@ class LoadNotesOperation: AsyncOperation {
          dbQueue: OperationQueue,
          token: String?,
          currentGist: GistDownload?,
-         backgroundContext: NSManagedObjectContext) {
+         context: NSManagedObjectContext) {
         
         self.notebook = notebook
         self.backendQueue = backendQueue
-        let loadFromDB = LoadNotesDBOperation(fileNotebook: notebook, backgroundContext: backgroundContext)
+        let loadFromDB = LoadNotesDBOperation(fileNotebook: notebook, context: context)
         loadFromBackend = LoadNotesBackendOperation(notes: notebook.notes, token: token, currentGist: currentGist)
 
         super.init()

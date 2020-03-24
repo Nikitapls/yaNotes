@@ -90,7 +90,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     private func loadOperationWithCompletionBlock() -> LoadNotesOperation {
-        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: context)
+        let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, context: context)
         loadOperation.completionBlock = { [weak self] in
             guard let self = self else { return }
             self.currentGist = loadOperation.currentGist
@@ -132,7 +132,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     func addNotesToNSPersistentContainer(notes: [Note]) {
         for note in notes {
-            let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: fileNotebook, backgroundContext: context)
+            let saveNoteDBOperation = SaveNoteDBOperation(note: note, fileNotebook: fileNotebook, context: context)
             saveNoteDBOperation.completionBlock = {
                 print(saveNoteDBOperation.note.title)
             }
@@ -141,7 +141,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addSaveOperationToQueue(note: Note) {
-        let saveNoteOperation = SaveNoteOperation(note: note, notebook: self.fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.context)
+        let saveNoteOperation = SaveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, context: context)
         saveNoteOperation.completionBlock = {
             self.currentGist = saveNoteOperation.currentGist
         }
@@ -150,7 +150,7 @@ class TableViewController: UIViewController, LoadDataDelegate {
     }
     
     func addRemoveNoteOperationToQueue(note: Note) {
-        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: self.context)
+        let removeNoteOperation = RemoveNoteOperation(note: note, notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, context: context)
         removeNoteOperation.completionBlock = {
             self.currentGist = removeNoteOperation.currentGist
             OperationQueue.main.addOperation {

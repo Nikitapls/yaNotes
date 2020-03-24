@@ -5,9 +5,9 @@ class RemoveNoteDBOperation: BaseDBOperation {
     private var note: Note
     private var noteEntityArr: [NoteEntity]?
     
-    init(note: Note,fileNotebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
+    init(note: Note,fileNotebook: FileNotebook, context: NSManagedObjectContext) {
         self.note = note
-        super.init(notebook: fileNotebook, backgroundContext: backgroundContext)
+        super.init(notebook: fileNotebook, context: context)
     }
     
     override func main() {

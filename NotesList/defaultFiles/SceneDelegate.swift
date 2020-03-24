@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         createContainer { container in
             self.container = container
-            
             if let tabBarController = self.window?.rootViewController as? UITabBarController, let nc = tabBarController.selectedViewController as? UINavigationController, let vc = nc.topViewController as? TableViewController {
                 vc.context = container.viewContext
             }
