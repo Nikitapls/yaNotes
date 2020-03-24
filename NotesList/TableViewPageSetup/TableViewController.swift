@@ -31,7 +31,8 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     @objc func refresh(refreshControl: UIRefreshControl) {
         
-        let updateOperation = BlockOperation {
+        let updateOperation = BlockOperation { [weak self] in
+            guard let self = self else { return }
             self.commonQueue.waitUntilAllOperationsAreFinished()
             let loadOperation = self.loadOperationWithCompletionBlock()
             let endRefreshOperation = BlockOperation {
@@ -89,7 +90,8 @@ class TableViewController: UIViewController, LoadDataDelegate {
     
     private func loadOperationWithCompletionBlock() -> LoadNotesOperation {
         let loadOperation = LoadNotesOperation(notebook: fileNotebook, backendQueue: backendQueue, dbQueue: dbQueue, token: token, currentGist: currentGist, backgroundContext: context)
-        loadOperation.completionBlock = {
+        loadOperation.completionBlock = { [weak self] in
+            guard let self = self else { return }
             self.currentGist = loadOperation.currentGist
             if let loadNotesResult = loadOperation.loadedNotes {
                 self.fileNotebook.replaceNotes(notes: loadNotesResult)
