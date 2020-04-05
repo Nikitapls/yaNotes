@@ -1,0 +1,6 @@
+module Pods_NotesList {
+  umbrella header "Pods-NotesList-umbrella.h"
+
+  export *
+  module * { export * }
+}
