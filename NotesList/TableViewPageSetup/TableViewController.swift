@@ -19,7 +19,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
     @IBOutlet weak var tableViewField: UITableView!
     var fileNotebook = FileNotebook()
     var notes: [Note]?
-    private var first = true
     var token: String?
     var currentGist: GistDownload?
     var context: NSManagedObjectContext!{
@@ -75,14 +74,6 @@ class TableViewController: UIViewController, LoadDataDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableViewField.reloadData()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if first {
-            performSegue(withIdentifier: "showAuthViewController", sender: nil)
-            first = false
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
