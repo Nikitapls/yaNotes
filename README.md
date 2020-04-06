@@ -1,5 +1,7 @@
 # yaNotes
 ![](notes.gif)
+
+
 Yandex ios dev course on stepik.org: MVC, JSON, FileManager, URLSession, Github API, Core Data, Core Graphics, Operation. 
 If you have problems with the project, you can open toUpload.zip file
 
