@@ -7,7 +7,7 @@ DEPENDENCIES:
   - CocoaLumberjack/Swift
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - CocoaLumberjack
 
 SPEC CHECKSUMS:
@@ -15,4 +15,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 30ecc4c89935290834cc9756adc3b43ea466c616
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.5
