@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0237414C243B462E00697A28 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0237414B243B462E00697A28 /* WebKit.framework */; };
 		EF01000F7FA97885C4994F8C /* libPods-NotesList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */; };
 		F500171523FFC663008174F2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500171423FFC663008174F2 /* MainViewController.swift */; };
 		F50403DC240BB47600520C22 /* SaveNoteDBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50403D0240BB47600520C22 /* SaveNoteDBOperation.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0237414B243B462E00697A28 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		5499C992A0963DD41B68BC44 /* Pods-NotesList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.debug.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.debug.xcconfig"; sourceTree = "<group>"; };
 		65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotesList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBC65149ED2C9592FDFAA67 /* Pods-NotesList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesList.release.xcconfig"; path = "Target Support Files/Pods-NotesList/Pods-NotesList.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0237414C243B462E00697A28 /* WebKit.framework in Frameworks */,
 				EF01000F7FA97885C4994F8C /* libPods-NotesList.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,6 +109,7 @@
 		326CCDF5FA4567CECC6454D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0237414B243B462E00697A28 /* WebKit.framework */,
 				65035B735357BD3C6BE6CEE8 /* libPods-NotesList.a */,
 			);
 			name = Frameworks;
